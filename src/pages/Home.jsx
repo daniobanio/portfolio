@@ -4,10 +4,36 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSEO } from '../hooks/useSEO';
 import DotGrid from '../components/DotGrid';
 
 const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
+    description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
+    keywords: ['Daniel Trinh','Daniel Trinh portfolio','Daniel Trinh Vancouver','Daniel Trinh dev','front-end developer','React developer','UI/UX','GSAP','SCSS'],
+    image: '/imgs/portrait.jpg',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Daniel Trinh',
+      jobTitle: 'Front-end Web Developer',
+      url: typeof window !== 'undefined' ? window.location.origin : undefined,
+      sameAs: [
+        'https://www.instagram.com/daniobanioo/',
+        'https://www.youtube.com/@doobiedoesdo',
+        'https://www.linkedin.com/in/daniel-trinh-855520323/',
+        'https://github.com/daniobanio'
+      ],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Vancouver',
+        addressRegion: 'BC',
+        addressCountry: 'CA'
+      }
+    }
+  });
 
   return (
     <main className="main-container">
@@ -83,8 +109,8 @@ const Home = () => {
                 <div className="hero-char-container">
                   <p className="chat-bubble-text">welcome to my site!</p>
                   <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
-                  <img className="hero-center-char" src="/imgs/character.png" alt="Character" />
-                  <p className="hero-center-nametag">
+                  <img className="hero-center-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
+                  <p className="hero-center-nametag" aria-label="Name tag displaying Daniel Trinh">
                     <img className="dt-logo" src="/imgs/dt-logo.png" alt="DT Logo" />DanielTrinh
                   </p>
                 </div>
@@ -93,10 +119,10 @@ const Home = () => {
                 <div className="hero-label">
                   <p className="hero-label-left">Online at</p>
                   <div className="online-label-flex">
-                    <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="28" height="28" style={{color: '#666666'}} />
+                    <AnimatedSocialIcon aria-label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="28" height="28" style={{color: '#666666'}} />
+                    <AnimatedSocialIcon aria-label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="28" height="28" style={{color: '#666666'}} />
+                    <AnimatedSocialIcon aria-label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="28" height="28" style={{color: '#666666'}} />
+                    <AnimatedSocialIcon aria-label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="28" height="28" style={{color: '#666666'}} />
                   </div>
                 </div>
                 <div className="hero-label">

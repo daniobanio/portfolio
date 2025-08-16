@@ -19,10 +19,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/project1-detail" element={<Project1Detail />} />
-        <Route path="/project2-detail" element={<Project2Detail />} />
-        <Route path="/project3-detail" element={<Project3Detail />} />
-        <Route path="/project4-detail" element={<Project4Detail />} />
+        <Route path="/projects/mybcit-redesign" element={<Project1Detail />} />
+        <Route path="/projects/kim-huynh-portfolio" element={<Project2Detail />} />
+        <Route path="/projects/jam-music-app" element={<Project3Detail />} />
+        <Route path="/projects/playpal-newsletter" element={<Project4Detail />} />
       </Routes>
     </Router>
   );

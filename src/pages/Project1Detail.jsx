@@ -4,9 +4,16 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSEO } from '../hooks/useSEO';
 
 const Project1Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: 'myBCIT Redesign | Daniel Trinh',
+    description: 'Redesign of the myBCIT student portal focused on clearer navigation and task-oriented pages to reduce friction for students.',
+    keywords: ['myBCIT redesign','BCIT portal','UX','UI','student portal','Daniel Trinh'],
+    image: '/imgs/project1/home.webp'
+  });
 
   return (
     <>

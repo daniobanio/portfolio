@@ -4,9 +4,16 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSEO } from '../hooks/useSEO';
 
 const About = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: 'About | Daniel Trinh - Front-end Web Developer',
+    description: 'Learn about Daniel Trinh, a front-end web developer based in Vancouver. My journey, values, and the technologies I love using to build the web.',
+    keywords: ['About Daniel Trinh','Vancouver developer','front-end developer','React','UI/UX','portfolio'],
+    image: '/imgs/portrait.jpg'
+  });
 
   return (
     <main className="main-container">
@@ -34,9 +41,9 @@ const About = () => {
         <div className="about-section">
           <h1 className="about-title">ME & MY JOURNEY</h1>
           <div className="about-photo-cards">
-            <img className="photo-card" src="/imgs/cameracafe2.webp" alt="Cafe" />
-            <img className="photo-card" src="/imgs/portrait.jpg" alt="Portrait" />
-            <img className="photo-card" src="/imgs/capstone.jpg" alt="Capstone" />
+            <img className="photo-card" src="/imgs/cameracafe2.webp" alt="Daniel photographing food in a Vancouver cafe" />
+            <img className="photo-card" src="/imgs/portrait.jpg" alt="Portrait of Daniel Trinh" />
+            <img className="photo-card" src="/imgs/capstone.jpg" alt="Daniel presenting his keyboard acoustics capstone project" />
           </div>
           <div className="about-intro">
             <p>
@@ -61,7 +68,7 @@ const About = () => {
                   <p className="tech-bubble-text">my tech stack!</p>
                   <img className="tech-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
                 </div>
-                <img className="tech-stack-char" src="/imgs/character.png" alt="Character" />
+                <img className="tech-stack-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
                 <iconify-icon class="react-tech" icon="devicon:react" width="64" height="64"></iconify-icon>
                 <iconify-icon class="js-tech" icon="logos:javascript" width="64" height="64"></iconify-icon>
                 <iconify-icon class="threejs-tech" icon="devicon:threejs-wordmark" width="64" height="64"></iconify-icon>

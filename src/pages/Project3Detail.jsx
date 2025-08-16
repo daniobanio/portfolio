@@ -4,9 +4,16 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import BackToTopLink from '../components/BackToTopLink';
+import { useSEO } from '../hooks/useSEO';
 
 const Project3Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: 'Jam Music App | Daniel Trinh',
+    description: 'Jam is a social music app concept that unifies listening, sharing, and stats with a community-first experience.',
+    keywords: ['music app','social app','UI/UX','Figma prototype','Daniel Trinh'],
+    image: '/imgs/project3/mockup.webp'
+  });
 
   return (
     <>

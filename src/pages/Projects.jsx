@@ -3,10 +3,27 @@ import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSEO } from '../hooks/useSEO';
 
 const Projects = () => {
   const { registerNavElement, isActive } = useNavigation();
   const [preview, setPreview] = useState(null); // { src, top, left }
+  useSEO({
+    title: 'Projects | Daniel Trinh - Front-end Web Developer',
+    description: 'Selected projects by Daniel Trinh: case studies in UI/UX, React, and front-end development including myBCIT redesign, portfolio design, Jam music app, and PlayPal newsletter.',
+    keywords: ['Daniel Trinh projects','UI/UX case study','front-end projects','React','Vancouver developer'],
+    image: '/imgs/dt-logo.png',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, url: '/projects/mybcit-redesign', name: 'myBCIT Redesign' },
+        { '@type': 'ListItem', position: 2, url: '/projects/kim-huynh-portfolio', name: "Kim Huynh's Portfolio" },
+        { '@type': 'ListItem', position: 3, url: '/projects/jam-music-app', name: 'Jam Music App' },
+        { '@type': 'ListItem', position: 4, url: '/projects/playpal-newsletter', name: 'PlayPal Newsletter' }
+      ]
+    }
+  });
 
   const handleEnter = (e, src) => {
     const row = e.currentTarget.getBoundingClientRect();
@@ -38,7 +55,7 @@ const Projects = () => {
         <div className="project-list">
           <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project1/home.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/project1-detail" className="project-title">myBCIT Redesign</Link>
+            <Link to="/projects/mybcit-redesign" className="project-title">myBCIT Redesign</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
@@ -46,7 +63,7 @@ const Projects = () => {
           </div>
           <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project2/home.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/project2-detail" className="project-title">Kim Huynh Portfolio</Link>
+            <Link to="/projects/kim-huynh-portfolio" className="project-title">Kim Huynh Portfolio</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
@@ -54,7 +71,7 @@ const Projects = () => {
           </div>
           <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project3/mockup.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/project3-detail" className="project-title">Jams Music App</Link>
+            <Link to="/projects/jam-music-app" className="project-title">Jams Music App</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
@@ -62,7 +79,7 @@ const Projects = () => {
           </div>
           <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project4/mockup.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/project4-detail" className="project-title">PlayPal Newsletter</Link>
+            <Link to="/projects/playpal-newsletter" className="project-title">PlayPal Newsletter</Link>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>

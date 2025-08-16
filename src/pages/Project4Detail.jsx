@@ -4,9 +4,16 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import BackToTopLink from '../components/BackToTopLink';
+import { useSEO } from '../hooks/useSEO';
 
 const Project4Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: 'PlayPal Newsletter | Daniel Trinh',
+    description: 'HTML email newsletter designed and built with tables for broad email client compatibility. Weekly PlayPal game digest.',
+    keywords: ['HTML email','newsletter','email development','tables','PlayPal','Daniel Trinh'],
+    image: '/imgs/project4/mockup.webp'
+  });
 
   return (
     <>

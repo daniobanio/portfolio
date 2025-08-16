@@ -4,9 +4,16 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSEO } from '../hooks/useSEO';
 
 const Project2Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
+  useSEO({
+    title: "Client Portfolio Design | Daniel Trinh",
+    description: "Portfolio design for an architecture student: minimal, modern layout with a flexible hero and reusable components.",
+    keywords: ['portfolio design','architecture portfolio','UI/UX','Figma','Daniel Trinh'],
+    image: '/imgs/project2/home.webp'
+  });
 
   return (
     <>
