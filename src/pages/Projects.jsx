@@ -50,7 +50,7 @@ const Projects = () => {
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
-            </div>
+            </div>  
           </div>
           <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project3/mockup.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
@@ -98,7 +98,7 @@ const Projects = () => {
                 <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: '#F5F5F5'}} />
                 <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: '#F5F5F5'}} />
                 <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="mailto:daniel@example.com" icon="mingcute:mail-line" width="32" height="32" style={{color: '#F5F5F5'}} />
+                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: '#F5F5F5'}} />
               </div>
             </div>
           </div>
