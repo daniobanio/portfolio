@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
+import ProjectNavigation from '../components/ProjectNavigation';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 
@@ -199,19 +200,7 @@ const Project1Detail = () => {
             </p>
           </div>
         </div>
-        <div className="project-navigation">
-          <div className="project-prev">
-            <Link to="/projects">← PREV</Link>
-            <p>myBCIT Redesign</p>
-          </div>
-          <div className="project-all">
-            <Link to="/projects">VIEW ALL PROJECTS</Link>
-          </div>
-          <div className="project-next">
-            <a href="#">NEXT →</a>
-            <p>Jams App</p>
-          </div>
-        </div>
+        <ProjectNavigation currentSlug="/projects/mybcit-redesign" />
       </div>
       <div className="footer">
         <div className="footer-container">

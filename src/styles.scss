@@ -1007,6 +1007,7 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     margin: 100px auto 75px auto;
   }
   .project-navigation a {
@@ -1016,22 +1017,31 @@
     font-weight: 300;
     font-size: 1.1rem;
   }
+  .project-navigation a:hover {
+    text-decoration: underline !important;
+  }
   .project-navigation p {
     margin-top: 10px;
-    color: white;
+    color: var(--hero-gray);
     font-size: 1.5rem;
     font-weight: 300;
   }
   .project-prev {
-    width: 375px;
+    width: auto;
+    flex: 1;
+  }
+  .project-all {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
   }
   .project-all a{
     text-align: center;
-    text-decoration: underline;
   }
   .project-next {
-    width: 375px;
-
+    width: auto;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: end;

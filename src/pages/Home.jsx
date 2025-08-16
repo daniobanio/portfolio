@@ -167,7 +167,7 @@ const Home = () => {
                 <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
               </div>
               <div className="featured-btns">
-                <AnimatedButton to="/project1-detail" className="btn-small">READ MORE →</AnimatedButton>
+                <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
                   <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: '#F2E80C'}}></iconify-icon></a>
                 </div>
@@ -182,7 +182,7 @@ const Home = () => {
                 <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
               </div>
               <div className="featured-btns">
-                <AnimatedButton to="/project2-detail" className="btn-small">READ MORE →</AnimatedButton>
+                <AnimatedButton to="/projects/kim-huynh-portfolio" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
                   <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: '#F2E80C'}}></iconify-icon></a>
                 </div>

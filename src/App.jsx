@@ -7,6 +7,7 @@ import Project1Detail from './pages/Project1Detail';
 import Project2Detail from './pages/Project2Detail';
 import Project3Detail from './pages/Project3Detail';
 import Project4Detail from './pages/Project4Detail';
+import ScrollToTop from './components/ScrollToTop';
 import { gsap } from 'gsap';
 
 // GSAP context for managing animations
@@ -15,6 +16,7 @@ gsap.registerPlugin();
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
