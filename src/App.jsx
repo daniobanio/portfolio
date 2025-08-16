@@ -5,6 +5,8 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Project1Detail from './pages/Project1Detail';
 import Project2Detail from './pages/Project2Detail';
+import Project3Detail from './pages/Project3Detail';
+import Project4Detail from './pages/Project4Detail';
 import { gsap } from 'gsap';
 
 // GSAP context for managing animations
@@ -19,6 +21,8 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/project1-detail" element={<Project1Detail />} />
         <Route path="/project2-detail" element={<Project2Detail />} />
+        <Route path="/project3-detail" element={<Project3Detail />} />
+        <Route path="/project4-detail" element={<Project4Detail />} />
       </Routes>
     </Router>
   );

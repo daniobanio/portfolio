@@ -1037,6 +1037,28 @@
     align-items: end;
   }
 
+  .back-to-top-link {
+    position: fixed;
+    bottom: 16px;
+    left: 1120px; /* default; overridden inline for responsiveness */
+    z-index: 50;
+    padding: 6px 10px;
+    font-family: Klavika Basic, sans-serif;
+    font-size: 0.95rem;
+    color: var(--white);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, var(--main-gray) 20%);
+    border: 2px solid var(--mid-gray);
+    text-decoration: none;
+    opacity: 0.9;
+    transition: color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    will-change: color, opacity;
+  }
+
+  .back-to-top-link:hover {
+    color: var(--yellow);
+    opacity: 1;
+  }
+
 .fame-btn {
   display: inline-flex;
   align-items: center;
@@ -1060,6 +1082,12 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
 
 .project-item .project-title {
   color: var(--white) !important;
+  transition: color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  will-change: color, opacity;
+}
+
+.project-item .project-title:hover {
+  color: var(--yellow) !important;
 }
 
 .back-btn, .back-btn a, .back-btn a:visited, .back-btn a:active, .back-btn a:focus {

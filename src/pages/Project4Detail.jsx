@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
-import BackToTopLink from '../components/BackToTopLink';
 import { useNavigation } from '../hooks/useNavigation';
+import BackToTopLink from '../components/BackToTopLink';
 
-const Project2Detail = () => {
+const Project4Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
 
   return (
@@ -34,7 +34,7 @@ const Project2Detail = () => {
           <div className="project-detail">
             <div className="project-title-container">
               <p className="back-btn"><Link to="/projects">← BACK</Link></p>
-              <h1 className="project-title">Kim Huynh's Portfolio</h1>
+              <h1 className="project-title">PlayPal Newsletter</h1>
             </div>
             <div className="project-info">
               <div className="project-info-key">
@@ -47,10 +47,10 @@ const Project2Detail = () => {
               </div>
               <div className="project-info-value">
                 <ul>
-                  <li>Individual</li>
-                  <li>UI/UX Designer</li>
-                  <li>June 2025 / 2 weeks</li>
-                  <li>Figma</li>
+                  <li>Yuhan Liu, Moon Nguyen, Zexi Luo, Pedro Conde</li>
+                  <li>Developer / Designer</li>
+                  <li>March 2025 / 2 weeks</li>
+                  <li>Figma, HTML</li>
                 </ul>
               </div>
             </div>
@@ -59,7 +59,7 @@ const Project2Detail = () => {
             </div>
           </div>
           <div className="project-displayImg">
-            <img src="/imgs/project2/home.webp" alt="Project Home" />
+            <img src="/imgs/project4/mockup.webp" alt="Project Mockup" />
           </div>
         </div>
         <hr />
@@ -67,70 +67,65 @@ const Project2Detail = () => {
           <div className="project-para">
             <h1>Overview</h1>
             <p>
-              This project involved designing a portfolio website for my client and friend, Kim, an architecture student seeking to grow her digital presence. Her portfolio needs to showcase her academic projects, reflect her design personality, and be flexible enough to use for school applications, job opportunities, and professional networking (such as LinkedIn).
+              As part of a team project for our Project Management course, I contributed to the development of PlayPal, a fictional social platform where gamers rate and review their favorite titles. My individual role was to design and build an HTML email newsletter. The goal was to create a clean, engaging, and on-brand newsletter that catered to gamers, something our team would actually engage with ourselves. This project followed the Waterfall methodology and emphasized structured planning, design, and execution.
             </p>
           </div>
           <hr />
           <div className="project-para">
             <h1>Research</h1>
             <p>
-              I began by studying different types of architecture portfolios, both academic and professional. During this process I looked at many websites featured on Awwwards.com, which gave me lots of inspiration for how I could make the design feel professional and engaging. From this research, I created a mood board that I could refer to for visual direction.
-            </p>
-          </div>
-          <div className="project-img autowidth">
-            <h1>Mood board</h1>
-            <img src="/imgs/project2/moodboard.png" alt="Moodboard" />
-          </div>
-          <div className="project-para">
-            <p>
-              In our initial meeting, I worked with Kim to establish the portfolio’s purpose, target audience, and intended tone. We discussed visual preferences, site structure, and the types of content she wanted to showcase. She gave me a list of goals and requirements she had.
-            </p>
-            <ol>
-              <li>Her academic projects needs to be the fore-front of the site</li>
-              <li>The site needs to be able to be used for professional applications</li>
-              <li>Wants a minimal, modern aesthetic</li>
-              <li>Should have lots of imagery</li>
-              <li>Home page and project pages should be flexible for her to change</li>
-            </ol>
-            <p>
-              She liked the mood board I created and we agreed to continue with that visual direction!
+              Before jumping into it, I spent time researching the best practices of HTML email design and development. I focused on key requirements like capping the layout at 750px max-width, designing for simplicity, building entirely with tables and using a box-model structure for spacing. Once I understood the constraints, I aligned with my team on the purpose of the newsletter: a weekly game recommendation digest for PlayPal users.
             </p>
           </div>
           <hr />
           <div className="project-para">
             <h1>Design</h1>
             <p>
-              Since the client's requirements weren’t very strict, it gave me lots of creative freedom! One of my key design decisions was creating a carousel interaction for the homepage. This dynamic hero section allows the client to choose how she wants to introduce herself — either by showcasing featured projects, offering a personal intro, or blending both approaches. The client expressed she wanted lots of flexibility in how she could showcase herself, and I believe this approach allows her to make those decisions.
+              Using Figma, I designed a layout that was centered, and easy to scan. I focused on simplicity to make it easier on myself to translate to HTML later, using auto-layout to ensure consistent spacing and responsiveness. I applied the style guide provided by our designer, incorporating the logo, colors, and gradient accents to reflect PlayPal’s visual identity.
             </p>
             <br />
             <p>
-              Throughout the design, I emphasized reusable components and consistent design language to simplify the handoff and prepare for development. After receiving feedback from a previous architecture student, I made small adjustments and finalized the wireframes.
+              The layout consisted of a header, featured game section, secondary recommendations, and a call-toaction button — all spaced and styled in a way that felt intuitive for desktop viewing, with mobile behavior in mind. I kept everything structured for scalability and consistency.
             </p>
             <br />
             <p>
-              Once approved by the client, I moved on to high-fidelity prototyping. Since the wireframes were already well-structured, it was easy to adapt them by integrating images, copy, and interactivity.
+              Once I reviewed the prototype with my group, we locked the scope to just the recommendation newsletter
             </p>
+            <br />
+            <div className="project-img autowidth">
+              <h1>Screens</h1>
+              <img src="/imgs/project4/screens.png" alt="Screens" />
+            </div>
           </div>
-          <div className="project-img">
-            <h1>Figma Screens</h1>
-            <iframe
-              style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
-              width="800"
-              height="450"
-              src="https://embed.figma.com/design/OMOLdpFkBNDgdH1tpDbb5o/Kim-Hyunh-Portfolio?node-id=0-1&embed-host=share"
-              allowFullScreen
-              title="Figma Screens"
-            ></iframe>
+          <hr />
+          <div className="project-para">
+            <h1>Development</h1>
+            <p>
+              This was my first time building anything with entirely tables. I am used to using Flexbox and Grid, so adapting to nested tables was a challenge at first. I quickly realized that planning the layout in advance — and thinking in table “boxes” helped me avoid confusion and gaining a headache from all these table tags.
+            </p>
+            <br />
+            <p>
+              Every style had to be written inline, which was time-consuming but necessary for compatibility across email clients. Once I finished coding the base, I ran my HTML through ChatGPT to double-check my CSS and make sure it worked across all major email clients. It suggested a few vendor-specific properties like -webkit-text-size-adjust and other tweaks to improve compatibility, which I added in. Then, I used MailChimp to inline all the CSS properly, since some email clients remove head and style tags.
+            </p>
+            <br />
+            <p>
+              To test the final result, I used PutsMail by Litmus to email it to myself. It looked just like the prototype, but it wasn’t responsive. I used media queries, but I was stumped as to why it didn’t work. After some digging, I found out that Gmail (and a few others) doesn’t support media queries. So, I had to rethink my approach. Instead of relying on media queries, I changed the table cells to display as block elements with 100% width. That way, the content stacked naturally on smaller screens — no media queries needed.
+            </p>
+            <br />
+            <p>
+              After confirming everything worked properly in both desktop and mobile formats, I delivered the final HTML file to the team, and mock-ups of the final email.
+            </p>
+            <br />
+            <div className="project-img autowidth">
+              <h1>Final Mockup</h1>
+              <img src="/imgs/project4/mockup.webp" alt="Final Mockup" />
+            </div>
           </div>
           <hr />
           <div className="project-para">
             <h1>Reflection</h1>
             <p>
-              Overall, I’m happy with how the wireframes and vision turned out — and fortunately, so was my client. However, I realized that sharing the full wireframe update all at once, rather than in stages, could’ve backfired if she had requested major changes. In future projects, I’ll aim to share earlier WIP updates to gather feedback earlier in the process.
-            </p>
-            <br />
-            <p>
-              Next, I plan to move into development. I hope to use this project to improve my coding skills, especially in areas like responsive layout, animation, and component-based architecture. I’m also interested in exploring whether a headless CMS could or should be integrated later.
+              This project pushed me to work outside of my usual front-end comfort zone and adapt to the strict limitations of HTML emails. I learned how important it is to plan out the table structure early, and how even small styling choices can affect compatibility across email clients. If I did it again, I’d spend more time upfront prepping the layout and researching how to make it responsive without relying on media queries.
             </p>
           </div>
         </div>
@@ -174,4 +169,6 @@ const Project2Detail = () => {
   );
 };
 
-export default Project2Detail;
+export default Project4Detail;
+
+

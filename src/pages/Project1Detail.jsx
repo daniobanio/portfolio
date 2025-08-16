@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
+import BackToTopLink from '../components/BackToTopLink';
 import { useNavigation } from '../hooks/useNavigation';
 
 const Project1Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
 
   return (
+    <>
     <main className="main-container">
       <div className="top-bar">
         <div className="top-bar-title">
@@ -225,6 +227,8 @@ const Project1Detail = () => {
         </div>
       </div>
     </main>
+    <BackToTopLink />
+    </>
   );
 };
 

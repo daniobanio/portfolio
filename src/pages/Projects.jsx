@@ -52,17 +52,17 @@ const Projects = () => {
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item">
+          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project3/mockup.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <div className="project-title">Jams Music App</div>
+            <Link to="/project3-detail" className="project-title">Jams Music App</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item">
+          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project4/mockup.webp')} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <div className="project-title">PlayPal Newsletter</div>
+            <Link to="/project4-detail" className="project-title">PlayPal Newsletter</Link>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
