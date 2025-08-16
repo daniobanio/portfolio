@@ -15,22 +15,6 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#1a1a1a" />
-    <script>
-      (function (locationObject) {
-        try {
-          var searchParams = new URLSearchParams(locationObject.search);
-          var pendingPath = searchParams.get("p");
-          if (pendingPath) {
-            var pendingQuery = searchParams.get("q");
-            var newPath =
-              pendingPath +
-              (pendingQuery ? "?" + pendingQuery : "") +
-              locationObject.hash;
-            window.history.replaceState(null, null, newPath);
-          }
-        } catch (e) {}
-      })(window.location);
-    </script>
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="Daniel Trinh" />

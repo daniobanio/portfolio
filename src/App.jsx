@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -25,6 +25,7 @@ function App() {
         <Route path="/projects/kim-huynh-portfolio" element={<Project2Detail />} />
         <Route path="/projects/jam-music-app" element={<Project3Detail />} />
         <Route path="/projects/playpal-newsletter" element={<Project4Detail />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
