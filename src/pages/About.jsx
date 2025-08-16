@@ -89,11 +89,11 @@ const About = () => {
             </p>
             <AnimatedButton href="http://instagram.com/doobiedoesdo" className="btn-filled">VIEW PHOTOS →</AnimatedButton>
             <div className="photo-display">
-              <img src="/imgs/photo1.jpg" alt="Photo 1" />
-              <img src="/imgs/photo2.jpg" alt="Photo 2" />
-              <img src="/imgs/photo3.jpg" alt="Photo 3" />
-              <img src="/imgs/photo4.jpg" alt="Photo 4" />
-              <img src="/imgs/photo5.jpg" alt="Photo 5" />
+              <img src="/imgs/photo1.webp" alt="Photo 1" />
+              <img src="/imgs/photo2.webp" alt="Photo 2" />
+              <img src="/imgs/photo3.webp" alt="Photo 3" />
+              <img src="/imgs/photo4.webp" alt="Photo 4" />
+              <img src="/imgs/photo5.webp" alt="Photo 5" />
             </div>
           </div>
         </div>

@@ -57,7 +57,7 @@ const Project1Detail = () => {
             </div>
           </div>
           <div className="project-displayImg">
-            <img src="/imgs/project1/home.png" alt="Project Home" />
+            <img src="/imgs/project1/home.webp" alt="Project Home" />
           </div>
         </div>
         <hr />
@@ -71,9 +71,9 @@ const Project1Detail = () => {
           <div className="project-img">
             <h1>Current myBCIT Site</h1>
             <div className="project-img-carousel">
-              <img src="/imgs/project1/old-bcit2.png" alt="Old BCIT 2" />
-              <img src="/imgs/project1/old-bcit1.png" alt="Old BCIT 1" />
-              <img src="/imgs/project1/old-bcit3.png" alt="Old BCIT 3" />
+              <img src="/imgs/project1/old-bcit2.webp" alt="Old BCIT 2" />
+              <img src="/imgs/project1/old-bcit1.webp" alt="Old BCIT 1" />
+              <img src="/imgs/project1/old-bcit3.webp" alt="Old BCIT 3" />
             </div>
           </div>
           <div className="project-para">

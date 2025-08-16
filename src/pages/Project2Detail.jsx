@@ -57,7 +57,7 @@ const Project2Detail = () => {
             </div>
           </div>
           <div className="project-displayImg">
-            <img src="/imgs/project2/home.png" alt="Project Home" />
+            <img src="/imgs/project2/home.webp" alt="Project Home" />
           </div>
         </div>
         <hr />
