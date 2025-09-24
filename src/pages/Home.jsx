@@ -94,10 +94,10 @@ const Home = () => {
                   <p className="hero-label-left">Fame
                     <div className="fame-btn">
                       <div className="fame-up-btn">
-                        <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: '#fff'}}></iconify-icon>
+                        <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: 'var(--white)'}}></iconify-icon>
                       </div>
                       <div className="fame-down-btn">
-                        <iconify-icon icon="mingcute:down-fill" width="24" height="24" style={{color: '#fff'}}></iconify-icon>
+                        <iconify-icon icon="mingcute:down-fill" width="24" height="24" style={{color: 'var(--white)'}}></iconify-icon>
                       </div>
                     </div>
                   </p>
@@ -119,10 +119,10 @@ const Home = () => {
                 <div className="hero-label">
                   <p className="hero-label-left">Online at</p>
                   <div className="online-label-flex">
-                    <AnimatedSocialIcon aria-label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon aria-label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon aria-label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="28" height="28" style={{color: '#666666'}} />
-                    <AnimatedSocialIcon aria-label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="28" height="28" style={{color: '#666666'}} />
+                    <AnimatedSocialIcon aria-label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
+                    <AnimatedSocialIcon aria-label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
+                    <AnimatedSocialIcon aria-label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
+                    <AnimatedSocialIcon aria-label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
                   </div>
                 </div>
                 <div className="hero-label">
@@ -169,7 +169,7 @@ const Home = () => {
               <div className="featured-btns">
                 <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: '#F2E80C'}}></iconify-icon></a>
+                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
@@ -184,7 +184,7 @@ const Home = () => {
               <div className="featured-btns">
                 <AnimatedButton to="/projects/kim-huynh-portfolio" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: '#F2E80C'}}></iconify-icon></a>
+                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
@@ -222,11 +222,11 @@ const Home = () => {
             <p>Online at</p>
             <div className="footer-icons">
               <div className="footer-icons-flex">
-                <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: '#F5F5F5'}} />
+                <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
               </div>
             </div>
           </div>

@@ -74,7 +74,7 @@ const About = () => {
                 <iconify-icon class="threejs-tech" icon="devicon:threejs-wordmark" width="64" height="64"></iconify-icon>
                 <iconify-icon class="html-tech" icon="devicon:html5" width="64" height="64"></iconify-icon>
                 <iconify-icon class="css-tech" icon="vscode-icons:file-type-css2" width="64" height="64"></iconify-icon>
-                <iconify-icon class="gsap-tech" icon="simple-icons:gsap" width="64" height="64" style={{color: '#93d400'}}></iconify-icon>
+                <iconify-icon class="gsap-tech" icon="simple-icons:gsap" width="64" height="64" style={{color: 'var(--gsap-brand)'}}></iconify-icon>
                 <iconify-icon icon="devicon:figma" width="64" height="64"></iconify-icon>
               </div>
             </div>
@@ -86,7 +86,7 @@ const About = () => {
             </p>
             <AnimatedButton href="https://www.youtube.com/@doobiedoesdo" className="btn-filled">YOUTUBE →</AnimatedButton>
             <div className="youtube-icon-container">
-              <iconify-icon class="youtube-icon" icon="mdi:youtube" width="425" height="425" style={{color: '#1f1f1f'}}></iconify-icon>
+              <iconify-icon class="youtube-icon" icon="mdi:youtube" width="425" height="425" style={{color: 'var(--main-gray)'}}></iconify-icon>
             </div>
           </div>
           <div className="grid-item photography">
@@ -112,11 +112,11 @@ const About = () => {
             <p>Online at</p>
             <div className="footer-icons">
               <div className="footer-icons-flex">
-                <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: '#F5F5F5'}} />
-                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: '#F5F5F5'}} />
+                <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
               </div>
             </div>
           </div>

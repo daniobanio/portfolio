@@ -20,6 +20,19 @@
      --white: #F5F5F5;
      --yellow: #F2E80C;
      --orange: #F0AB0F;
+    /* extended palette */
+    --section-bg: #232323;
+    --msg-blue: #3385FF;
+    --msg-purple: #934BFF;
+    --msg-green: #81CD39;
+    --react-cyan: #00D8FF;
+    --figma-orange: #F24E1E;
+    --html-orange: #E34F26;
+    --scss-pink: #CF649A;
+    --gsap-green: #93d400;
+
+    --shadow-25: #00000025;
+    --shadow-35: #00000035;
    }
    body {
      background-color: var(--dark-gray);
@@ -108,14 +121,14 @@
      border-top: 2px solid var(--mid-gray);
      height: 100%;
    }
-   .hero-section {
+  .hero-section {
      width: 96%;
      height: 450px;
      margin: 15px auto;
      margin-bottom: 25px;
      overflow: hidden;
 
-     background-color: var(---gray);
+    //  background-color: var(--main-gray);
      border: 2px solid var(--mid-gray);
      font-family: 'Pixelify Sans', Pixelify-Sans, sans-serif;
      font-weight: 400;
@@ -347,13 +360,13 @@
     margin: 65px auto;
     padding: 20px;
 
-    background: linear-gradient(180deg, #232323 95%, var(--mid-gray) 0%);
+    background: linear-gradient(180deg, var(--section-bg) 95%, var(--mid-gray) 0%);
     border: 2px solid var(--mid-gray);
     font-family: Klavika Basic, sans-serif;
     
   }
   .featured-section h1 {
-    color: yellow;
+    color: var(--yellow);
     font-size: 1.5rem;
     margin-bottom: 20px;
   }
@@ -408,7 +421,7 @@
     display: flex;
     gap: 5px;
     align-items: center;
-    color: yellow;
+    color: var(--yellow);
     text-decoration: none;
     font-size: 1.25rem;
     font-weight: 500;
@@ -467,17 +480,17 @@
     line-height: 1.5;
     margin-bottom: 25px;
   }
-  .msg-h1 {
+  .msg-h1, .msg-h2, .msg-h3 {
     font-weight: 500;
-    color: #3385FF;
+  }
+  .msg-h1 {
+    color: var(--msg-blue);
   }
   .msg-h2 {
-    font-weight: 500;
-    color: #934BFF;
+    color: var(--msg-purple);
   }
   .msg-h3 {
-    font-weight: 500;
-    color: #81CD39;
+    color: var(--msg-green);
   }
 
 
@@ -514,11 +527,11 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #81CD39;
+    background-color: var(--green);
   }
   .footer-copyright {
     font-weight: 400;
-    color: #5C5C5C;
+    color: var(--top-border-gray);
   }
   .footer-icons {
     margin-left: 25px;
@@ -536,7 +549,7 @@
     margin: 20px auto;
     padding: 50px;
 
-    background: linear-gradient(180deg, #232323 98%, var(--mid-gray) 0%);
+    background: linear-gradient(180deg, var(--section-bg) 98%, var(--mid-gray) 0%);
     border: 2px solid var(--mid-gray);
     font-family: Klavika Basic, sans-serif;
   }
@@ -666,7 +679,7 @@
   position: relative;
 }
 .tech-stack img {
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .react-tech {
@@ -674,7 +687,7 @@
   top: 10%;
   left: 10%;
   transform: rotate(-8deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .js-tech {
@@ -682,7 +695,7 @@
   top: 5%;
   right: 10%;
   transform: rotate(12deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .threejs-tech {
@@ -690,7 +703,7 @@
   bottom: 45%;
   left: 5%;
   transform: rotate(-5deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .html-tech {
@@ -698,7 +711,7 @@
   bottom: 10%;
   right: 10%;
   transform: rotate(15deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .css-tech {
@@ -706,7 +719,7 @@
   top: 70%;
   left: 5%;
   transform: rotate(-10deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .gsap-tech {
@@ -714,7 +727,7 @@
   top: 50%;
   right: 5%;
   transform: rotate(7deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .tech-stack-center iconify-icon[icon="devicon:figma"] {
@@ -722,7 +735,7 @@
   bottom: 0%;
   left: 50%;
   transform: translateX(-50%) rotate(5deg);
-  filter: drop-shadow(1px 3px 5px #00000025);
+  filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
   .chat-bubble {
     position: relative;
@@ -761,7 +774,7 @@
     width: auto;
     height: 200px;
     border-radius: 10px;
-    filter: drop-shadow(1px 3px 7px #00000035);
+    filter: drop-shadow(1px 3px 7px var(--shadow-35));
   }
   .photo-display img:nth-child(1) {
     z-index: 3;
@@ -810,35 +823,35 @@
   }
   
   .project-stack-react {
-    background-color: #00D8FF;
+    background-color: var(--react-cyan);
     padding: 2px 10px;
     border-radius: 5px;
   }
   .project-stack-gsap {
-    background-color: #81CD39;
+    background-color: var(--gsap-green);
     padding: 2px 10px;
     border-radius: 5px;
   }
   .project-stack-tailwind {
-  background-color: #F0AB0F;
+  background-color: var(--orange);
   padding: 2px 10px;
   border-radius: 5px;
 }
 
 .project-stack-figma {
-  background-color: #F24E1E;
+  background-color: var(--figma-orange);
   padding: 2px 10px;
   border-radius: 5px;
 }
 
 .project-stack-html {
-  background-color: #E34F26;
+  background-color: var(--html-orange);
   padding: 2px 10px;
   border-radius: 5px;
 }
 
 .project-stack-scss {
-  background-color: #CF649A;
+  background-color: var(--scss-pink);
   padding: 2px 10px;
   border-radius: 5px;
 }
@@ -992,7 +1005,7 @@
   .project-img img {
     width: auto;
     height: 500px;
-    filter: drop-shadow(1px 3px 5px #00000025);
+    filter: drop-shadow(1px 3px 5px var(--shadow-25));
   }
   .project-img.autowidth img {
     width: 100%;
@@ -1011,7 +1024,7 @@
     margin: 100px auto 75px auto;
   }
   .project-navigation a {
-    color: white;
+    color: var(--white);
     text-decoration: none;
     font-family: Klavika Basic, sans-serif;
     font-weight: 300;
