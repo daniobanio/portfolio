@@ -81,7 +81,6 @@ const Home = () => {
           <div className="hero-container">
             <div className="hero-labels-container">
               <div className="hero-left-column">
-                <p className="hero-title-label">Front-end Web Developer</p>
                 <div className="hero-label">
                   <p className="hero-label-left">Located in</p>
                   <p className="hero-label-right">Vancouver</p>
@@ -105,7 +104,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="hero-center-column">
-                <p className="hero-center-lvl">Lvl. 19</p>
+                <p className="hero-center-lvl">Front-end Web Developer</p>
                 <div className="hero-char-container">
                   <p className="chat-bubble-text">welcome to my site!</p>
                   <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
