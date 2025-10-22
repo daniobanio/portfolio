@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { gsap } from 'gsap';
+import soundManager from '../utils/soundManager';
 
 const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {} }) => {
   const iconRef = useRef(null);
 
   const handleMouseEnter = () => {
+    soundManager.playHover();
     gsap.to(iconRef.current, {
       scale: 1.1,
       y: -3,
@@ -22,6 +24,10 @@ const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {
     });
   };
 
+  const handleClick = () => {
+    soundManager.playClick();
+  };
+
   return (
     <a 
       href={href} 
@@ -30,6 +36,7 @@ const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {
       ref={iconRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <iconify-icon 
         icon={icon} 

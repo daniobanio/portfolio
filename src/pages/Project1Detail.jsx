@@ -6,6 +6,7 @@ import BackToTopLink from '../components/BackToTopLink';
 import ProjectNavigation from '../components/ProjectNavigation';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
+import soundManager from '../utils/soundManager';
 
 const Project1Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
@@ -41,7 +42,7 @@ const Project1Detail = () => {
         <div className="project-info-container">
           <div className="project-detail">
             <div className="project-title-container">
-              <p className="back-btn"><Link to="/projects">← BACK</Link></p>
+              <p className="back-btn"><Link to="/projects" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>← BACK</Link></p>
               <h1 className="project-title">myBCIT Redesign</h1>
             </div>
             <div className="project-info">
@@ -63,7 +64,7 @@ const Project1Detail = () => {
               </div>
             </div>
             <div className="project-links">
-              <a href="#">VIEW PROTOTYPE</a>
+              <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE</a>
             </div>
           </div>
           <div className="project-displayImg">
@@ -142,7 +143,7 @@ const Project1Detail = () => {
           <div className="project-para">
             <h1>Design</h1>
             <p>
-              Every step of user research including personas, scenarios and journey mapping, was crucial in guiding my initial wireframes. My primary goal was to simplify the common user flows and clarify the UI for easy scannability. Using <a href="#">BCIT’s public style guide</a>, I recreated their colour palette, typography, and buttons in Figma to ensure the new design was true to BCIT’s brand.
+              Every step of user research including personas, scenarios and journey mapping, was crucial in guiding my initial wireframes. My primary goal was to simplify the common user flows and clarify the UI for easy scannability. Using <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>BCIT's public style guide</a>, I recreated their colour palette, typography, and buttons in Figma to ensure the new design was true to BCIT's brand.
             </p>
           </div>
           <div className="project-para">

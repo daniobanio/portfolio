@@ -4,6 +4,7 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
+import soundManager from '../utils/soundManager';
 
 const Projects = () => {
   const { registerNavElement, isActive } = useNavigation();
@@ -53,33 +54,33 @@ const Projects = () => {
       </div>
       <div className="main-content">
         <div className="project-list">
-          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project1/home.webp')} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project1/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/projects/mybcit-redesign" className="project-title">myBCIT Redesign</Link>
+            <Link to="/projects/mybcit-redesign" className="project-title" onClick={() => soundManager.playClick()}>myBCIT Redesign</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project2/home.webp')} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project2/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/projects/kim-huynh-portfolio" className="project-title">Kim Huynh Portfolio</Link>
+            <Link to="/projects/kim-huynh-portfolio" className="project-title" onClick={() => soundManager.playClick()}>Kim Huynh Portfolio</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>  
           </div>
-          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project3/mockup.webp')} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project3/mockup.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/projects/jam-music-app" className="project-title">Jams Music App</Link>
+            <Link to="/projects/jam-music-app" className="project-title" onClick={() => soundManager.playClick()}>Jams Music App</Link>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item" onMouseEnter={(e)=>handleEnter(e, '/imgs/project4/mockup.webp')} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project4/mockup.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
-            <Link to="/projects/playpal-newsletter" className="project-title">PlayPal Newsletter</Link>
+            <Link to="/projects/playpal-newsletter" className="project-title" onClick={() => soundManager.playClick()}>PlayPal Newsletter</Link>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>

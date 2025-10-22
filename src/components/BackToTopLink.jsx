@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import soundManager from '../utils/soundManager';
 
 const BackToTopLink = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,7 +31,12 @@ const BackToTopLink = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    soundManager.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleMouseEnter = () => {
+    soundManager.playHover();
   };
 
   if (!isVisible) return null;
@@ -41,6 +47,7 @@ const BackToTopLink = () => {
       className="back-to-top-link"
       style={{ left: leftPositionPx }}
       onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
     >
       BACK TO TOP
     </a>

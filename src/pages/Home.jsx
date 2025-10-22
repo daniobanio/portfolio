@@ -7,6 +7,7 @@ import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import { useFameCounter } from '../hooks/useFameCounter';
 import DotGrid from '../components/DotGrid';
+import soundManager from '../utils/soundManager';
 
 const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
@@ -163,11 +164,11 @@ const Home = () => {
             
           </p>
           <p>
-            When I'm offline, I love taking photos, which you can check out <a href="http://instagram.com/doobiedoesdo" target="_blank" rel="noopener noreferrer">here!</a> I also enjoy building keyboards, working out,
+            When I'm offline, I love taking photos, which you can check out <a href="http://instagram.com/doobiedoesdo" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>here!</a> I also enjoy building keyboards, working out,
             and going on walks around beautiful Vancouver.
           </p>
           <p>
-            Check out my <a href="https://www.youtube.com/@doobiedoesdo" target="_blank" rel="noopener noreferrer">YouTube channel</a> for some videos of my
+            Check out my <a href="https://www.youtube.com/@doobiedoesdo" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>YouTube channel</a> for some videos of my
             hobbies and coding journey :)
           </p>
         </div>
@@ -186,7 +187,7 @@ const Home = () => {
               <div className="featured-btns">
                 <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                  <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
@@ -201,7 +202,7 @@ const Home = () => {
               <div className="featured-btns">
                 <AnimatedButton to="/projects/kim-huynh-portfolio" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#">PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                  <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>

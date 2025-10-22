@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
+import soundManager from '../utils/soundManager';
 
 const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' }) => {
   const buttonRef = useRef(null);
@@ -12,6 +13,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   }, []);
 
   const handleMouseEnter = () => {
+    soundManager.playHover();
     if (buttonRef.current) {
       gsap.to(buttonRef.current, {
         y: -2,
@@ -35,6 +37,13 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
     }
   };
 
+  const handleClick = (e) => {
+    soundManager.playClick();
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
   // External link
   if (href) {
     return (
@@ -46,6 +55,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
       >
         {children}
       </a>
@@ -61,6 +71,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
       >
         {children}
       </Link>
@@ -72,7 +83,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
     <button
       className={className}
       ref={buttonRef}
-      onClick={onClick}
+      onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

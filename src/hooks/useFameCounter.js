@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import soundManager from '../utils/soundManager';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
@@ -67,6 +68,21 @@ export const useFameCounter = () => {
 
   const vote = async (voteType) => {
     if (isLoading) return;
+
+    // Check if this is an unvote (clicking the same vote button again)
+    const isUnvoting = userVote === voteType;
+    
+    if (isUnvoting) {
+      // Play click sound for unvoting
+      soundManager.playClick();
+    } else {
+      // Play appropriate vote sound for voting
+      if (voteType === 'up') {
+        soundManager.playUpvote();
+      } else if (voteType === 'down') {
+        soundManager.playDownvote();
+      }
+    }
 
     try {
       const response = await fetch(`${API_URL}/api/fame/vote`, {

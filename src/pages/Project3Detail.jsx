@@ -6,6 +6,7 @@ import { useNavigation } from '../hooks/useNavigation';
 import BackToTopLink from '../components/BackToTopLink';
 import ProjectNavigation from '../components/ProjectNavigation';
 import { useSEO } from '../hooks/useSEO';
+import soundManager from '../utils/soundManager';
 
 const Project3Detail = () => {
   const { registerNavElement, isActive } = useNavigation();
@@ -41,7 +42,7 @@ const Project3Detail = () => {
         <div className="project-info-container">
           <div className="project-detail">
             <div className="project-title-container">
-              <p className="back-btn"><Link to="/projects">← BACK</Link></p>
+              <p className="back-btn"><Link to="/projects" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>← BACK</Link></p>
               <h1 className="project-title">Jam Music App</h1>
             </div>
             <div className="project-info">
@@ -63,7 +64,7 @@ const Project3Detail = () => {
               </div>
             </div>
             <div className="project-links">
-              <a href="#">VIEW PROTOTYPE</a>
+              <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE</a>
             </div>
           </div>
           <div className="project-displayImg">
