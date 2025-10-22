@@ -34,11 +34,40 @@
     --shadow-25: #00000025;
     --shadow-35: #00000035;
    }
-   body {
-     background-color: var(--dark-gray);
-     width: 100%;
-     height: auto;
-   }
+  body {
+    background-color: var(--dark-gray);
+    width: 100%;
+    height: auto;
+    cursor: url('/imgs/cursors/maplestory/point.png'), auto;
+  }
+
+  /* MapleStory Custom Cursors */
+  * {
+    cursor: url('/imgs/cursors/maplestory/point.png'), auto;
+  }
+
+  /* Links and clickable elements */
+  a, button, .btn-filled, .btn-big, .btn-small, 
+  .nav-container li, .project-item, .fame-up-btn, .fame-down-btn,
+  .footer-icons-flex a, .online-label-flex a, 
+  iconify-icon {
+    cursor: url('/imgs/cursors/maplestory/point_click.png'), pointer !important;
+  }
+
+  /* Global click state - applies everywhere when mouse button is held down */
+  *:active {
+    cursor: url('/imgs/cursors/maplestory/point_low.png'), auto !important;
+  }
+
+  /* Busy/loading state */
+  .loading, [aria-busy="true"] {
+    cursor: url('/imgs/cursors/maplestory/meso_coin_gold.png'), wait !important;
+  }
+
+  /* Disabled/unavailable elements */
+  [disabled], .disabled, [aria-disabled="true"] {
+    cursor: url('/imgs/cursors/maplestory/point_lock.png'), not-allowed !important;
+  }
    .main-container {
      margin: 0 auto;
      margin-top: 85px;
