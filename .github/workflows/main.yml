@@ -1,6 +1,6 @@
-on: 
+on:
   push:
-    branches: [ deploy ]
+    branches: [deploy]
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -12,11 +12,13 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: "20"
       - name: ⛏️Build Project
         run: |
           npm install
           npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
       - name: 📁 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

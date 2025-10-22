@@ -14,7 +14,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? ['https://yourdomain.com'] // Update with your production domain
+      ? ['https://danieltrinh.ca', 'https://www.danieltrinh.ca'] // Production domains
       : ['http://localhost:5173', 'http://localhost:3000'],
     methods: ['GET', 'POST']
   }
