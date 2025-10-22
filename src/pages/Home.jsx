@@ -6,12 +6,14 @@ import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import { useFameCounter } from '../hooks/useFameCounter';
+import { useSpeechBubble } from '../hooks/useSpeechBubble';
 import DotGrid from '../components/DotGrid';
 import soundManager from '../utils/soundManager';
 
 const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
   const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
+  const { message, isVisible, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd } = useSpeechBubble();
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -57,22 +59,52 @@ const Home = () => {
         </ul>
         <ul className="nav-right">
           <li>
-            <AnimatedNavItem to="/about" registerNavElement={registerNavElement} path="/about" isActive={isActive}>
+            <AnimatedNavItem 
+              to="/about" 
+              registerNavElement={registerNavElement} 
+              path="/about" 
+              isActive={isActive}
+              onHoverStart={() => handleNavHover('about')}
+              onHoverEnd={handleNavHoverEnd}
+            >
               About
             </AnimatedNavItem>
           </li>
           <li>
-            <AnimatedNavItem to="/projects" registerNavElement={registerNavElement} path="/projects" isActive={isActive}>
+            <AnimatedNavItem 
+              to="/projects" 
+              registerNavElement={registerNavElement} 
+              path="/projects" 
+              isActive={isActive}
+              onHoverStart={() => handleNavHover('projects')}
+              onHoverEnd={handleNavHoverEnd}
+            >
               Projects
             </AnimatedNavItem>
           </li>
           <li>
-            <AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/workflow" isActive={isActive} disabled={true}>
+            <AnimatedNavItem 
+              to="#" 
+              registerNavElement={registerNavElement} 
+              path="/workflow" 
+              isActive={isActive} 
+              disabled={true}
+              onHoverStart={() => handleNavHover('workflow')}
+              onHoverEnd={handleNavHoverEnd}
+            >
               Workflow
             </AnimatedNavItem>
           </li>
           <li>
-            <AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/contact" isActive={isActive} disabled={true}>
+            <AnimatedNavItem 
+              to="#" 
+              registerNavElement={registerNavElement} 
+              path="/contact" 
+              isActive={isActive} 
+              disabled={true}
+              onHoverStart={() => handleNavHover('contact')}
+              onHoverEnd={handleNavHoverEnd}
+            >
               Contact
             </AnimatedNavItem>
           </li>
@@ -97,10 +129,18 @@ const Home = () => {
                     <div className="fame-btn">
                       <div 
                         className={`fame-up-btn ${userVote === 'up' ? 'active' : ''}`}
-                        onClick={upvote}
+                        onClick={() => {
+                          upvote();
+                          handleUpvote();
+                        }}
                         role="button"
                         tabIndex={0}
-                        onKeyPress={(e) => e.key === 'Enter' && upvote()}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            upvote();
+                            handleUpvote();
+                          }
+                        }}
                         aria-label="Upvote fame"
                         title={userVote === 'up' ? 'You upvoted' : 'Upvote'}
                       >
@@ -108,10 +148,18 @@ const Home = () => {
                       </div>
                       <div 
                         className={`fame-down-btn ${userVote === 'down' ? 'active' : ''}`}
-                        onClick={downvote}
+                        onClick={() => {
+                          downvote();
+                          handleDownvote();
+                        }}
                         role="button"
                         tabIndex={0}
-                        onKeyPress={(e) => e.key === 'Enter' && downvote()}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            downvote();
+                            handleDownvote();
+                          }
+                        }}
                         aria-label="Downvote fame"
                         title={userVote === 'down' ? 'You downvoted' : 'Downvote'}
                       >
@@ -125,8 +173,12 @@ const Home = () => {
               <div className="hero-center-column">
                 <p className="hero-center-lvl">Front-end Web Developer</p>
                 <div className="hero-char-container">
-                  <p className="chat-bubble-text">welcome to my site!</p>
-                  <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
+                  {isVisible && (
+                    <>
+                      <p className="chat-bubble-text">{message}</p>
+                      <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
+                    </>
+                  )}
                   <img className="hero-center-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
                   <p className="hero-center-nametag" aria-label="Name tag displaying Daniel Trinh">
                     <img className="dt-logo" src="/imgs/dt-logo.png" alt="DT Logo" />DanielTrinh

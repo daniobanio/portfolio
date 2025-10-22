@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import soundManager from '../utils/soundManager';
 
-const AnimatedNavItem = ({ to, children, className, registerNavElement, path, isActive, disabled = false }) => {
+const AnimatedNavItem = ({ to, children, className, registerNavElement, path, isActive, disabled = false, onHoverStart, onHoverEnd }) => {
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -20,6 +20,9 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
   const handleMouseEnter = () => {
     if (disabled) return;
     soundManager.playHover();
+    if (onHoverStart) {
+      onHoverStart();
+    }
     gsap.to(navRef.current, {
       opacity: 1,
       color: 'var(--yellow)',
@@ -31,6 +34,9 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
 
   const handleMouseLeave = () => {
     if (disabled) return;
+    if (onHoverEnd) {
+      onHoverEnd();
+    }
     const leaveToOpacity = isActive && key ? (isActive(key) ? 1 : 0.6) : 0.6;
     gsap.to(navRef.current, {
       opacity: leaveToOpacity,

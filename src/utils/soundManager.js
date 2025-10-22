@@ -26,6 +26,11 @@ const sounds = {
     src: ['/sounds/msJump.mp3'],
     volume: 0.5,
     preload: true
+  }),
+  message: new Howl({
+    src: ['/sounds/sfxMsg.mp3'],
+    volume: 0.4,
+    preload: true
   })
 };
 
@@ -45,6 +50,9 @@ const soundManager = {
   },
   playJump: () => {
     sounds.jump.play();
+  },
+  playMessage: () => {
+    sounds.message.play();
   }
 };
 
