@@ -57,25 +57,8 @@ function writeData(data) {
   }
 }
 
-// Clean up old votes (older than 24 hours)
-function cleanupOldVotes() {
-  const data = readData();
-  const now = Date.now();
-  const oneDayInMs = 24 * 60 * 60 * 1000;
-  
-  Object.keys(data.votes).forEach(ip => {
-    if (now - data.votes[ip].timestamp > oneDayInMs) {
-      delete data.votes[ip];
-    }
-  });
-  
-  writeData(data);
-}
-
 // Initialize
 initializeData();
-// Clean up old votes every hour
-setInterval(cleanupOldVotes, 60 * 60 * 1000);
 
 // API Routes
 app.get('/api/fame', (req, res) => {
@@ -102,12 +85,29 @@ app.post('/api/fame/vote', (req, res) => {
   
   // Check if user has already voted
   if (existingVote) {
-    // If trying to vote the same way, return current state
+    // If trying to vote the same way, remove the vote (un-vote)
     if (existingVote.vote === vote) {
+      // Reverse the vote
+      if (existingVote.vote === 'up') {
+        data.fame -= 1;
+      } else {
+        data.fame += 1;
+      }
+      
+      // Remove the vote record
+      delete data.votes[clientId];
+      
+      writeData(data);
+      
+      // Broadcast to all connected clients
+      io.emit('fameUpdate', {
+        fame: data.fame
+      });
+      
       return res.json({
         fame: data.fame,
-        userVote: existingVote.vote,
-        message: 'Already voted'
+        userVote: null,
+        message: 'Vote removed'
       });
     }
     
