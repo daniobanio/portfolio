@@ -2,10 +2,11 @@ import React, { useRef } from 'react';
 import { gsap } from 'gsap';
 import soundManager from '../utils/soundManager';
 
-const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {} }) => {
+const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {}, label, disabled = false }) => {
   const iconRef = useRef(null);
 
   const handleMouseEnter = () => {
+    if (disabled) return;
     soundManager.playHover();
     gsap.to(iconRef.current, {
       scale: 1.1,
@@ -16,6 +17,7 @@ const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {
   };
 
   const handleMouseLeave = () => {
+    if (disabled) return;
     gsap.to(iconRef.current, {
       scale: 1,
       y: 0,
@@ -24,19 +26,31 @@ const AnimatedSocialIcon = ({ href, icon, width = "32", height = "32", style = {
     });
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
     soundManager.playClick();
   };
 
   return (
     <a 
-      href={href} 
-      target="_blank" 
-      rel="noopener noreferrer"
+      href={disabled ? "#" : href} 
+      target={disabled ? undefined : "_blank"} 
+      rel={disabled ? undefined : "noopener noreferrer"}
       ref={iconRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
+      title={label}
+      aria-label={label}
+      aria-disabled={disabled}
+      className={disabled ? 'disabled' : ''}
+      style={{ 
+        opacity: disabled ? 0.5 : 1,
+        pointerEvents: disabled ? 'auto' : 'auto'
+      }}
     >
       <iconify-icon 
         icon={icon} 

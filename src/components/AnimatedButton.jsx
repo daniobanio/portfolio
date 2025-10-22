@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import soundManager from '../utils/soundManager';
 
-const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' }) => {
+const AnimatedButton = ({ to, href, children, className, onClick, type = 'link', disabled = false }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
@@ -13,6 +13,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   }, []);
 
   const handleMouseEnter = () => {
+    if (disabled) return;
     soundManager.playHover();
     if (buttonRef.current) {
       gsap.to(buttonRef.current, {
@@ -26,6 +27,7 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   };
 
   const handleMouseLeave = () => {
+    if (disabled) return;
     if (buttonRef.current) {
       gsap.to(buttonRef.current, {
         y: 0,
@@ -38,24 +40,37 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   };
 
   const handleClick = (e) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
     soundManager.playClick();
     if (onClick) {
       onClick(e);
     }
   };
 
+  const disabledStyle = disabled ? { 
+    opacity: 0.5,
+    pointerEvents: 'auto'
+  } : {};
+
+  const disabledClass = disabled ? (className ? `${className} disabled` : 'disabled') : className;
+
   // External link
   if (href) {
     return (
       <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
+        href={disabled ? "#" : href}
+        target={disabled ? undefined : "_blank"}
+        rel={disabled ? undefined : "noopener noreferrer"}
+        className={disabledClass}
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
+        aria-disabled={disabled}
+        style={disabledStyle}
       >
         {children}
       </a>
@@ -66,12 +81,14 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   if (to) {
     return (
       <Link
-        to={to}
-        className={className}
+        to={disabled ? "#" : to}
+        className={disabledClass}
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleClick}
+        aria-disabled={disabled}
+        style={disabledStyle}
       >
         {children}
       </Link>
@@ -81,11 +98,14 @@ const AnimatedButton = ({ to, href, children, className, onClick, type = 'link' 
   // Regular button
   return (
     <button
-      className={className}
+      className={disabledClass}
       ref={buttonRef}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      disabled={disabled}
+      aria-disabled={disabled}
+      style={disabledStyle}
     >
       {children}
     </button>

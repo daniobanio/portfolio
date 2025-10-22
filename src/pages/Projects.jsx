@@ -48,8 +48,8 @@ const Projects = () => {
         <ul className="nav-right">
           <li><AnimatedNavItem to="/about" registerNavElement={registerNavElement} path="/about" isActive={isActive}>About</AnimatedNavItem></li>
           <li><AnimatedNavItem to="/projects" registerNavElement={registerNavElement} path="/projects" isActive={isActive}>Projects</AnimatedNavItem></li>
-          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/workflow" isActive={isActive}>Workflow</AnimatedNavItem></li>
-          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/contact" isActive={isActive}>Contact</AnimatedNavItem></li>
+          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/workflow" isActive={isActive} disabled={true}>Workflow</AnimatedNavItem></li>
+          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/contact" isActive={isActive} disabled={true}>Contact</AnimatedNavItem></li>
         </ul>
       </div>
       <div className="main-content">
@@ -62,34 +62,34 @@ const Projects = () => {
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project2/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+          <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
             <div className="project-year">2025</div>
-            <Link to="/projects/kim-huynh-portfolio" className="project-title" onClick={() => soundManager.playClick()}>Kim Huynh Portfolio</Link>
+            <div className="project-title" style={{pointerEvents: 'none'}}>Kim Huynh Portfolio</div>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>  
           </div>
-          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project3/mockup.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+          <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
             <div className="project-year">2025</div>
-            <Link to="/projects/jam-music-app" className="project-title" onClick={() => soundManager.playClick()}>Jams Music App</Link>
+            <div className="project-title" style={{pointerEvents: 'none'}}>Jams Music App</div>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project4/mockup.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+          <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
             <div className="project-year">2025</div>
-            <Link to="/projects/playpal-newsletter" className="project-title" onClick={() => soundManager.playClick()}>PlayPal Newsletter</Link>
+            <div className="project-title" style={{pointerEvents: 'none'}}>PlayPal Newsletter</div>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
               <div className="project-stack-html">html</div>
             </div>
           </div>
-          <div className="project-item">
+          <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
             <div className="project-year">2025</div>
-            <div className="project-title">My Portfolio</div>
+            <div className="project-title" style={{pointerEvents: 'none'}}>My Portfolio</div>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
               <div className="project-stack-figma">figma</div>
@@ -112,11 +112,11 @@ const Projects = () => {
             <p>Online at</p>
             <div className="footer-icons">
               <div className="footer-icons-flex">
-                <AnimatedSocialIcon href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="Email" href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
               </div>
             </div>
           </div>

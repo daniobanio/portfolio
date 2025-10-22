@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import soundManager from '../utils/soundManager';
 
-const AnimatedNavItem = ({ to, children, className, registerNavElement, path, isActive }) => {
+const AnimatedNavItem = ({ to, children, className, registerNavElement, path, isActive, disabled = false }) => {
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
   const key = path || to;
 
   const handleMouseEnter = () => {
+    if (disabled) return;
     soundManager.playHover();
     gsap.to(navRef.current, {
       opacity: 1,
@@ -29,6 +30,7 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
   };
 
   const handleMouseLeave = () => {
+    if (disabled) return;
     const leaveToOpacity = isActive && key ? (isActive(key) ? 1 : 0.6) : 0.6;
     gsap.to(navRef.current, {
       opacity: leaveToOpacity,
@@ -39,18 +41,29 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
     });
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
     soundManager.playClick();
   };
+
+  const disabledClass = disabled ? (className ? `${className} disabled` : 'disabled') : className;
 
   return (
     <Link
       to={to || '#'}
-      className={className}
+      className={disabledClass}
       ref={navRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
+      aria-disabled={disabled}
+      style={disabled ? { 
+        opacity: 0.5,
+        pointerEvents: 'auto'
+      } : {}}
     >
       {children}
     </Link>
