@@ -87,8 +87,8 @@
      justify-content: space-between;
      align-items: center;
 
-     font-family: Klavika Basic, sans-serif;
-     font-weight: 500;
+     font-family: "klavika-web", sans-serif;
+     font-weight: 600;
     color: var(--white);
 
      border-bottom: 2px solid var(--mid-gray);
@@ -108,8 +108,8 @@
      margin-top: 15px;
 
      text-transform: uppercase;
-     font-family: Klavika Basic, sans-serif;
-     font-weight: 500;
+     font-family: "klavika-web", sans-serif;
+     font-weight: 600;
      font-size: 1.75rem;
      color: var(--white);
 
@@ -174,7 +174,7 @@
 
     //  background-color: var(--main-gray);
      border: 2px solid var(--mid-gray);
-     font-family: 'Pixelify Sans', Pixelify-Sans, sans-serif;
+     font-family: 'Pixelify Sans', pixelify-sans, sans-serif;
      font-weight: 400;
    }
    .hero-img {
@@ -391,9 +391,9 @@
      width: 96%;
      margin: 0 auto;
 
-     font-family: Klavika Basic, sans-serif;
+     font-family: "klavika-web", sans-serif;
      font-size: 1.5rem;
-     font-weight: 300;
+     font-weight: 400;
      line-height: 1.75;
      color: var(--white);
      text-shadow: 1.5px 1.5px 0px rgba(0, 0, 0, 0.25);
@@ -424,9 +424,9 @@
     margin-left: 10px;
    }
    .btn-filled {
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--main-gray);
     
     padding: 5px 10px;
@@ -443,8 +443,8 @@
     padding: 10px;
     cursor: pointer;
   
-    font-family: Klavika Basic, sans-serif;
-    font-weight: 500;
+    font-family: "klavika-web", sans-serif;
+    font-weight: 600;
     font-size: 1.5rem;
     color: var(--light-gray);
     background-color: var(--mid-gray);
@@ -462,8 +462,8 @@
     padding: 0.5vw 2vw;
     cursor: pointer;
   
-    font-family: Klavika Basic, sans-serif;
-    font-weight: 500;
+    font-family: "klavika-web", sans-serif;
+    font-weight: 600;
     font-size: 1.1rem;
     color: var(--light-gray);
     background-color: var(--mid-gray);
@@ -483,7 +483,7 @@
 
     background: linear-gradient(180deg, var(--section-bg) 95%, var(--mid-gray) 0%);
     border: 2px solid var(--mid-gray);
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     
   }
   .featured-section h1 {
@@ -568,7 +568,7 @@
   }
 
   .msg-section {
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     font-size: 1.25rem;
     color: var(--white);
   }
@@ -631,7 +631,7 @@
   .footer {
     display: flex;
     align-items: center;
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     color: var(--white);
     height: 75px;
     padding: 20px 0;
@@ -696,7 +696,7 @@
 
     background: linear-gradient(180deg, var(--section-bg) 98%, var(--mid-gray) 0%);
     border: 2px solid var(--mid-gray);
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
   }
   .about-title {
     width: 100%;
@@ -749,9 +749,9 @@
     width: 96%;
     margin: 0 auto;
 
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     font-size: 1.5rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.5;
     color: var(--white);
     text-shadow: 1.5px 1.5px 0px rgba(0, 0, 0, 0.25);
@@ -792,8 +792,8 @@
   }
 
 .grid-item.youtube h1, .grid-item.youtube p, .grid-item.photography h1, .grid-item.photography p {
-    font-family: Klavika Basic, sans-serif;
-    font-weight: 500;
+    font-family: "klavika-web", sans-serif;
+    font-weight: 600;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   }
   .grid-item h1 {
@@ -901,7 +901,7 @@
     height: 50px;
     z-index: 3;
     color: var(--main-gray);
-    font-family: 'Pixelify Sans', Pixelify-Sans, sans-serif;
+    font-family: 'Pixelify Sans', pixelify-sans, sans-serif;
     font-size: 1.1rem;
   }
   .tech-bubble {
@@ -994,7 +994,7 @@
     gap: 20px;
   
     padding: 20px;
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     font-size: 1.75rem;
     font-weight: 400;
     color: var(--white);
@@ -1005,7 +1005,7 @@
   .project-stack {
     display: flex;
     gap: 7.5px;
-    font-family: Pixelify-Sans;
+    font-family: 'Pixelify Sans', pixelify-sans, sans-serif;
     font-size: 1rem;
     color: var(--main-gray);
     justify-self: end;
@@ -1050,7 +1050,7 @@
     justify-content: space-between;
     margin: 50px auto 0 auto;
     width: 96%;
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     color: var(--white);
     /* border: 1px solid blue; */
   }
@@ -1123,7 +1123,7 @@
     width: 96%;
     margin: 0 auto;
 
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     color: var(--white);
   }
   .project-content hr {
@@ -1219,9 +1219,9 @@
     gap: 10px;
   }
   .project-img h1 {
-    font-family: Pixelify-Sans;
+    font-family: 'Pixelify Sans', pixelify-sans, sans-serif;
     font-size: 1.75rem;
-    font-weight: 100;
+    font-weight: 400;
     margin-bottom: 25px;
   }
   .project-img img {
@@ -1248,8 +1248,8 @@
   .project-navigation a {
     color: var(--white);
     text-decoration: none;
-    font-family: Klavika Basic, sans-serif;
-    font-weight: 300;
+    font-family: "klavika-web", sans-serif;
+    font-weight: 400;
     font-size: 1.1rem;
   }
   .project-navigation a:hover {
@@ -1288,7 +1288,7 @@
     left: 1120px; /* default; overridden inline for responsiveness */
     z-index: 50;
     padding: 6px 10px;
-    font-family: Klavika Basic, sans-serif;
+    font-family: "klavika-web", sans-serif;
     font-size: 0.95rem;
     color: var(--white);
     background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, var(--main-gray) 20%);
@@ -1346,8 +1346,8 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
   text-align: center;
   padding: 10px;
   cursor: pointer;
-  font-family: Klavika Basic, sans-serif;
-  font-weight: 500;
+  font-family: "klavika-web", sans-serif;
+  font-weight: 600;
   font-size: 1.5rem;
   color: var(--light-gray) !important;
   background-color: var(--mid-gray);
@@ -1364,8 +1364,8 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
   text-align: center;
   padding: 5px 15px;
   cursor: pointer;
-  font-family: Klavika Basic, sans-serif;
-  font-weight: 500;
+  font-family: "klavika-web", sans-serif;
+  font-weight: 600;
   font-size: 1.1rem;
   color: var(--light-gray);
   background-color: var(--mid-gray);
@@ -1410,7 +1410,7 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
 }
 
 .project-navigation p, .project-navigation a {
-  font-family: 'Klavika Basic', sans-serif;
+  font-family: '"klavika-web"', sans-serif;
 }
 
 .top-bar-title {
