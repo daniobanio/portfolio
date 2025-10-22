@@ -363,11 +363,17 @@
     align-items: center;
     gap: 5px;
    }
-   .fame-up-btn, .fame-down-btn {
-    display: flex;
-    background-color: var(--fame-btn);
-   }
-   .online-label-flex {
+    .fame-up-btn, .fame-down-btn {
+     display: flex;
+     background-color: var(--fame-btn);
+     transition: all 0.1s ease-in
+
+    }
+    .fame-up-btn:hover, .fame-down-btn:hover {
+    transform: translateY(-2px);
+     box-shadow: 0px 3px 0px  rgba(0, 0, 0, 0.5);
+    }
+    .online-label-flex {
     margin-right: 10px;
     display: flex;
     align-items: center;

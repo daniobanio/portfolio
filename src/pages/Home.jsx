@@ -5,10 +5,12 @@ import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
+import { useFameCounter } from '../hooks/useFameCounter';
 import DotGrid from '../components/DotGrid';
 
 const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
+  const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -92,15 +94,31 @@ const Home = () => {
                 <div className="hero-label">
                   <p className="hero-label-left">Fame
                     <div className="fame-btn">
-                      <div className="fame-up-btn">
-                        <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: 'var(--white)'}}></iconify-icon>
+                      <div 
+                        className={`fame-up-btn ${userVote === 'up' ? 'active' : ''}`}
+                        onClick={upvote}
+                        role="button"
+                        tabIndex={0}
+                        onKeyPress={(e) => e.key === 'Enter' && upvote()}
+                        aria-label="Upvote fame"
+                        title={userVote === 'up' ? 'You upvoted' : 'Upvote'}
+                      >
+                        <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: userVote === 'up' ? 'var(--yellow)' : 'var(--white)'}}></iconify-icon>
                       </div>
-                      <div className="fame-down-btn">
-                        <iconify-icon icon="mingcute:down-fill" width="24" height="24" style={{color: 'var(--white)'}}></iconify-icon>
+                      <div 
+                        className={`fame-down-btn ${userVote === 'down' ? 'active' : ''}`}
+                        onClick={downvote}
+                        role="button"
+                        tabIndex={0}
+                        onKeyPress={(e) => e.key === 'Enter' && downvote()}
+                        aria-label="Downvote fame"
+                        title={userVote === 'down' ? 'You downvoted' : 'Downvote'}
+                      >
+                        <iconify-icon icon="mingcute:down-fill" width="24" height="24" style={{color: userVote === 'down' ? 'var(--yellow)' : 'var(--white)'}}></iconify-icon>
                       </div>
                     </div>
                   </p>
-                  <p className="hero-label-right">67</p>
+                  <p className="hero-label-right">{isLoading ? '...' : fame}</p>
                 </div>
               </div>
               <div className="hero-center-column">
