@@ -1,107 +1,68 @@
 import { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import { ref, onValue, runTransaction } from 'firebase/database';
+import { database } from '../firebase';
 import soundManager from '../utils/soundManager';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-
-let socket = null;
+const FAME_REF = ref(database, 'fame');
+const USER_VOTE_KEY = 'userFameVote';
 
 export const useFameCounter = () => {
-  const [fame, setFame] = useState(67); // Default to 67 while loading
-  const [userVote, setUserVote] = useState(null); // 'up', 'down', or null
+  const [fame, setFame] = useState(0);
+  const [userVote, setUserVote] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Initialize socket connection
-    if (!socket) {
-      socket = io(API_URL, {
-        transports: ['websocket', 'polling'],
-        reconnection: true,
-        reconnectionDelay: 1000,
-        reconnectionAttempts: 5
-      });
+    // Get user's vote from localStorage
+    const savedVote = localStorage.getItem(USER_VOTE_KEY);
+    if (savedVote) setUserVote(savedVote);
 
-      socket.on('connect', () => {
-        console.log('Connected to fame server');
-      });
+    // Listen to fame count changes in real-time
+    const unsubscribe = onValue(FAME_REF, (snapshot) => {
+      const value = snapshot.val() || 0;
+      setFame(value);
+      setIsLoading(false);
+    });
 
-      socket.on('connect_error', (err) => {
-        console.error('Connection error:', err);
-        setError('Unable to connect to server');
-      });
-    }
-
-    // Fetch initial fame data
-    const fetchFameData = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/fame`);
-        if (!response.ok) throw new Error('Failed to fetch fame data');
-        const data = await response.json();
-        setFame(data.fame);
-        setUserVote(data.userVote);
-        setIsLoading(false);
-      } catch (err) {
-        console.error('Error fetching fame data:', err);
-        setError('Failed to load fame data');
-        setIsLoading(false);
-      }
-    };
-
-    fetchFameData();
-
-    // Listen for fame updates
-    const handleFameUpdate = (data) => {
-      setFame(data.fame);
-    };
-
-    socket.on('fameUpdate', handleFameUpdate);
-
-    // Cleanup
-    return () => {
-      if (socket) {
-        socket.off('fameUpdate', handleFameUpdate);
-        // Don't disconnect socket, keep it alive for the session
-      }
-    };
+    return () => unsubscribe();
   }, []);
 
   const vote = async (voteType) => {
     if (isLoading) return;
 
-    // Check if this is an unvote (clicking the same vote button again)
     const isUnvoting = userVote === voteType;
     
+    // Play sounds
     if (isUnvoting) {
-      // Play click sound for unvoting
       soundManager.playClick();
     } else {
-      // Play appropriate vote sound for voting
-      if (voteType === 'up') {
-        soundManager.playUpvote();
-      } else if (voteType === 'down') {
-        soundManager.playDownvote();
-      }
+      voteType === 'up' ? soundManager.playUpvote() : soundManager.playDownvote();
     }
 
-    try {
-      const response = await fetch(`${API_URL}/api/fame/vote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ vote: voteType }),
-      });
+    // Update Firebase atomically
+    await runTransaction(FAME_REF, (currentFame) => {
+      const current = currentFame || 0;
+      
+      if (isUnvoting) {
+        // Remove vote
+        const newFame = userVote === 'up' ? current - 1 : current + 1;
+        return newFame;
+      } else {
+        // Change or add vote
+        let newFame = current;
+        if (userVote === 'up') newFame -= 1;
+        if (userVote === 'down') newFame += 1;
+        newFame += voteType === 'up' ? 1 : -1;
+        return newFame;
+      }
+    });
 
-      if (!response.ok) throw new Error('Failed to vote');
-
-      const data = await response.json();
-      setFame(data.fame);
-      setUserVote(data.userVote);
-      setError(null);
-    } catch (err) {
-      console.error('Error voting:', err);
-      setError('Failed to submit vote');
+    // Update local state
+    const newVote = isUnvoting ? null : voteType;
+    setUserVote(newVote);
+    if (newVote) {
+      localStorage.setItem(USER_VOTE_KEY, newVote);
+    } else {
+      localStorage.removeItem(USER_VOTE_KEY);
     }
   };
 
@@ -112,9 +73,8 @@ export const useFameCounter = () => {
     fame,
     userVote,
     isLoading,
-    error,
+    error: null,
     upvote,
     downvote,
   };
 };
-
