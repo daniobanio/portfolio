@@ -4,7 +4,7 @@ import { Howl } from 'howler';
 const sounds = {
   click: new Howl({
     src: ['/sounds/msClick.mp3'],
-    volume: 0.5,
+    volume: 0.45,
     preload: true
   }),
   hover: new Howl({
@@ -14,7 +14,7 @@ const sounds = {
   }),
   upvote: new Howl({
     src: ['/sounds/sfxUpvote.mp3'],
-    volume: 0.4,
+    volume: 0.9,
     preload: true
   }),
   downvote: new Howl({
@@ -24,12 +24,12 @@ const sounds = {
   }),
   jump: new Howl({
     src: ['/sounds/msJump.mp3'],
-    volume: 0.5,
+    volume: 0.3,
     preload: true
   }),
   message: new Howl({
     src: ['/sounds/sfxMsg.mp3'],
-    volume: 0.4,
+    volume: 0.2,
     preload: true
   })
 };
