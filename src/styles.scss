@@ -198,6 +198,7 @@
      flex-direction: column;
      align-items: center;
      text-align: center;
+     z-index: 1;
    }
    .hero-center-lvl {
      background-color: var(--hero-gray);
@@ -207,6 +208,8 @@
      padding: 10px 20px;
      border-radius: 0 0 15px 15px;
      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+     position: relative;
+     z-index: 2;
    }
    .hero-char-container {
     position: relative;
@@ -215,6 +218,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    will-change: transform;
    }
    .chat-bubble-text {
     position: absolute;
@@ -225,6 +230,7 @@
     padding: 5px;
     text-align: left;
     font-size: 1.1rem;
+    white-space: pre-line;
    }
    .chat-bubble-container {
     position: relative;
@@ -238,8 +244,8 @@
    .hero-center-char {
      image-rendering: pixelated;
      image-rendering: crisp-edges; /* fallback for some browsers */
-     width: 99px;
-     height: auto;
+     height: 151px;
+     width: auto;
    }
    .hero-center-nametag {
     position: relative;
@@ -265,6 +271,8 @@
      display: flex;
      justify-content: space-between;
      align-items: end;
+     position: relative;
+     z-index: 2;
    }
    .hero-left-column,
    .hero-right-column {
@@ -273,6 +281,8 @@
      gap: 5px;
      width: 275px;
      text-wrap: nowrap;
+     position: relative;
+     z-index: 2;
    }
    .hero-left-column p,
    .hero-right-column p {

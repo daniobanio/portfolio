@@ -68,7 +68,7 @@ const About = () => {
                   <p className="tech-bubble-text">my tech stack!</p>
                   <img className="tech-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
                 </div>
-                <img className="tech-stack-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
+                <img className="tech-stack-char" src="/imgs/character/standing.gif" alt="Pixel art character representing Daniel" />
                 <iconify-icon class="react-tech" icon="devicon:react" width="64" height="64"></iconify-icon>
                 <iconify-icon class="js-tech" icon="logos:javascript" width="64" height="64"></iconify-icon>
                 <iconify-icon class="threejs-tech" icon="devicon:threejs-wordmark" width="64" height="64"></iconify-icon>

@@ -13,7 +13,7 @@ const AnimatedNavItem = ({ to, children, className, registerNavElement, path, is
     if (navRef.current) {
       gsap.set(navRef.current, { willChange: 'opacity, color' });
     }
-  }, [registerNavElement, path, to]);
+  }, []);
 
   const key = path || to;
 

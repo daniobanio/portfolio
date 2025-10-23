@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
@@ -7,13 +7,16 @@ import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import { useFameCounter } from '../hooks/useFameCounter';
 import { useSpeechBubble } from '../hooks/useSpeechBubble';
+import { useCharacterMovement } from '../hooks/useCharacterMovement';
 import DotGrid from '../components/DotGrid';
 import soundManager from '../utils/soundManager';
 
 const Home = () => {
+  const heroContainerRef = useRef(null);
   const { registerNavElement, isActive } = useNavigation();
   const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
-  const { message, isVisible, animationKey, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd } = useSpeechBubble();
+  const { message, isVisible, animationKey, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved } = useSpeechBubble();
+  const { position, direction, characterImage } = useCharacterMovement(heroContainerRef, handleCharacterMoved);
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -113,7 +116,7 @@ const Home = () => {
       <div className="main-content">
         <div className="hero-section">
           <DotGrid className="hero-img" />
-          <div className="hero-container">
+          <div className="hero-container" ref={heroContainerRef}>
             <div className="hero-labels-container">
               <div className="hero-left-column">
                 <div className="hero-label">
@@ -172,15 +175,37 @@ const Home = () => {
               </div>
               <div className="hero-center-column">
                 <p className="hero-center-lvl">Front-end Web Developer</p>
-                <div className="hero-char-container">
-                  {isVisible && (
-                    <div key={animationKey} className="chat-bubble-container">
-                      <p className="chat-bubble-text">{message}</p>
-                      <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
-                    </div>
-                  )}
-                  <img className="hero-center-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
-                  <p className="hero-center-nametag" aria-label="Name tag displaying Daniel Trinh">
+                <div 
+                  className="hero-char-container" 
+                  style={{
+                    transform: `translate(${position.x}px, ${position.y}px)`,
+                    transition: 'none'
+                  }}
+                >
+                  <div 
+                    key={animationKey} 
+                    className="chat-bubble-container"
+                    style={{
+                      opacity: isVisible ? 1 : 0,
+                      pointerEvents: isVisible ? 'auto' : 'none',
+                      transition: isVisible ? 'none' : 'opacity 0.3s ease-out'
+                    }}
+                  >
+                    <p className="chat-bubble-text">{message}</p>
+                    <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
+                  </div>
+                  <img 
+                    className="hero-center-char" 
+                    src={characterImage} 
+                    alt="Pixel art character representing Daniel"
+                    style={{
+                      transform: `scaleX(${direction === 'right' ? -1 : 1})`
+                    }}
+                  />
+                  <p 
+                    className="hero-center-nametag" 
+                    aria-label="Name tag displaying Daniel Trinh"
+                  >
                     <img className="dt-logo" src="/imgs/dt-logo.png" alt="DT Logo" />DanielTrinh
                   </p>
                 </div>
