@@ -24,7 +24,7 @@ const sounds = {
   }),
   jump: new Howl({
     src: ['/sounds/msJump.mp3'],
-    volume: 0.3,
+    volume: 0.2,
     preload: true
   }),
   message: new Howl({

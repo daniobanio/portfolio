@@ -3,7 +3,7 @@ import soundManager from '../utils/soundManager';
 
 const MOVEMENT_SPEED = 2;
 const JUMP_STRENGTH = 10;
-const GRAVITY = 0.2;
+const GRAVITY = 0.3;
 const GROUND_Y = 0;
 
 export const useCharacterMovement = (containerRef, onFirstMove) => {
