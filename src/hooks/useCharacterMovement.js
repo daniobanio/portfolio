@@ -14,6 +14,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
   
   const keysPressed = useRef(new Set());
   const velocityY = useRef(0);
+  const isJumpingRef = useRef(false);
   const animationFrameRef = useRef(null);
   const boundariesRef = useRef({ left: 0, right: 0 });
   const hasMovedRef = useRef(false);
@@ -68,10 +69,11 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
           onFirstMove();
         }
 
-        // Handle jump (W key)
-        if (key === 'w' && !isJumping) {
-          setIsJumping(true);
+        // Handle jump (W key) - Use ref for immediate response
+        if (key === 'w' && !isJumpingRef.current) {
+          isJumpingRef.current = true;
           velocityY.current = -JUMP_STRENGTH;
+          setIsJumping(true);
           setAnimationState('jumping');
           soundManager.playJump();
         }
@@ -92,7 +94,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [isJumping, onFirstMove]);
+  }, [onFirstMove]);
 
   // Game loop for movement and physics
   useEffect(() => {
@@ -111,19 +113,19 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         if (isMovingLeft && !isMovingRight && !isProne) {
           newX -= MOVEMENT_SPEED;
           newDirection = 'left';
-          if (!isJumping) {
+          if (!isJumpingRef.current) {
             newAnimationState = 'walking';
           }
         } else if (isMovingRight && !isMovingLeft && !isProne) {
           newX += MOVEMENT_SPEED;
           newDirection = 'right';
-          if (!isJumping) {
+          if (!isJumpingRef.current) {
             newAnimationState = 'walking';
           }
-        } else if (isProne && !isJumping) {
+        } else if (isProne && !isJumpingRef.current) {
           // Prone state (holding S)
           newAnimationState = 'prone';
-        } else if (!isJumping && !isProne) {
+        } else if (!isJumpingRef.current && !isProne) {
           // Standing still
           newAnimationState = 'standing';
         }
@@ -132,7 +134,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         newX = Math.max(boundariesRef.current.left, Math.min(newX, boundariesRef.current.right));
 
         // Jump physics
-        if (isJumping) {
+        if (isJumpingRef.current) {
           velocityY.current += GRAVITY;
           newY += velocityY.current;
 
@@ -140,6 +142,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
           if (newY >= GROUND_Y) {
             newY = GROUND_Y;
             velocityY.current = 0;
+            isJumpingRef.current = false;
             setIsJumping(false);
             
             // Return to appropriate state after landing
@@ -176,7 +179,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [direction, animationState, isJumping]);
+  }, [direction, animationState]);
 
   return {
     position,
