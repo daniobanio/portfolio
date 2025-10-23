@@ -1,23 +1,40 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import soundManager from '../utils/soundManager';
 
-const MOVEMENT_SPEED = 2;
-const JUMP_STRENGTH = 10;
-const GRAVITY = 0.3;
+// Physics constants defined per-frame at 60 FPS (intuitive values)
+const PHYSICS_FRAME_RATE = 60;
+const MOVEMENT_SPEED_PER_FRAME = 4; // pixels per frame
+const JUMP_VELOCITY_PER_FRAME = 15.5; // pixels per frame (initial upward velocity)
+const GRAVITY_PER_FRAME = 60; // pixels per frame per frame (downward acceleration)
 const GROUND_Y = 0;
 
+// Convert to per-second for delta time scaling
+const MOVEMENT_SPEED = MOVEMENT_SPEED_PER_FRAME * PHYSICS_FRAME_RATE;
+const JUMP_STRENGTH = JUMP_VELOCITY_PER_FRAME * PHYSICS_FRAME_RATE;
+const GRAVITY = GRAVITY_PER_FRAME * PHYSICS_FRAME_RATE;
+
+// Delta time clamping
+const MIN_DELTA = 0.001; // 1ms - prevent division issues
+const MAX_DELTA = 0.1; // 100ms - prevent huge jumps when tab regains focus
+
 export const useCharacterMovement = (containerRef, onFirstMove) => {
-  const [position, setPosition] = useState({ x: 0, y: GROUND_Y });
-  const [direction, setDirection] = useState('left'); // 'left' or 'right'
-  const [animationState, setAnimationState] = useState('standing'); // 'standing', 'walking', 'jumping', 'prone'
-  const [isJumping, setIsJumping] = useState(false);
+  const [characterImage, setCharacterImage] = useState('/imgs/character/standing.gif');
   
-  const keysPressed = useRef(new Set());
+  // Physics state in refs (no re-renders)
+  const positionRef = useRef({ x: 0, y: GROUND_Y });
   const velocityY = useRef(0);
+  const directionRef = useRef('left');
+  const animationStateRef = useRef('standing');
   const isJumpingRef = useRef(false);
+  
+  // Control and timing refs
+  const keysPressed = useRef(new Set());
   const animationFrameRef = useRef(null);
+  const lastTimeRef = useRef(0);
   const boundariesRef = useRef({ left: 0, right: 0 });
   const hasMovedRef = useRef(false);
+  const containerElementRef = useRef(null);
+  const characterImageRef = useRef(null);
 
   // Calculate boundaries based on container
   const updateBoundaries = useCallback(() => {
@@ -40,20 +57,30 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
     return () => window.removeEventListener('resize', updateBoundaries);
   }, [updateBoundaries]);
 
-  // Get current character image based on state
-  const getCharacterImage = useCallback(() => {
-    switch (animationState) {
+  // Update animation state and character image (only re-renders when image changes)
+  const updateAnimationState = useCallback((newState) => {
+    if (animationStateRef.current === newState) return;
+    
+    animationStateRef.current = newState;
+    
+    let newImage;
+    switch (newState) {
       case 'jumping':
-        return '/imgs/character/jump.png';
+        newImage = '/imgs/character/jump.png';
+        break;
       case 'prone':
-        return '/imgs/character/prone.png';
+        newImage = '/imgs/character/prone.png';
+        break;
       case 'walking':
-        return '/imgs/character/walking.gif';
+        newImage = '/imgs/character/walking.gif';
+        break;
       case 'standing':
       default:
-        return '/imgs/character/standing.gif';
+        newImage = '/imgs/character/standing.gif';
     }
-  }, [animationState]);
+    
+    setCharacterImage(newImage);
+  }, []);
 
   // Handle keyboard input
   useEffect(() => {
@@ -73,8 +100,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         if (key === 'w' && !isJumpingRef.current) {
           isJumpingRef.current = true;
           velocityY.current = -JUMP_STRENGTH;
-          setIsJumping(true);
-          setAnimationState('jumping');
+          updateAnimationState('jumping');
           soundManager.playJump();
         }
       }
@@ -94,80 +120,87 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [onFirstMove]);
+  }, [onFirstMove, updateAnimationState]);
 
-  // Game loop for movement and physics
+  // High-performance game loop - updates refs and DOM directly
   useEffect(() => {
-    const gameLoop = () => {
-      setPosition((prev) => {
-        let newX = prev.x;
-        let newY = prev.y;
-        let newDirection = direction;
-        let newAnimationState = animationState;
+    const gameLoop = (currentTime) => {
+      // Calculate delta time in seconds
+      if (lastTimeRef.current === 0) {
+        lastTimeRef.current = currentTime;
+      }
+      const deltaMs = currentTime - lastTimeRef.current;
+      lastTimeRef.current = currentTime;
+      
+      // Convert to seconds and clamp to prevent huge jumps
+      const deltaTime = Math.max(MIN_DELTA, Math.min(deltaMs / 1000, MAX_DELTA));
 
-        // Horizontal movement (A and D keys)
-        const isMovingLeft = keysPressed.current.has('a');
-        const isMovingRight = keysPressed.current.has('d');
-        const isProne = keysPressed.current.has('s');
+      // Get current position from ref
+      const pos = positionRef.current;
+      let newX = pos.x;
+      let newY = pos.y;
 
-        if (isMovingLeft && !isMovingRight && !isProne) {
-          newX -= MOVEMENT_SPEED;
-          newDirection = 'left';
-          if (!isJumpingRef.current) {
-            newAnimationState = 'walking';
+      // Check key states
+      const isMovingLeft = keysPressed.current.has('a');
+      const isMovingRight = keysPressed.current.has('d');
+      const isProne = keysPressed.current.has('s');
+
+      // Horizontal movement - pixels per second scaled by delta
+      if (isMovingLeft && !isMovingRight && !isProne) {
+        newX -= MOVEMENT_SPEED * deltaTime;
+        directionRef.current = 'left';
+        if (!isJumpingRef.current) {
+          updateAnimationState('walking');
+        }
+      } else if (isMovingRight && !isMovingLeft && !isProne) {
+        newX += MOVEMENT_SPEED * deltaTime;
+        directionRef.current = 'right';
+        if (!isJumpingRef.current) {
+          updateAnimationState('walking');
+        }
+      } else if (isProne && !isJumpingRef.current) {
+        updateAnimationState('prone');
+      } else if (!isJumpingRef.current && !isProne) {
+        updateAnimationState('standing');
+      }
+
+      // Apply boundaries
+      newX = Math.max(boundariesRef.current.left, Math.min(newX, boundariesRef.current.right));
+
+      // Jump physics - gravity in pixels per second squared
+      if (isJumpingRef.current) {
+        velocityY.current += GRAVITY * deltaTime;
+        newY += velocityY.current * deltaTime;
+
+        // Land on ground
+        if (newY >= GROUND_Y) {
+          newY = GROUND_Y;
+          velocityY.current = 0;
+          isJumpingRef.current = false;
+          
+          // Return to appropriate state after landing
+          if (isProne) {
+            updateAnimationState('prone');
+          } else if (isMovingLeft || isMovingRight) {
+            updateAnimationState('walking');
+          } else {
+            updateAnimationState('standing');
           }
-        } else if (isMovingRight && !isMovingLeft && !isProne) {
-          newX += MOVEMENT_SPEED;
-          newDirection = 'right';
-          if (!isJumpingRef.current) {
-            newAnimationState = 'walking';
-          }
-        } else if (isProne && !isJumpingRef.current) {
-          // Prone state (holding S)
-          newAnimationState = 'prone';
-        } else if (!isJumpingRef.current && !isProne) {
-          // Standing still
-          newAnimationState = 'standing';
         }
+      }
 
-        // Apply boundaries
-        newX = Math.max(boundariesRef.current.left, Math.min(newX, boundariesRef.current.right));
+      // Update position ref
+      positionRef.current = { x: newX, y: newY };
 
-        // Jump physics
-        if (isJumpingRef.current) {
-          velocityY.current += GRAVITY;
-          newY += velocityY.current;
-
-          // Land on ground
-          if (newY >= GROUND_Y) {
-            newY = GROUND_Y;
-            velocityY.current = 0;
-            isJumpingRef.current = false;
-            setIsJumping(false);
-            
-            // Return to appropriate state after landing
-            if (keysPressed.current.has('s')) {
-              newAnimationState = 'prone';
-            } else if (keysPressed.current.has('a') || keysPressed.current.has('d')) {
-              newAnimationState = 'walking';
-            } else {
-              newAnimationState = 'standing';
-            }
-          }
-        }
-
-        // Update direction if changed
-        if (newDirection !== direction) {
-          setDirection(newDirection);
-        }
-
-        // Update animation state if changed
-        if (newAnimationState !== animationState) {
-          setAnimationState(newAnimationState);
-        }
-
-        return { x: newX, y: newY };
-      });
+      // Directly update DOM - separate position and direction transforms
+      if (containerElementRef.current) {
+        containerElementRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+      }
+      
+      if (characterImageRef.current) {
+        const scaleX = directionRef.current === 'right' ? -1 : 1;
+        characterImageRef.current.style.transform = `scaleX(${scaleX})`;
+      }
 
       animationFrameRef.current = requestAnimationFrame(gameLoop);
     };
@@ -179,13 +212,23 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [direction, animationState]);
+  }, [updateAnimationState]);
+
+  // Ref callbacks for container and character image
+  const setContainerElement = useCallback((element) => {
+    containerElementRef.current = element;
+  }, []);
+
+  const setCharacterImageElement = useCallback((element) => {
+    characterImageRef.current = element;
+  }, []);
 
   return {
-    position,
-    direction,
-    characterImage: getCharacterImage(),
-    animationState
+    containerRef: setContainerElement,
+    characterRef: setCharacterImageElement,
+    characterImage,
+    directionRef,
+    positionRef
   };
 };
 

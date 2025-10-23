@@ -16,7 +16,7 @@ const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
   const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
   const { message, isVisible, animationKey, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved } = useSpeechBubble();
-  const { position, direction, characterImage } = useCharacterMovement(heroContainerRef, handleCharacterMoved);
+  const { containerRef, characterRef, characterImage } = useCharacterMovement(heroContainerRef, handleCharacterMoved);
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -176,11 +176,8 @@ const Home = () => {
               <div className="hero-center-column">
                 <p className="hero-center-lvl">Front-end Web Developer</p>
                 <div 
-                  className="hero-char-container" 
-                  style={{
-                    transform: `translate(${position.x}px, ${position.y}px)`,
-                    transition: 'none'
-                  }}
+                  ref={containerRef}
+                  className="hero-char-container"
                 >
                   <div 
                     key={animationKey} 
@@ -195,12 +192,10 @@ const Home = () => {
                     <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
                   </div>
                   <img 
+                    ref={characterRef}
                     className="hero-center-char" 
                     src={characterImage} 
                     alt="Pixel art character representing Daniel"
-                    style={{
-                      transform: `scaleX(${direction === 'right' ? -1 : 1})`
-                    }}
                   />
                   <p 
                     className="hero-center-nametag" 
