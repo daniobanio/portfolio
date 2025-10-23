@@ -13,7 +13,7 @@ import soundManager from '../utils/soundManager';
 const Home = () => {
   const { registerNavElement, isActive } = useNavigation();
   const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
-  const { message, isVisible, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd } = useSpeechBubble();
+  const { message, isVisible, animationKey, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd } = useSpeechBubble();
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -174,10 +174,10 @@ const Home = () => {
                 <p className="hero-center-lvl">Front-end Web Developer</p>
                 <div className="hero-char-container">
                   {isVisible && (
-                    <>
+                    <div key={animationKey} className="chat-bubble-container">
                       <p className="chat-bubble-text">{message}</p>
                       <img className="chat-bubble" src="/imgs/chatbubble.png" alt="Chat Bubble" />
-                    </>
+                    </div>
                   )}
                   <img className="hero-center-char" src="/imgs/character.png" alt="Pixel art character representing Daniel" />
                   <p className="hero-center-nametag" aria-label="Name tag displaying Daniel Trinh">

@@ -4,7 +4,7 @@ import soundManager from '../utils/soundManager';
 const MESSAGES = {
   WELCOME: 'Welcome to my site!',
   DEFAULT: 'I am looking for internships!',
-  UPVOTE: 'Thank you for visiting!',
+  UPVOTE: 'Thank you for enjoying!',
   DOWNVOTE: 'Thank you. I will work hard!',
   ABOUT: 'Learn about me & my journey!',
   PROJECTS: 'Check out the work I\'ve done!',
@@ -14,9 +14,12 @@ const MESSAGES = {
 export const useSpeechBubble = () => {
   const [message, setMessage] = useState('');
   const [isVisible, setIsVisible] = useState(true);
+  const [animationKey, setAnimationKey] = useState(0);
   const timeoutRef = useRef(null);
   const revertTimeoutRef = useRef(null);
   const isHoveringRef = useRef(false);
+  const hasUserInteractedRef = useRef(false);
+  const interactionTimeoutRef = useRef(null);
 
   // Clear any pending timeouts
   const clearTimeouts = useCallback(() => {
@@ -28,11 +31,16 @@ export const useSpeechBubble = () => {
       clearTimeout(revertTimeoutRef.current);
       revertTimeoutRef.current = null;
     }
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+      interactionTimeoutRef.current = null;
+    }
   }, []);
 
   // Update message and play sound
   const updateMessage = useCallback((newMessage, playSound = true) => {
     setMessage(newMessage);
+    setAnimationKey(prev => prev + 1);
     if (playSound) {
       soundManager.playMessage();
     }
@@ -50,12 +58,37 @@ export const useSpeechBubble = () => {
     // Show welcome message immediately
     updateMessage(MESSAGES.WELCOME, false);
     
-    // Change to default message after 3 seconds
+    // Track user interactions (clicks, key presses, mouse movement, touch) for 3 seconds
+    const markUserInteraction = () => {
+      hasUserInteractedRef.current = true;
+    };
+
+    // Add event listeners for user interactions
+    window.addEventListener('click', markUserInteraction);
+    window.addEventListener('keydown', markUserInteraction);
+    window.addEventListener('mousemove', markUserInteraction);
+    window.addEventListener('touchstart', markUserInteraction);
+
+    // After 3 seconds, stop tracking interactions
+    interactionTimeoutRef.current = setTimeout(() => {
+      window.removeEventListener('click', markUserInteraction);
+      window.removeEventListener('keydown', markUserInteraction);
+      window.removeEventListener('mousemove', markUserInteraction);
+      window.removeEventListener('touchstart', markUserInteraction);
+    }, 3000);
+    
+    // Change to default message after 3 seconds, play sound if user interacted
     timeoutRef.current = setTimeout(() => {
-      updateMessage(MESSAGES.DEFAULT, false);
+      updateMessage(MESSAGES.DEFAULT, hasUserInteractedRef.current);
     }, 3000);
 
-    return () => clearTimeouts();
+    return () => {
+      clearTimeouts();
+      window.removeEventListener('click', markUserInteraction);
+      window.removeEventListener('keydown', markUserInteraction);
+      window.removeEventListener('mousemove', markUserInteraction);
+      window.removeEventListener('touchstart', markUserInteraction);
+    };
   }, [updateMessage, clearTimeouts]);
 
   // Handle vote messages
@@ -112,6 +145,7 @@ export const useSpeechBubble = () => {
   return {
     message,
     isVisible,
+    animationKey,
     handleUpvote,
     handleDownvote,
     handleNavHover,
