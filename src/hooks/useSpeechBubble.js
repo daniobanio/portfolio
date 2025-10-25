@@ -6,7 +6,6 @@ const MESSAGES = {
   MOVE_INSTRUCTION: 'Move me with\nW A S D!',
   FINAL: 'I am looking for internships!',
   UPVOTE: 'Thank you for enjoying!',
-  DOWNVOTE: 'Thank you. I will work hard!',
   ABOUT: 'Learn about me & my journey!',
   PROJECTS: 'Check out the work I\'ve done!',
   WIP: 'WIP'
@@ -95,10 +94,6 @@ export const useSpeechBubble = () => {
     showTemporaryMessage(MESSAGES.UPVOTE);
   }, [showTemporaryMessage]);
 
-  const handleDownvote = useCallback(() => {
-    showTemporaryMessage(MESSAGES.DOWNVOTE);
-  }, [showTemporaryMessage]);
-
   // Handle navigation hover
   const handleNavHover = useCallback((navType) => {
     const messageMap = {
@@ -125,7 +120,6 @@ export const useSpeechBubble = () => {
     isVisible,
     animationKey,
     handleUpvote,
-    handleDownvote,
     handleNavHover,
     handleNavHoverEnd,
     handleCharacterMoved

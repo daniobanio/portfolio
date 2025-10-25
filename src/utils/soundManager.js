@@ -17,11 +17,6 @@ const sounds = {
     volume: 0.9,
     preload: true
   }),
-  downvote: new Howl({
-    src: ['/sounds/sfxDownvote.mp3'],
-    volume: 0.4,
-    preload: true
-  }),
   jump: new Howl({
     src: ['/sounds/msJump.mp3'],
     volume: 0.2,
@@ -44,9 +39,6 @@ const soundManager = {
   },
   playUpvote: () => {
     sounds.upvote.play();
-  },
-  playDownvote: () => {
-    sounds.downvote.play();
   },
   playJump: () => {
     sounds.jump.play();

@@ -48,7 +48,7 @@
 
   /* Links and clickable elements */
   a, button, .btn-filled, .btn-big, .btn-small, 
-  .nav-container li, .project-item, .fame-up-btn, .fame-down-btn,
+  .nav-container li, .project-item, .fame-up-btn,
   .footer-icons-flex a, .online-label-flex a, 
   iconify-icon {
     cursor: url('/imgs/cursors/maplestory/point_click.png'), pointer !important;
@@ -376,22 +376,22 @@
    .fame-btn {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
    }
-    .fame-up-btn, .fame-down-btn {
+   .fame-up-btn {
      display: flex;
      background-color: var(--fame-btn);
-     transition: all 0.1s ease-in
-
-    }
-   .fame-up-btn:hover, .fame-down-btn:hover {
-   transform: translateY(-2px);
-    box-shadow: 0px 2px 0px  rgba(0, 0, 0, 0.5);
+     transition: all 0.1s ease-in;
+     padding: 2px;
+     cursor: pointer;
    }
-   .fame-up-btn:active, .fame-down-btn:active {
-    transition: all 0.01s ease-in;
-    transform: translateY(0.25px);
-    
+   .fame-up-btn:hover {
+     transform: translateY(-2px);
+     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.5);
+   }
+   .fame-up-btn:active {
+     transition: all 0.01s ease-in;
+     transform: translateY(0.25px);
    }
     .online-label-flex {
     margin-right: 10px;
@@ -1319,13 +1319,6 @@
     opacity: 1;
   }
 
-.fame-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  vertical-align: middle;
-  margin-left: 12px;
-}
 
 a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .intro .btn-filled, .btn-filled, .btn-big, .btn-small {
   text-decoration: none !important;
@@ -1411,18 +1404,6 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
   justify-content: center;
 }
 
-.fame-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  vertical-align: middle;
-}
-.fame-up-btn, .fame-down-btn {
-  display: inline-flex;
-  background-color: var(--fame-btn);
-  align-items: center;
-  justify-content: center;
-}
 
 .project-navigation p, .project-navigation a {
   font-family: '"klavika-web"', sans-serif;

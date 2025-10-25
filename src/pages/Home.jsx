@@ -14,8 +14,8 @@ import soundManager from '../utils/soundManager';
 const Home = () => {
   const heroContainerRef = useRef(null);
   const { registerNavElement, isActive } = useNavigation();
-  const { fame, userVote, upvote, downvote, isLoading } = useFameCounter();
-  const { message, isVisible, animationKey, handleUpvote, handleDownvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved } = useSpeechBubble();
+  const { fame, hasVoted, upvote, isLoading } = useFameCounter();
+  const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved } = useSpeechBubble();
   const { containerRef, characterRef, characterImage } = useCharacterMovement(heroContainerRef, handleCharacterMoved);
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
@@ -128,49 +128,29 @@ const Home = () => {
                   <p className="hero-label-right">BCIT</p>
                 </div>
                 <div className="hero-label">
-                  <p className="hero-label-left">Fame
-                    <div className="fame-btn">
-                      <div 
-                        className={`fame-up-btn ${userVote === 'up' ? 'active' : ''}`}
-                        onClick={() => {
+                  <p className="hero-label-left">Fame</p>
+                  <div className="fame-btn">
+                    <div 
+                      className={`fame-up-btn ${hasVoted ? 'active' : ''}`}
+                      onClick={() => {
+                        upvote();
+                        handleUpvote();
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
                           upvote();
                           handleUpvote();
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
-                            upvote();
-                            handleUpvote();
-                          }
-                        }}
-                        aria-label="Upvote fame"
-                        title={userVote === 'up' ? 'You upvoted' : 'Upvote'}
-                      >
-                        <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: userVote === 'up' ? 'var(--yellow)' : 'var(--white)'}}></iconify-icon>
-                      </div>
-                      <div 
-                        className={`fame-down-btn ${userVote === 'down' ? 'active' : ''}`}
-                        onClick={() => {
-                          downvote();
-                          handleDownvote();
-                        }}
-                        role="button"
-                        tabIndex={0}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
-                            downvote();
-                            handleDownvote();
-                          }
-                        }}
-                        aria-label="Downvote fame"
-                        title={userVote === 'down' ? 'You downvoted' : 'Downvote'}
-                      >
-                        <iconify-icon icon="mingcute:down-fill" width="24" height="24" style={{color: userVote === 'down' ? 'var(--yellow)' : 'var(--white)'}}></iconify-icon>
-                      </div>
+                        }
+                      }}
+                      aria-label="Vote for this portfolio"
+                      title={hasVoted ? 'You voted! Click to unvote' : 'Vote for this portfolio'}
+                    >
+                      <iconify-icon icon="mingcute:up-fill" width="24" height="24" style={{color: hasVoted ? 'var(--yellow)' : 'var(--white)'}}></iconify-icon>
                     </div>
-                  </p>
-                  <p className="hero-label-right">{isLoading ? '...' : fame}</p>
+                    <p className="hero-label-right">{isLoading ? '...' : fame}</p>
+                  </div>
                 </div>
               </div>
               <div className="hero-center-column">

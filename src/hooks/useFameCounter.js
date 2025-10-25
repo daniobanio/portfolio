@@ -3,21 +3,21 @@ import { ref, onValue, runTransaction } from 'firebase/database';
 import { database } from '../firebase';
 import soundManager from '../utils/soundManager';
 
-const FAME_REF = ref(database, 'fame');
+const ANALYTICS_REF = ref(database, 'analytics/totalVotes');
 const USER_VOTE_KEY = 'userFameVote';
 
 export const useFameCounter = () => {
   const [fame, setFame] = useState(0);
-  const [userVote, setUserVote] = useState(null);
+  const [hasVoted, setHasVoted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get user's vote from localStorage
-    const savedVote = localStorage.getItem(USER_VOTE_KEY);
-    if (savedVote) setUserVote(savedVote);
+    // Check if user has voted
+    const voted = localStorage.getItem(USER_VOTE_KEY) === 'true';
+    setHasVoted(voted);
 
     // Listen to fame count changes in real-time
-    const unsubscribe = onValue(FAME_REF, (snapshot) => {
+    const unsubscribe = onValue(ANALYTICS_REF, (snapshot) => {
       const value = snapshot.val() || 0;
       setFame(value);
       setIsLoading(false);
@@ -26,55 +26,51 @@ export const useFameCounter = () => {
     return () => unsubscribe();
   }, []);
 
-  const vote = async (voteType) => {
+  const upvote = async () => {
     if (isLoading) return;
 
-    const isUnvoting = userVote === voteType;
+    const isUnvoting = hasVoted;
     
     // Play sounds
     if (isUnvoting) {
       soundManager.playClick();
     } else {
-      voteType === 'up' ? soundManager.playUpvote() : soundManager.playDownvote();
+      soundManager.playUpvote();
     }
 
-    // Update Firebase atomically
-    await runTransaction(FAME_REF, (currentFame) => {
-      const current = currentFame || 0;
-      
-      if (isUnvoting) {
-        // Remove vote
-        const newFame = userVote === 'up' ? current - 1 : current + 1;
-        return newFame;
-      } else {
-        // Change or add vote
-        let newFame = current;
-        if (userVote === 'up') newFame -= 1;
-        if (userVote === 'down') newFame += 1;
-        newFame += voteType === 'up' ? 1 : -1;
-        return newFame;
-      }
-    });
+    try {
+      // Update analytics count atomically
+      await runTransaction(ANALYTICS_REF, (current) => {
+        const count = current || 0;
+        return isUnvoting ? count - 1 : count + 1;
+      });
 
-    // Update local state
-    const newVote = isUnvoting ? null : voteType;
-    setUserVote(newVote);
-    if (newVote) {
-      localStorage.setItem(USER_VOTE_KEY, newVote);
-    } else {
-      localStorage.removeItem(USER_VOTE_KEY);
+      // Track event in Google Analytics 4 (only when voting, not unvoting)
+      if (!isUnvoting && typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'fame_vote', {
+          event_category: 'engagement',
+          event_label: 'upvote',
+          value: 1,
+        });
+      }
+
+      // Update local state
+      setHasVoted(!isUnvoting);
+      if (!isUnvoting) {
+        localStorage.setItem(USER_VOTE_KEY, 'true');
+      } else {
+        localStorage.removeItem(USER_VOTE_KEY);
+      }
+    } catch (error) {
+      console.error('Error voting:', error);
     }
   };
 
-  const upvote = () => vote('up');
-  const downvote = () => vote('down');
-
   return {
     fame,
-    userVote,
+    hasVoted,
     isLoading,
     error: null,
     upvote,
-    downvote,
   };
 };
