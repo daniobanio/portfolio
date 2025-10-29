@@ -4,6 +4,7 @@ import soundManager from '../utils/soundManager';
 const MESSAGES = {
   WELCOME: 'Welcome to my site!',
   MOVE_INSTRUCTION: 'Move me with\nW A S D!',
+  EMOTE_INSTRUCTION: 'Emote with numbers 1-6!',
   FINAL: 'I am looking for internships!',
   UPVOTE: 'Thank you for enjoying!',
   ABOUT: 'Learn about me & my journey!',
@@ -18,7 +19,8 @@ export const useSpeechBubble = () => {
   const timeoutRef = useRef(null);
   const isHoveringRef = useRef(false);
   const hasUserMovedRef = useRef(false);
-  const currentStateRef = useRef('welcome'); // 'welcome', 'move', 'final', 'hidden'
+  const hasUserEmotedRef = useRef(false);
+  const currentStateRef = useRef('welcome'); // 'welcome', 'move', 'emote', 'final', 'hidden'
 
   // Clear any pending timeout
   const clearPendingTimeout = useCallback(() => {
@@ -41,6 +43,17 @@ export const useSpeechBubble = () => {
   const handleCharacterMoved = useCallback(() => {
     if (!hasUserMovedRef.current) {
       hasUserMovedRef.current = true;
+      currentStateRef.current = 'emote';
+      clearPendingTimeout();
+      
+      updateMessage(MESSAGES.EMOTE_INSTRUCTION);
+    }
+  }, [updateMessage, clearPendingTimeout]);
+
+  // Handle when user first emotes
+  const handleCharacterEmoted = useCallback(() => {
+    if (!hasUserEmotedRef.current) {
+      hasUserEmotedRef.current = true;
       currentStateRef.current = 'final';
       clearPendingTimeout();
       
@@ -82,6 +95,9 @@ export const useSpeechBubble = () => {
       if (state === 'move') {
         // Revert to move instruction with sound
         updateMessage(MESSAGES.MOVE_INSTRUCTION, true);
+      } else if (state === 'emote') {
+        // Revert to emote instruction with sound
+        updateMessage(MESSAGES.EMOTE_INSTRUCTION, true);
       } else if (state === 'final' || state === 'hidden') {
         // Hide the bubble
         setIsVisible(false);
@@ -122,7 +138,8 @@ export const useSpeechBubble = () => {
     handleUpvote,
     handleNavHover,
     handleNavHoverEnd,
-    handleCharacterMoved
+    handleCharacterMoved,
+    handleCharacterEmoted
   };
 };
 

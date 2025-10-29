@@ -15,8 +15,8 @@ const Home = () => {
   const heroContainerRef = useRef(null);
   const { registerNavElement, isActive } = useNavigation();
   const { fame, hasVoted, upvote, isLoading } = useFameCounter();
-  const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved } = useSpeechBubble();
-  const { containerRef, characterRef, characterImage } = useCharacterMovement(heroContainerRef, handleCharacterMoved);
+  const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
+  const { containerRef, characterRef, characterImage, triggerEmote } = useCharacterMovement(heroContainerRef, handleCharacterMoved, handleCharacterEmoted);
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -135,6 +135,7 @@ const Home = () => {
                       onClick={() => {
                         upvote();
                         handleUpvote();
+                        triggerEmote('love');
                       }}
                       role="button"
                       tabIndex={0}
@@ -142,6 +143,7 @@ const Home = () => {
                         if (e.key === 'Enter') {
                           upvote();
                           handleUpvote();
+                          triggerEmote('love');
                         }
                       }}
                       aria-label="Vote for this portfolio"

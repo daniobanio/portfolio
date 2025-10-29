@@ -17,7 +17,17 @@ const GRAVITY = GRAVITY_PER_FRAME * PHYSICS_FRAME_RATE;
 const MIN_DELTA = 0.001; // 1ms - prevent division issues
 const MAX_DELTA = 0.1; // 100ms - prevent huge jumps when tab regains focus
 
-export const useCharacterMovement = (containerRef, onFirstMove) => {
+// Emote mappings
+const EMOTES = {
+  '1': 'cry',
+  '2': 'cute',
+  '3': 'f3',
+  '4': 'freaky',
+  '5': 'love',
+  '6': 'snooze'
+};
+
+export const useCharacterMovement = (containerRef, onFirstMove, onFirstEmote) => {
   const [characterImage, setCharacterImage] = useState('/imgs/character/standing.gif');
   
   // Physics state in refs (no re-renders)
@@ -33,8 +43,13 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
   const lastTimeRef = useRef(0);
   const boundariesRef = useRef({ left: 0, right: 0 });
   const hasMovedRef = useRef(false);
+  const hasEmotedRef = useRef(false);
   const containerElementRef = useRef(null);
   const characterImageRef = useRef(null);
+  
+  // Emote state
+  const currentEmoteRef = useRef(null);
+  const emoteTimeoutRef = useRef(null);
 
   // Calculate boundaries based on container
   const updateBoundaries = useCallback(() => {
@@ -58,34 +73,70 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
   }, [updateBoundaries]);
 
   // Update animation state and character image (only re-renders when image changes)
-  const updateAnimationState = useCallback((newState) => {
-    if (animationStateRef.current === newState) return;
+  const updateAnimationState = useCallback((newState, emote = null) => {
+    if (animationStateRef.current === newState && currentEmoteRef.current === emote) return;
     
     animationStateRef.current = newState;
+    currentEmoteRef.current = emote;
     
     let newImage;
+    const emotePath = emote ? `/imgs/character/emotes/${emote}/` : '/imgs/character/';
+    
     switch (newState) {
       case 'jumping':
-        newImage = '/imgs/character/jump.png';
+        newImage = `${emotePath}jump.png`;
         break;
       case 'prone':
-        newImage = '/imgs/character/prone.png';
+        newImage = `${emotePath}prone.png`;
         break;
       case 'walking':
-        newImage = '/imgs/character/walking.gif';
+        newImage = `${emotePath}walking.gif`;
         break;
       case 'standing':
       default:
-        newImage = '/imgs/character/standing.gif';
+        newImage = `${emotePath}standing.gif`;
     }
     
     setCharacterImage(newImage);
   }, []);
 
+  // Trigger an emote
+  const triggerEmote = useCallback((emoteName) => {
+    // Clear any existing emote timeout
+    if (emoteTimeoutRef.current) {
+      clearTimeout(emoteTimeoutRef.current);
+    }
+    
+    // Call onFirstEmote callback on first emote
+    if (!hasEmotedRef.current && onFirstEmote) {
+      hasEmotedRef.current = true;
+      onFirstEmote();
+    }
+    
+    // Set the emote based on current animation state
+    const currentState = animationStateRef.current;
+    updateAnimationState(currentState, emoteName);
+    
+    // Clear the emote after 3 seconds
+    emoteTimeoutRef.current = setTimeout(() => {
+      const state = animationStateRef.current;
+      updateAnimationState(state, null);
+      emoteTimeoutRef.current = null;
+    }, 3000);
+  }, [onFirstEmote, updateAnimationState]);
+
   // Handle keyboard input
   useEffect(() => {
     const handleKeyDown = (e) => {
       const key = e.key.toLowerCase();
+      
+      // Handle emote keys 1-6
+      if (EMOTES[key]) {
+        e.preventDefault();
+        triggerEmote(EMOTES[key]);
+        return;
+      }
+      
       if (['w', 'a', 's', 'd'].includes(key)) {
         e.preventDefault();
         keysPressed.current.add(key);
@@ -100,7 +151,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         if (key === 'w' && !isJumpingRef.current) {
           isJumpingRef.current = true;
           velocityY.current = -JUMP_STRENGTH;
-          updateAnimationState('jumping');
+          updateAnimationState('jumping', currentEmoteRef.current);
           soundManager.playJump();
         }
       }
@@ -120,7 +171,7 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [onFirstMove, updateAnimationState]);
+  }, [onFirstMove, updateAnimationState, triggerEmote]);
 
   // High-performance game loop - updates refs and DOM directly
   useEffect(() => {
@@ -150,18 +201,18 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
         newX -= MOVEMENT_SPEED * deltaTime;
         directionRef.current = 'left';
         if (!isJumpingRef.current) {
-          updateAnimationState('walking');
+          updateAnimationState('walking', currentEmoteRef.current);
         }
       } else if (isMovingRight && !isMovingLeft && !isProne) {
         newX += MOVEMENT_SPEED * deltaTime;
         directionRef.current = 'right';
         if (!isJumpingRef.current) {
-          updateAnimationState('walking');
+          updateAnimationState('walking', currentEmoteRef.current);
         }
       } else if (isProne && !isJumpingRef.current) {
-        updateAnimationState('prone');
+        updateAnimationState('prone', currentEmoteRef.current);
       } else if (!isJumpingRef.current && !isProne) {
-        updateAnimationState('standing');
+        updateAnimationState('standing', currentEmoteRef.current);
       }
 
       // Apply boundaries
@@ -180,11 +231,11 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
           
           // Return to appropriate state after landing
           if (isProne) {
-            updateAnimationState('prone');
+            updateAnimationState('prone', currentEmoteRef.current);
           } else if (isMovingLeft || isMovingRight) {
-            updateAnimationState('walking');
+            updateAnimationState('walking', currentEmoteRef.current);
           } else {
-            updateAnimationState('standing');
+            updateAnimationState('standing', currentEmoteRef.current);
           }
         }
       }
@@ -223,12 +274,22 @@ export const useCharacterMovement = (containerRef, onFirstMove) => {
     characterImageRef.current = element;
   }, []);
 
+  // Cleanup emote timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (emoteTimeoutRef.current) {
+        clearTimeout(emoteTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return {
     containerRef: setContainerElement,
     characterRef: setCharacterImageElement,
     characterImage,
     directionRef,
-    positionRef
+    positionRef,
+    triggerEmote
   };
 };
 
