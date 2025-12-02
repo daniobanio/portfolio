@@ -9,7 +9,10 @@ const MESSAGES = {
   UPVOTE: 'Thank you for enjoying!',
   ABOUT: 'Learn about me & my journey!',
   PROJECTS: 'Check out the work I\'ve done!',
-  WIP: 'WIP'
+  WIP: 'WIP',
+  RESUME: 'Check out my resume!',
+  CONTACT: 'Copy my email!',
+  EMAIL_COPIED: 'Copied email!'
 };
 
 export const useSpeechBubble = () => {
@@ -110,13 +113,35 @@ export const useSpeechBubble = () => {
     showTemporaryMessage(MESSAGES.UPVOTE);
   }, [showTemporaryMessage]);
 
+  // Handle email copy
+  const handleEmailCopy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      showTemporaryMessage(MESSAGES.EMAIL_COPIED);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = 'hello@danieltrinh.ca';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showTemporaryMessage(MESSAGES.EMAIL_COPIED);
+      } catch (fallbackErr) {
+        console.error('Fallback copy failed:', fallbackErr);
+      }
+      document.body.removeChild(textArea);
+    }
+  }, [showTemporaryMessage]);
+
   // Handle navigation hover
   const handleNavHover = useCallback((navType) => {
     const messageMap = {
       about: MESSAGES.ABOUT,
       projects: MESSAGES.PROJECTS,
-      workflow: MESSAGES.WIP,
-      contact: MESSAGES.WIP
+      resume: MESSAGES.RESUME,
+      contact: MESSAGES.CONTACT,
     };
     
     const hoverMessage = messageMap[navType];
@@ -136,6 +161,7 @@ export const useSpeechBubble = () => {
     isVisible,
     animationKey,
     handleUpvote,
+    handleEmailCopy,
     handleNavHover,
     handleNavHoverEnd,
     handleCharacterMoved,

@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
+import { gsap } from 'gsap';
+import soundManager from '../utils/soundManager';
 
 const About = () => {
+  const resumeLinkRef = useRef(null);
+  const contactLinkRef = useRef(null);
   const { registerNavElement, isActive } = useNavigation();
+
+  const handleEmailCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('hello@danieltrinh.ca');
+    } catch (err) {
+      const textArea = document.createElement('textarea');
+      textArea.value = 'hello@danieltrinh.ca';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+  };
   useSEO({
     title: 'About | Daniel Trinh - Front-end Web Developer',
     description: 'Learn about Daniel Trinh, a front-end web developer based in Vancouver. My journey, values, and the technologies I love using to build the web.',
@@ -33,8 +50,87 @@ const About = () => {
         <ul className="nav-right">
           <li><AnimatedNavItem to="/about" registerNavElement={registerNavElement} path="/about" isActive={isActive}>About</AnimatedNavItem></li>
           <li><AnimatedNavItem to="/projects" registerNavElement={registerNavElement} path="/projects" isActive={isActive}>Projects</AnimatedNavItem></li>
-          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/workflow" isActive={isActive} disabled={true}>Workflow</AnimatedNavItem></li>
-          <li><AnimatedNavItem to="#" registerNavElement={registerNavElement} path="/contact" isActive={isActive} disabled={true}>Contact</AnimatedNavItem></li>
+          <li>
+            <a 
+              ref={resumeLinkRef}
+              href="/DanielTrinh-Resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onMouseEnter={() => {
+                soundManager.playHover();
+                if (resumeLinkRef.current) {
+                  gsap.to(resumeLinkRef.current, {
+                    opacity: 1,
+                    color: 'var(--yellow)',
+                    duration: 0.15,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onMouseLeave={() => {
+                if (resumeLinkRef.current) {
+                  gsap.to(resumeLinkRef.current, {
+                    opacity: 0.6,
+                    color: 'var(--white)',
+                    duration: 0.2,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onClick={() => soundManager.playClick()}
+              style={{ 
+                opacity: 0.6,
+                color: 'var(--white)',
+                textDecoration: 'none'
+              }}
+            >
+              Resume
+            </a>
+          </li>
+          <li>
+            <a 
+              ref={contactLinkRef}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                soundManager.playClick();
+                handleEmailCopy();
+              }}
+              onMouseEnter={() => {
+                soundManager.playHover();
+                if (contactLinkRef.current) {
+                  gsap.to(contactLinkRef.current, {
+                    opacity: 1,
+                    color: 'var(--yellow)',
+                    duration: 0.15,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onMouseLeave={() => {
+                if (contactLinkRef.current) {
+                  gsap.to(contactLinkRef.current, {
+                    opacity: 0.6,
+                    color: 'var(--white)',
+                    duration: 0.2,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              style={{ 
+                opacity: 0.6,
+                color: 'var(--white)',
+                textDecoration: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              Contact
+            </a>
+          </li>
         </ul>
       </div>
       <div className="main-content">
@@ -116,7 +212,7 @@ const About = () => {
                 <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
                 <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
                 <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="Email" href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="Email" href="mailto:hello@danieltrinh.ca" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
               </div>
             </div>
           </div>

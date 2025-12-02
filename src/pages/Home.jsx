@@ -10,12 +10,15 @@ import { useSpeechBubble } from '../hooks/useSpeechBubble';
 import { useCharacterMovement } from '../hooks/useCharacterMovement';
 import DotGrid from '../components/DotGrid';
 import soundManager from '../utils/soundManager';
+import { gsap } from 'gsap';
 
 const Home = () => {
   const heroContainerRef = useRef(null);
+  const resumeLinkRef = useRef(null);
+  const contactLinkRef = useRef(null);
   const { registerNavElement, isActive } = useNavigation();
   const { fame, hasVoted, upvote, isLoading } = useFameCounter();
-  const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
+  const { message, isVisible, animationKey, handleUpvote, handleEmailCopy, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
   const { containerRef, characterRef, characterImage, triggerEmote } = useCharacterMovement(heroContainerRef, handleCharacterMoved, handleCharacterEmoted);
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
@@ -86,30 +89,89 @@ const Home = () => {
             </AnimatedNavItem>
           </li>
           <li>
-            <AnimatedNavItem 
-              to="#" 
-              registerNavElement={registerNavElement} 
-              path="/workflow" 
-              isActive={isActive} 
-              disabled={true}
-              onHoverStart={() => handleNavHover('workflow')}
-              onHoverEnd={handleNavHoverEnd}
+            <a 
+              ref={resumeLinkRef}
+              href="/DanielTrinh-Resume.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onMouseEnter={() => {
+                soundManager.playHover();
+                handleNavHover('resume');
+                if (resumeLinkRef.current) {
+                  gsap.to(resumeLinkRef.current, {
+                    opacity: 1,
+                    color: 'var(--yellow)',
+                    duration: 0.15,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onMouseLeave={() => {
+                handleNavHoverEnd();
+                if (resumeLinkRef.current) {
+                  gsap.to(resumeLinkRef.current, {
+                    opacity: 0.6,
+                    color: 'var(--white)',
+                    duration: 0.2,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onClick={() => soundManager.playClick()}
+              style={{ 
+                opacity: 0.6,
+                color: 'var(--white)',
+                textDecoration: 'none'
+              }}
             >
-              Workflow
-            </AnimatedNavItem>
+              Resume
+            </a>
           </li>
           <li>
-            <AnimatedNavItem 
-              to="#" 
-              registerNavElement={registerNavElement} 
-              path="/contact" 
-              isActive={isActive} 
-              disabled={true}
-              onHoverStart={() => handleNavHover('contact')}
-              onHoverEnd={handleNavHoverEnd}
+            <a 
+              ref={contactLinkRef}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                soundManager.playClick();
+                handleEmailCopy();
+              }}
+              onMouseEnter={() => {
+                soundManager.playHover();
+                handleNavHover('contact');
+                if (contactLinkRef.current) {
+                  gsap.to(contactLinkRef.current, {
+                    opacity: 1,
+                    color: 'var(--yellow)',
+                    duration: 0.15,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              onMouseLeave={() => {
+                handleNavHoverEnd();
+                if (contactLinkRef.current) {
+                  gsap.to(contactLinkRef.current, {
+                    opacity: 0.6,
+                    color: 'var(--white)',
+                    duration: 0.2,
+                    ease: 'power2.out',
+                    overwrite: 'auto',
+                  });
+                }
+              }}
+              style={{ 
+                opacity: 0.6,
+                color: 'var(--white)',
+                textDecoration: 'none',
+                cursor: 'pointer'
+              }}
             >
               Contact
-            </AnimatedNavItem>
+            </a>
           </li>
         </ul>
       </div>
@@ -299,7 +361,7 @@ const Home = () => {
                 <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
                 <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
                 <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="Email" href="mailto:danieltrinh.dt@gmail.com" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
+                <AnimatedSocialIcon label="Email" href="mailto:hello@danieltrinh.ca" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
               </div>
             </div>
           </div>
