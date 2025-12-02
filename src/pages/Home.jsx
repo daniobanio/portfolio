@@ -246,17 +246,18 @@ const Home = () => {
               </div>
             </div>
             <div className="featured-work">
-              <h2>Kim Huynh Portfolio</h2>
+              <h2>Wordly</h2>
               <p>
-                This portfolio designed for an architecture student showcases her academic projects, reflects her design personality, and can be used for...
+                Inspired by NYT's Wordle, Wordly is a word puzzle game featuring multi-language support, game modes, and hints. Built with React and TailwindCSS...
               </p>
               <div className="tech">
-                <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
+                <iconify-icon icon="devicon:react" width="32" height="32"></iconify-icon>
+                <iconify-icon icon="devicon:tailwindcss" width="32" height="32"></iconify-icon>
               </div>
               <div className="featured-btns">
-                <AnimatedButton to="/projects/kim-huynh-portfolio" className="btn-small" disabled={true}>READ MORE →</AnimatedButton>
+                <AnimatedButton to="/projects/wordly" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#" onClick={(e) => e.preventDefault()} className="disabled" aria-disabled="true" style={{opacity: 0.5}}>PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                  <a href="https://wordly.danieltrinh.ca" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>LIVE SITE <iconify-icon icon="mingcute:link-line" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>

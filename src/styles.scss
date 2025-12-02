@@ -1175,6 +1175,77 @@
     color: var(--orange);
     text-decoration: underline;
   }
+  .project-para code {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    background-color: var(--dark-gray);
+  }
+ 
+  .project-para pre code {
+    display: block;
+    color: var(--white);
+  }
+
+  .code-tabs-container {
+    margin: 20px 0;
+    background-color: var(--dark-gray);
+    border: 1px solid var(--mid-gray);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .code-tabs-header {
+    display: flex;
+    background-color: var(--main-gray);
+    border-bottom: 1px solid var(--mid-gray);
+    overflow-x: auto;
+    gap: 0;
+  }
+
+  .code-tab {
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    color: var(--light-gray);
+    font-family: "klavika-web", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .code-tab:hover {
+    color: var(--white);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .code-tab.active {
+    color: var(--white);
+    background-color: var(--dark-gray);
+    border-bottom-color: var(--yellow);
+    font-weight: 400;
+  }
+
+  .code-tabs-content {
+    padding: 20px;
+    background-color: var(--dark-gray);
+  }
+
+  .code-tabs-content pre {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+  }
+
+  .code-tabs-content code {
+    display: block;
+    color: var(--white);
+  }
   .project-img {
     width: 100%;
     height: auto;

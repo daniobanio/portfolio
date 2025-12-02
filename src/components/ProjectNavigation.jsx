@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import soundManager from '../utils/soundManager';
 
 const projects = [
+  { slug: '/projects/wordly', title: 'Wordly' },
   { slug: '/projects/mybcit-redesign', title: 'myBCIT Redesign' },
   { slug: '/projects/kim-huynh-portfolio', title: "Kim Huynh's Portfolio" },
   { slug: '/projects/jam-music-app', title: 'Jam Music App' },

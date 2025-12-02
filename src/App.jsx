@@ -7,6 +7,7 @@ import Project1Detail from './pages/Project1Detail';
 import Project2Detail from './pages/Project2Detail';
 import Project3Detail from './pages/Project3Detail';
 import Project4Detail from './pages/Project4Detail';
+import Project5Detail from './pages/Project5Detail';
 import ScrollToTop from './components/ScrollToTop';
 import { gsap } from 'gsap';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/projects/kim-huynh-portfolio" element={<Project2Detail />} />
         <Route path="/projects/jam-music-app" element={<Project3Detail />} />
         <Route path="/projects/playpal-newsletter" element={<Project4Detail />} />
+        <Route path="/projects/wordly" element={<Project5Detail />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

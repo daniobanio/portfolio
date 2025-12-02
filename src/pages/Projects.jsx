@@ -18,10 +18,11 @@ const Projects = () => {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, url: '/projects/mybcit-redesign', name: 'myBCIT Redesign' },
-        { '@type': 'ListItem', position: 2, url: '/projects/kim-huynh-portfolio', name: "Kim Huynh's Portfolio" },
-        { '@type': 'ListItem', position: 3, url: '/projects/jam-music-app', name: 'Jam Music App' },
-        { '@type': 'ListItem', position: 4, url: '/projects/playpal-newsletter', name: 'PlayPal Newsletter' }
+        { '@type': 'ListItem', position: 1, url: '/projects/wordly', name: 'Wordly' },
+        { '@type': 'ListItem', position: 2, url: '/projects/mybcit-redesign', name: 'myBCIT Redesign' },
+        { '@type': 'ListItem', position: 3, url: '/projects/kim-huynh-portfolio', name: "Kim Huynh's Portfolio" },
+        { '@type': 'ListItem', position: 4, url: '/projects/jam-music-app', name: 'Jam Music App' },
+        { '@type': 'ListItem', position: 5, url: '/projects/playpal-newsletter', name: 'PlayPal Newsletter' }
       ]
     }
   });
@@ -54,6 +55,15 @@ const Projects = () => {
       </div>
       <div className="main-content">
         <div className="project-list">
+          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project5/wordly-cover.png'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+            <div className="project-year">2025</div>
+            <Link to="/projects/wordly" className="project-title" onClick={() => soundManager.playClick()}>Wordly</Link>
+            <div className="project-category">Design / Dev</div>
+            <div className="project-stack">
+              <div className="project-stack-figma">figma</div>
+              <div className="project-stack-react">react.js</div>
+            </div>
+          </div>
           <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project1/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
             <div className="project-year">2025</div>
             <Link to="/projects/mybcit-redesign" className="project-title" onClick={() => soundManager.playClick()}>myBCIT Redesign</Link>
