@@ -810,14 +810,15 @@
 
 .grid-item.youtube h1, .grid-item.youtube p, .grid-item.photography h1, .grid-item.photography p {
     font-family: "klavika-web", sans-serif;
-    font-weight: 600;
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   }
   .grid-item h1 {
+    font-weight: 600;
     color: var(--yellow);
     margin-bottom: 0.5rem;
   }
   .grid-item p {
+    font-size: 1.2rem;
     margin-bottom: 1rem;
   }
 .grid-item.tech-stack, .grid-item.youtube, .grid-item.photography {

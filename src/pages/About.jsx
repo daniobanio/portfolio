@@ -147,16 +147,16 @@ const About = () => {
           </div>
           <div className="about-intro">
             <p>
-              <span className="para-h1">Hey! I’m Daniel Trinh, a front-end web developer.</span>
+              <span className="para-h1">Hey! I’m Daniel Trinh, a front-end web developer</span> with a background in design and a love for creating things that make people stop and say, “Woah.”
             </p>
             <p>
-              When I was a kid, I'd mess around with GIMP and Photoshop on the old laptop my parents gave me, creating random designs for myself. I was making things just for the fun of it, but looking back, I realized my creative passion has always been more than that. In high school, I got into photography and web development.
+            I’ve been drawn to visual creativity since I was a kid messing around with GIMP and Photoshop on my old family laptop. That curiosity carried into high school, where I got into photography and eventually web development. The process of learning, experimenting, breaking things, and finally making something work is what hooked me, and it still does.
             </p>
             <p>
-              Those years of trying new things, failing, learning, and finally figuring things out, were some of my most valuable experiences and memories from high school. They made me realize that what really drives me is that feeling of <span className="para-h1">awe</span> and <span className="para-h1">wonder.</span> Whenever I see something super cool or creative, I can’t help but want to figure out how it was made, works, and try creating something like it. Whether it was photography or websites, that process of going from an idea in your head to an actual working result is so fulfilling. That feeling is what I’ve been chasing all along, and it’s that feeling that I want to create for other people that makes them stop and go, “Woah, how did they do that?”
+            Today, I study <span className="para-h1">New Media Design & Web Development at BCIT</span>, where I’m building skills in  UI/UX design and front-end development to create meaningful user experiences. Every new thing I learn adds fuel to the drive that started years ago: turning ideas into something people can see, use, and feel inspired by.
             </p>
             <p>
-              Now I’m studying <span className="para-h1">New Media Design & Web Development at BCIT</span>, and every time I learn something new, it just adds fuel to that drive to create. I’m still figuring things out, but I know this is the direction I want to keep going.
+            I’m excited to keep growing, take on challenging projects, and build work that blends creativity and technical craft in ways that spark that same feeling of awe that inspired me in the first place.
             </p>
           </div>
         </div>
