@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
 import ProjectNavigation from '../components/ProjectNavigation';
+import EmailCopyNotification from '../components/EmailCopyNotification';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import soundManager from '../utils/soundManager';
@@ -12,11 +13,13 @@ import { gsap } from 'gsap';
 const Project1Detail = () => {
   const resumeLinkRef = useRef(null);
   const contactLinkRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
   const { registerNavElement, isActive } = useNavigation();
 
   const handleEmailCopy = async () => {
     try {
       await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      setShowNotification(true);
     } catch (err) {
       const textArea = document.createElement('textarea');
       textArea.value = 'hello@danieltrinh.ca';
@@ -24,6 +27,7 @@ const Project1Detail = () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+      setShowNotification(true);
     }
   };
   useSEO({
@@ -95,7 +99,7 @@ const Project1Detail = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                soundManager.playClick();
+                soundManager.playUpvote();
                 handleEmailCopy();
               }}
               onMouseEnter={() => {
@@ -159,7 +163,7 @@ const Project1Detail = () => {
               </div>
             </div>
             <div className="project-links">
-              <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE</a>
+              <a href="https://www.figma.com/proto/FgChcJXx79UeWupNu371Gn/myBCIT?content-scaling=fixed&kind=proto&node-id=2-105&page-id=0%3A1&scaling=scale-down-width&starting-point-node-id=2%3A105&t=WCTUwEICGqxO8KG5-1" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE <iconify-icon icon="majesticons:open" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
             </div>
           </div>
           <div className="project-displayImg">
@@ -169,7 +173,7 @@ const Project1Detail = () => {
         <hr />
         <div className="project-content">
           <div className="project-para">
-            <h1>Overview</h1>
+            <h1 className="separator-header">Overview</h1>
             <p>
               myBCIT is the central student portal for BCIT. It’s where students manage nearly everything: tuition, grades, schedules, emails, important messages, and resources. As a student myself, I wanted to redesign this portal from the ground up, in order to improve user experience and rethink how it helps students accomplish their goals.
             </p>
@@ -183,20 +187,20 @@ const Project1Detail = () => {
             </div>
           </div>
           <div className="project-para">
-            <h1 className="yellow">Problem</h1>
+            <h1 className="separator-header yellow">Problem</h1>
             <p>
               It's meant to be the one-stop hub for their academic life — but for many students, it’s the one-stop every once in awhile source of stress, confusion, and missed information. New students logging into myBCIT for the first time are met with an outdated interface, confusing navigation, and no clear guidance on what to do next. Important actions like paying tuition, checking notifications, or accessing a class schedule are buried or scattered across disconnected pages.
             </p>
           </div>
           <div className="project-para">
-            <h1 className="yellow">Solution</h1>
+            <h1 className="separator-header yellow">Solution</h1>
             <p>
               The new design introduces clearer navigation, task-oriented pages, and a visual hierarchy that reduces friction, surfaces key info quickly, and guides students like me who just want to get things done.
             </p>
           </div>
           <hr />
           <div className="project-para">
-            <h1>Research</h1>
+            <h1 className="separator-header yellow">Research</h1>
             <p>
               I began with a full audit of the current myBCIT website. I identified the pages most frequently used by students and noted how difficult they were to navigate. I documented everything in my FigJam board, where it became a brain dump space to: outline common user flows, mark usability issues, and compare layouts to other educational portals.
             </p>
@@ -213,7 +217,7 @@ const Project1Detail = () => {
             ></iframe>
           </div>
           <div className="project-para">
-            <h1>Survey & User Interviews</h1>
+            <h2>Survey & User Interviews</h2>
             <p>
               To ground my thoughts in real feedback, I ran a small user survey with fellow students. I received 5 responses and conducted 3 follow-up interviews to get a better understanding of user goals, pain points, and behaviour.
             </p>
@@ -226,7 +230,7 @@ const Project1Detail = () => {
             </ul>
           </div>
           <div className="project-para">
-            <h1>Persona</h1>
+            <h2>Persona</h2>
             <p>
               Empathizing with users provide me with a direction for my redesign. Based from my own experience, conversations with fellow students, survey responses, and interviews, this persona was created to reflect realistic user behaviour, pain points, goals, and needs, on myBCIT.
             </p>
@@ -234,15 +238,14 @@ const Project1Detail = () => {
           <div className="project-img">
             <img src="/imgs/project1/persona.png" alt="Persona" />
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Design</h1>
+            <h1 className="separator-header yellow">Design</h1>
             <p>
               Every step of user research including personas, scenarios and journey mapping, was crucial in guiding my initial wireframes. My primary goal was to simplify the common user flows and clarify the UI for easy scannability. Using <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>BCIT's public style guide</a>, I recreated their colour palette, typography, and buttons in Figma to ensure the new design was true to BCIT's brand.
             </p>
           </div>
           <div className="project-para">
-            <h1>Try it yourself!</h1>
+            <h2>Try it yourself!</h2>
             <ul>
               <li>Check how much you've paid towards your tuition</li>
               <li>Find which campus the federal election voting is happening on</li>
@@ -261,9 +264,8 @@ const Project1Detail = () => {
               title="Figma Prototype"
             ></iframe>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Feedback</h1>
+            <h1 className="separator-header yellow">Feedback</h1>
             <p>
               I tested the redesign with 4 BCIT students using 5 task-based usability tests.
             </p>
@@ -284,9 +286,8 @@ const Project1Detail = () => {
               Using the Nielsen Norman Group’s metric for success rate formula the final prototype received a usability percentage of 100%. (Success rate + (Partial success x 0.5) / Number of task = Usability %)
             </p>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Reflection</h1>
+            <h1 className="separator-header yellow">Reflection</h1>
             <p>
               Through this project, I conducted user research and did my best to understand and empathize with users. Taking the time to gather real feedback, create personas, and map out their experiences helped me design something that was grounded in how students actually think and behave. It shaped everything from the user flows to the wireframes.
             </p>
@@ -320,6 +321,7 @@ const Project1Detail = () => {
       </div>
     </main>
     <BackToTopLink />
+    <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </>
   );
 };

@@ -4,21 +4,24 @@ import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
 import ProjectNavigation from '../components/ProjectNavigation';
+import EmailCopyNotification from '../components/EmailCopyNotification';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import soundManager from '../utils/soundManager';
 import { gsap } from 'gsap';
-import 'highlight.js/styles/default.css';
+import 'highlight.js/styles/tokyo-night-dark.min.css';
 
 const Project5Detail = () => {
   const resumeLinkRef = useRef(null);
   const contactLinkRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
   const { registerNavElement, isActive } = useNavigation();
-  const [activeTab, setActiveTab] = useState('core');
+  const [activeTab, setActiveTab] = useState('state');
 
   const handleEmailCopy = async () => {
     try {
       await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      setShowNotification(true);
     } catch (err) {
       const textArea = document.createElement('textarea');
       textArea.value = 'hello@danieltrinh.ca';
@@ -26,6 +29,7 @@ const Project5Detail = () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+      setShowNotification(true);
     }
   };
   
@@ -112,7 +116,7 @@ const Project5Detail = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                soundManager.playClick();
+                soundManager.playUpvote();
                 handleEmailCopy();
               }}
               onMouseEnter={() => {
@@ -176,8 +180,8 @@ const Project5Detail = () => {
               </div>
             </div>
             <div className="project-links">
-              <a href="https://wordly.danieltrinh.ca" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>LIVE SITE</a>
-              <a href="https://github.com/daniobanio/wordly-react" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>CODE (GITHUB)</a>
+              <a href="https://wordly.danieltrinh.ca" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>LIVE SITE <iconify-icon icon="mingcute:link-line" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+              <a href="https://github.com/daniobanio/wordly-react" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>CODE <iconify-icon icon="mdi:github" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
             </div>
           </div>
           <div className="project-displayImg">
@@ -187,27 +191,23 @@ const Project5Detail = () => {
         <hr />
         <div className="project-content">
           <div className="project-para">
-            <h1>Overview</h1>
+            <h1 className="separator-header">Overview</h1>
             <h2>What is Wordly?</h2>
             <p>
               Inspired by NYT's Wordle, Wordly is a word puzzle game that anyone can enjoy. Whether they're practicing a new language, chasing a win streak, or competing with a friend.
             </p>
             <br />
             <p>
-              Wordly started as a personal challenge to learn React, but I found myself imagining new ways to make the experience more addictive and accessible to players around the world.
+              Wordly started as a personal challenge to learn and practice React, but I found myself imagining new ways to make the experience more addictive and accessible to players around the world.
             </p>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Features</h1>
+            <h1 className="separator-header yellow">Features</h1>
             <h2>Language Support</h2>
             <p>
-              Word games are incredibly engaging, but many are limited to English. With Wordly, I wanted to open the experience to more people, so they can play comfortably in their own language or use the game as a playful way to learn new vocabulary.
+              Word games are incredibly engaging, but many are limited to English. With Wordly, I wanted to open the experience to more people, so they can play comfortably in their own language or use the game as a playful way to learn new vocabulary. The first two languages, English and Spanish, are already implemented, with more coming soon.
             </p>
             <br />
-            <p>
-              The first two languages, English and Spanish, are already implemented, with more coming soon.
-            </p>
             <div className="project-img autowidth">
               <img src="/imgs/project5/wordly-lang.gif" alt="Language Support" />
             </div>
@@ -215,24 +215,23 @@ const Project5Detail = () => {
             <p>
               I wanted to extend longevity and replay value while keeping the gameplay familiar. So I added a variety of game modes to Wordly, each offering their own unique twist to keep players interested.
             </p>
+            <br />
             <div className="project-img autowidth">
               <img src="/imgs/project5/wordly-modes.png" alt="Game Modes" />
             </div>
             <h2>Hints</h2>
             <p>
               If you're someone who's new to word games, or you're learning a new language, Wordly's hints can be a great feature to help you in guessing words!
+              When you click the 'Hint' button, the game reveals a random letter in the correct word. 
+              {/* By default, you are allowed up to 3 hints, but that limit can be adjusted in the settings. */}
             </p>
             <br />
-            <p>
-              When you click the 'Hint' button, the game reveals a random letter in the correct word. By default, you are allowed up to 3 hints, but that limit can be adjusted in the settings.
-            </p>
             <div className="project-img autowidth">
               <img src="/imgs/project5/wordly-hint.gif" alt="Hints Feature" />
             </div>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Design</h1>
+            <h1 className="separator-header yellow">Design</h1>
             <h2>Wireframes</h2>
             <p>
               I started with mid-fidelity Figma wireframes to map out board layouts, the flow of a round, and how controls such as hints and language switching should behave. I iterated on spacing, tile sizes, keyboard layout, and how the UI should adapt on small mobile screens.
@@ -242,25 +241,35 @@ const Project5Detail = () => {
               <em>(Figma embed to be added)</em>
             </p>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Development</h1>
+            <h1 className="separator-header yellow">Development</h1>
             <h2>Building with React</h2>
             <p>
-              Wordly's architecture was built around modularity. The board, keyboard, tile component, word validation logic, hint engine, and game mode controller all exist as separate components that interact through shared state. This made it easier to expand the game without rewriting large sections of code.
+            Initially, I started this React word game project to practice state management and user interaction.
+            The code uses React hooks (useState, useEffect, useCallback, useContext) to manage state and side effects, and I structured components to keep logic separate and reusable. I used React Context API to centralize state across components, avoiding prop drilling. For animations, I used setTimeout to reveal letters sequentially, and CSS keyframes for flip effects. I handled keyboard input with useCallback and useEffect to attach/remove event listeners and prevent unnecessary re-renders. For persistence, I used localStorage to save streaks and language preferences. 
             </p>
             <br />
             <div className="code-tabs-container">
               <div className="code-tabs-header">
                 <button 
-                  className={`code-tab ${activeTab === 'core' ? 'active' : ''}`}
+                  className={`code-tab ${activeTab === 'state' ? 'active' : ''}`}
                   onClick={() => {
-                    setActiveTab('core');
+                    setActiveTab('state');
                     soundManager.playClick();
                   }}
                   onMouseEnter={() => soundManager.playHover()}
                 >
-                  Core Logic
+                  State Management
+                </button>
+                <button 
+                  className={`code-tab ${activeTab === 'reveal' ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveTab('reveal');
+                    soundManager.playClick();
+                  }}
+                  onMouseEnter={() => soundManager.playHover()}
+                >
+                  Letter Reveal
                 </button>
                 <button 
                   className={`code-tab ${activeTab === 'keyboard' ? 'active' : ''}`}
@@ -273,139 +282,233 @@ const Project5Detail = () => {
                   Keyboard Handler
                 </button>
                 <button 
-                  className={`code-tab ${activeTab === 'language' ? 'active' : ''}`}
+                  className={`code-tab ${activeTab === 'letter' ? 'active' : ''}`}
                   onClick={() => {
-                    setActiveTab('language');
+                    setActiveTab('letter');
                     soundManager.playClick();
                   }}
                   onMouseEnter={() => soundManager.playHover()}
                 >
-                  Language Support
+                  Letter State
                 </button>
                 <button 
-                  className={`code-tab ${activeTab === 'audio' ? 'active' : ''}`}
+                  className={`code-tab ${activeTab === 'languages' ? 'active' : ''}`}
                   onClick={() => {
-                    setActiveTab('audio');
+                    setActiveTab('languages');
                     soundManager.playClick();
                   }}
                   onMouseEnter={() => soundManager.playHover()}
                 >
-                  Audio Wrapper
+                  Languages
                 </button>
               </div>
               <div className="code-tabs-content">
-                {activeTab === 'core' && (
+                {activeTab === 'state' && (
                   <pre><code className="language-javascript">
-{`// Word validation and tile state management
-const validateWord = (word, targetWord) => {
-  const result = [];
-  const targetLetters = targetWord.split('');
-  const wordLetters = word.split('');
+{`export const AppContext = createContext();
+
+export default function App() {
+  const [board, setBoard] = useState(boardDefault);
+  const [currAttempt, setCurrAttempt] = useState({letterPos: 0, attemptVal: 0});
+  const [wordSet, setWordSet] = useState(new Set());
+  const [disabledLetters, setDisabledLetters] = useState([]);
+  const [almostLetters, setAlmostLetters] = useState([]);
+  const [correctLetters, setCorrectLetters] = useState([]);
+  // ... more state
+
+  return (
+    <AppContext.Provider value={{ 
+      board, setBoard, currAttempt, setCurrAttempt,
+      onSelectLetter, onEnter, onDelete, correctWord,
+      disabledLetters, setDisabledLetters,
+      almostLetters, setAlmostLetters,
+      correctLetters, setCorrectLetters,
+      gameOver, setGameOver, resetGame, language
+    }}>
+      {/* Components */}
+    </AppContext.Provider>
+  )
+}`}
+                  </code></pre>
+                )}
+                {activeTab === 'reveal' && (
+                  <pre><code className="language-javascript">
+{`const onEnter = () => {
+
+  if (animatingRow !== null) return;
   
-  // First pass: mark correct positions
-  wordLetters.forEach((letter, index) => {
-    if (letter === targetLetters[index]) {
-      result[index] = 'correct';
-      targetLetters[index] = null; // Mark as used
-    }
-  });
+  if (currAttempt.letterPos !== 5) {
+    showError(language.translations.notEnoughLetters, currAttempt.attemptVal);
+    return;
+  }
+  let currWord = "";
+  for (let i = 0; i < 5; i++) {
+    currWord += board[currAttempt.attemptVal][i];
+  }
+  if (!wordSet.has(currWord.toLowerCase())) {
+    showError(language.translations.wordNotValid, currAttempt.attemptVal);
+    return;
+  }
+  setAnimatingRow(currAttempt.attemptVal);
+  setRevealedLetters(new Set());
   
-  // Second pass: mark present but wrong position
-  wordLetters.forEach((letter, index) => {
-    if (!result[index]) {
-      const foundIndex = targetLetters.indexOf(letter);
-      if (foundIndex !== -1) {
-        result[index] = 'present';
-        targetLetters[foundIndex] = null;
-      } else {
-        result[index] = 'absent';
-      }
-    }
-  });
-  
-  return result;
-};`}
+  const ANIMATION_DURATION = 1500;
+  const LETTER_DELAY = 0.25;
+  // Reveal each letter at the halfway point of its animation
+  for (let i = 0; i < 5; i++) {
+    const revealTime = (i * LETTER_DELAY) + 0.25;
+    setTimeout(() => {
+      setRevealedLetters(prev => new Set([...prev, \`\${currAttempt.attemptVal}-\${i}\`]));
+    }, revealTime * 1000);
+  }
+  if (currWord === correctWord) {
+    setTimeout(() => {
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      updateStreak(newStreak);
+      setGameOver({gameOver: true, guessedWord: true});
+    }, ANIMATION_DURATION + 500);
+    return;
+  }
+  setTimeout(() => {
+    setCurrAttempt({attemptVal: currAttempt.attemptVal + 1, letterPos: 0});
+    setAnimatingRow(null);
+  }, ANIMATION_DURATION);
+}`}
                   </code></pre>
                 )}
                 {activeTab === 'keyboard' && (
                   <pre><code className="language-javascript">
-{`// Handle keyboard input with language support
-const handleKeyPress = (key, currentLanguage) => {
-  const validKeys = getValidKeysForLanguage(currentLanguage);
-  
-  if (key === 'Enter') {
-    submitGuess();
-  } else if (key === 'Backspace') {
-    deleteLastLetter();
-  } else if (validKeys.includes(key.toUpperCase())) {
-    addLetter(key.toUpperCase());
-  }
-};
+{`const Keyboard = () => {
 
-// Support for multiple keyboard layouts
-const getValidKeysForLanguage = (lang) => {
-  const layouts = {
-    en: 'QWERTYUIOPASDFGHJKLZXCVBNM'.split(''),
-    es: 'QWERTYUIOPASDFGHJKLÑZXCVBNM'.split('')
-  };
-  return layouts[lang] || layouts.en;
-};`}
-                  </code></pre>
-                )}
-                {activeTab === 'language' && (
-                  <pre><code className="language-javascript">
-{`// Multi-language word list management
-const useWordList = (language) => {
-  const [wordList, setWordList] = useState([]);
+  const { onDelete, onSelectLetter, onEnter, disabledLetters,
+          almostLetters, correctLetters, gameOver, language } = useContext(AppContext);
   
-  useEffect(() => {
-    const loadWordList = async () => {
-      try {
-        const response = await fetch(\`/wordlists/\${language}.json\`);
-        const words = await response.json();
-        setWordList(words);
-      } catch (error) {
-        console.error('Failed to load word list:', error);
-      }
-    };
-    
-    loadWordList();
-  }, [language]);
-  
-  return wordList;
-};`}
-                  </code></pre>
-                )}
-                {activeTab === 'audio' && (
-                  <pre><code className="language-javascript">
-{`// Audio management for game feedback
-import { Howl } from 'howler';
-
-const useAudio = () => {
-  const sounds = {
-    correct: new Howl({ src: ['/sounds/correct.mp3'] }),
-    present: new Howl({ src: ['/sounds/present.mp3'] }),
-    absent: new Howl({ src: ['/sounds/absent.mp3'] }),
-    win: new Howl({ src: ['/sounds/win.mp3'] }),
-    lose: new Howl({ src: ['/sounds/lose.mp3'] })
-  };
-  
-  const playSound = (type) => {
-    if (sounds[type] && settings.audioEnabled) {
-      sounds[type].play();
+  const { keys } = language;
+  const { line1, line2, line3 } = keys;
+  const handleKeyboard = useCallback((e) => {
+    if (gameOver.gameOver) return;
+    if (e.key === "Enter") {
+      playSound('keyPress');
+      onEnter();
+    } else if (e.key === "Backspace") {
+      playSound('keyPress');
+      onDelete();
+    } else {
+      [...line1, ...line2, ...line3].forEach((key) => {
+        if (e.key.toLowerCase() === key.toLowerCase()) {
+          playSound('keyPress');
+          onSelectLetter(key);
+        }
+      });
     }
-  };
+  }, [onEnter, onDelete, onSelectLetter, gameOver, line1, line2, line3]);
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard);
+    return () => {
+      document.removeEventListener("keydown", handleKeyboard);
+    };
+  }, [handleKeyboard]);
+  return (
+    <div className="keyboard">
+      {/* Keyboard UI */}
+    </div>
+  );
+};`}
+                  </code></pre>
+                )}
+                {activeTab === 'letter' && (
+                  <pre><code className="language-javascript">
+{`const Letter = ({ letterPos, attemptVal }) => {
+
+  const { board, correctWord, currAttempt, animatingRow, 
+          revealedLetters, setDisabledLetters, setAlmostLetters, 
+          setCorrectLetters } = useContext(AppContext);
   
-  return { playSound };
+  const letter = board[attemptVal][letterPos];
+  const correct = correctWord.toUpperCase()[letterPos] === letter;
+  const almost = !correct && letter !== '' && correctWord.includes(letter);
+
+  // Check if this letter should show its state
+  const isRevealed = currAttempt.attemptVal > attemptVal || 
+                     revealedLetters.has(\`\${attemptVal}-\${letterPos}\`);
+  const letterState = isRevealed ? 
+    (correct ? "correct" : almost ? "almost" : "error") : undefined;
+  const isAnimating = animatingRow === attemptVal;
+  const animationDelay = isAnimating ? letterPos * 0.25 : 0;
+  useEffect(() => {
+    
+    // Update keyboard letter states after row is complete
+    if (letter !== "" && !correct && !almost) {
+      setDisabledLetters((prev) => [...prev, letter]);
+    } else if (letter !== "" && !correct) {
+      setAlmostLetters((prev) => [...prev, letter]);
+    } else {
+      setCorrectLetters((prev) => [...prev, letter]);
+    }
+  }, [currAttempt.attemptVal]);
+
+  return (
+    <div 
+      className={\`letter \${isAnimating ? 'guess-animating' : ''}\`}
+      id={letterState}
+      style={isAnimating ? { animationDelay: \`\${animationDelay}s\` } : {}}
+    >
+      {letter}
+    </div>
+  );
+};`}
+                  </code></pre>
+                )}
+                {activeTab === 'languages' && (
+                  <pre><code className="language-javascript">
+{`export const languages = {
+  EN: {
+    label: 'English',
+    code: 'EN',
+    wordList: enWords,
+    keys: {
+      line1: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+      line2: ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+      line3: ["Z", "X", "C", "V", "B", "N", "M"]
+    },
+    translations: {
+      enter: 'ENTER',
+      hint: 'Hint',
+      wordNotValid: 'Word not valid!',
+      guessedIn: (word, attempts) => 
+        \`You guessed \${word} in \${attempts} attempt\${attempts > 1 ? "s" : ""}!\`,
+      streak: 'Win Streak:',
+      // ... more translations
+    }
+  },
+  ES: {
+    label: 'Español',
+    code: 'ES',
+    wordList: esWords,
+    encoding: 'iso-8859-1', // Handles special characters
+    keys: {
+      line1: ["Ó", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Í"],
+      line2: ["Ñ", "A", "S", "D", "F", "G", "H", "J", "K", "L", "É"],
+      line3: ["Á", "Ú", "Ü", "Z", "X", "C", "V", "B", "N", "M"]
+    },
+    translations: {
+      enter: 'Ir',
+      hint: 'Pista',
+      wordNotValid: 'Palabra no válida!',
+      guessedIn: (word, attempts) => 
+        \`¡Adivinaste \${word} en \${attempts} intento\${attempts > 1 ? "s" : ""}!\`,
+      // ... more translations
+    }
+  }
 };`}
                   </code></pre>
                 )}
               </div>
             </div>
           </div>
-          <hr />
           <div className="project-para">
-            <h1>Reflection</h1>
+            <h1 className="separator-header yellow">Reflection</h1>
             <p>
               Building Wordly helped me bridge the gap between "knowing React syntax" and thinking in React. I learned how to make components scalable, and how to structure a growing codebase.
             </p>
@@ -444,6 +547,7 @@ const useAudio = () => {
       </div>
     </main>
     <BackToTopLink />
+    <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </>
   );
 };

@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
+import EmailCopyNotification from '../components/EmailCopyNotification';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import { useFameCounter } from '../hooks/useFameCounter';
@@ -16,10 +17,26 @@ const Home = () => {
   const heroContainerRef = useRef(null);
   const resumeLinkRef = useRef(null);
   const contactLinkRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
   const { registerNavElement, isActive } = useNavigation();
   const { fame, hasVoted, upvote, isLoading } = useFameCounter();
-  const { message, isVisible, animationKey, handleUpvote, handleEmailCopy, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
+  const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
   const { containerRef, characterRef, characterImage, triggerEmote } = useCharacterMovement(heroContainerRef, handleCharacterMoved, handleCharacterEmoted);
+
+  const handleEmailCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      setShowNotification(true);
+    } catch (err) {
+      const textArea = document.createElement('textarea');
+      textArea.value = 'hello@danieltrinh.ca';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setShowNotification(true);
+    }
+  };
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -135,7 +152,7 @@ const Home = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                soundManager.playClick();
+                soundManager.playUpvote();
                 handleEmailCopy();
               }}
               onMouseEnter={() => {
@@ -295,7 +312,7 @@ const Home = () => {
             <div className="featured-work">
               <h2>myBCIT Redesign</h2>
               <p>
-                Redesigned from the ground up, this new design improves user experience by introducing clearer navigation, and a visual hierarchy that...
+              A redesign of the myBCIT student portal that improved user experience, brand coherence, and solved user pain points.
               </p>
               <div className="tech">
                 <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
@@ -303,14 +320,14 @@ const Home = () => {
               <div className="featured-btns">
                 <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
-                  <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>PROTOTYPE <iconify-icon icon="fe:prototype" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE <iconify-icon icon="majesticons:open" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
             <div className="featured-work">
               <h2>Wordly</h2>
               <p>
-                Inspired by NYT's Wordle, Wordly is a word puzzle game featuring multi-language support, game modes, and hints. Built with React and TailwindCSS...
+                An addictive and accessible word web-game, featuring multi-language support, game modes, and hints.
               </p>
               <div className="tech">
                 <iconify-icon icon="devicon:react" width="32" height="32"></iconify-icon>
@@ -320,6 +337,7 @@ const Home = () => {
                 <AnimatedButton to="/projects/wordly" className="btn-small">READ MORE →</AnimatedButton>
                 <div className="featured-links">
                   <a href="https://wordly.danieltrinh.ca" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>LIVE SITE <iconify-icon icon="mingcute:link-line" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                  <a href="https://github.com/daniobanio/wordly-react" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>CODE<iconify-icon icon="mdi:github" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
@@ -370,6 +388,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </main>
   );
 };
