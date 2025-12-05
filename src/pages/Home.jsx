@@ -310,21 +310,6 @@ const Home = () => {
           <h1>FEATURED WORKS</h1>
           <div className="featured-container">
             <div className="featured-work">
-              <h2>myBCIT Redesign</h2>
-              <p>
-              A redesign of the myBCIT student portal that improved user experience, brand coherence, and solved user pain points.
-              </p>
-              <div className="tech">
-                <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
-              </div>
-              <div className="featured-btns">
-                <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
-                <div className="featured-links">
-                <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE <iconify-icon icon="majesticons:open" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
-                </div>
-              </div>
-            </div>
-            <div className="featured-work">
               <h2>Wordly</h2>
               <p>
                 An addictive and accessible word web-game, featuring multi-language support, game modes, and hints.
@@ -338,6 +323,21 @@ const Home = () => {
                 <div className="featured-links">
                   <a href="https://wordly.danieltrinh.ca" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>LIVE SITE <iconify-icon icon="mingcute:link-line" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                   <a href="https://github.com/daniobanio/wordly-react" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>CODE<iconify-icon icon="mdi:github" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
+                </div>
+              </div>
+            </div>
+            <div className="featured-work">
+              <h2>myBCIT Redesign</h2>
+              <p>
+              A redesign of the myBCIT student portal that improved user experience, brand coherence, and solved user pain points.
+              </p>
+              <div className="tech">
+                <iconify-icon icon="devicon:figma" width="32" height="32"></iconify-icon>
+              </div>
+              <div className="featured-btns">
+                <AnimatedButton to="/projects/mybcit-redesign" className="btn-small">READ MORE →</AnimatedButton>
+                <div className="featured-links">
+                <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW PROTOTYPE <iconify-icon icon="majesticons:open" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
                 </div>
               </div>
             </div>
