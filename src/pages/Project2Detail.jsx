@@ -12,11 +12,13 @@ import { gsap } from 'gsap';
 const Project2Detail = () => {
   const resumeLinkRef = useRef(null);
   const contactLinkRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
   const { registerNavElement, isActive } = useNavigation();
 
   const handleEmailCopy = async () => {
     try {
       await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      setShowNotification(true);
     } catch (err) {
       const textArea = document.createElement('textarea');
       textArea.value = 'hello@danieltrinh.ca';
@@ -24,6 +26,7 @@ const Project2Detail = () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+      setShowNotification(true);
     }
   };
   useSEO({
@@ -95,7 +98,7 @@ const Project2Detail = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                soundManager.playClick();
+                soundManager.playUpvote();
                 handleEmailCopy();
               }}
               onMouseEnter={() => {
@@ -262,6 +265,7 @@ const Project2Detail = () => {
       </div>
     </main>
     <BackToTopLink />
+    <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </>
   );
 };

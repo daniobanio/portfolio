@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
+import EmailCopyNotification from '../components/EmailCopyNotification';
 import { useNavigation } from '../hooks/useNavigation';
 import { useSEO } from '../hooks/useSEO';
 import soundManager from '../utils/soundManager';
@@ -10,12 +11,14 @@ import { gsap } from 'gsap';
 const Projects = () => {
   const resumeLinkRef = useRef(null);
   const contactLinkRef = useRef(null);
+  const [showNotification, setShowNotification] = useState(false);
   const { registerNavElement, isActive } = useNavigation();
   const [preview, setPreview] = useState(null); // { src, top, left }
 
   const handleEmailCopy = async () => {
     try {
       await navigator.clipboard.writeText('hello@danieltrinh.ca');
+      setShowNotification(true);
     } catch (err) {
       const textArea = document.createElement('textarea');
       textArea.value = 'hello@danieltrinh.ca';
@@ -23,6 +26,7 @@ const Projects = () => {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
+      setShowNotification(true);
     }
   };
   useSEO({
@@ -110,7 +114,7 @@ const Projects = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                soundManager.playClick();
+                soundManager.playUpvote();
                 handleEmailCopy();
               }}
               onMouseEnter={() => {
@@ -230,6 +234,7 @@ const Projects = () => {
           </div>
         </div>
       </div>
+      <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </main>
   );
 };
