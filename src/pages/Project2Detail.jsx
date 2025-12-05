@@ -56,7 +56,7 @@ const Project2Detail = () => {
           <li>
             <a 
               ref={resumeLinkRef}
-              href="/DanielTrinh-Resume.pdf" 
+              href="/DanielTrinhResume.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               onMouseEnter={() => {
