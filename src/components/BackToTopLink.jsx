@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import soundManager from '../utils/soundManager';
+import { useLenis } from './LenisSmoothScroll';
 
 const BackToTopLink = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [leftPositionPx, setLeftPositionPx] = useState(0);
+  const lenis = useLenis();
 
   const updateLeftPosition = useCallback(() => {
     const container = document.querySelector('.main-container');
@@ -16,12 +18,25 @@ const BackToTopLink = () => {
 
   useEffect(() => {
     const onScroll = () => {
-      setIsVisible(window.scrollY > 300);
+      if (lenis) {
+        setIsVisible(lenis.scroll > 300);
+      } else {
+        setIsVisible(window.scrollY > 300);
+      }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    
+    if (lenis) {
+      lenis.on('scroll', onScroll);
+      onScroll();
+      return () => {
+        lenis.off('scroll', onScroll);
+      };
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      return () => window.removeEventListener('scroll', onScroll);
+    }
+  }, [lenis]);
 
   useEffect(() => {
     updateLeftPosition();
@@ -32,7 +47,11 @@ const BackToTopLink = () => {
   const handleClick = (e) => {
     e.preventDefault();
     soundManager.playClick();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (lenis) {
+      lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleMouseEnter = () => {
