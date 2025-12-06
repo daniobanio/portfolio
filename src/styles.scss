@@ -45,7 +45,11 @@
   * {
     cursor: url('/imgs/cursors/maplestory/point.png'), auto;
   }
-  
+
+  *::selection {
+    background-color: var(--light-gray);
+    color: white;
+  }
 
   /* Links and clickable elements */
   a, button, .btn-filled, .btn-big, .btn-small, 
@@ -1365,17 +1369,16 @@
     color: var(--white);
     text-decoration: none;
     font-family: "klavika-web", sans-serif;
-    font-weight: 400;
-    font-size: 1.1rem;
+    font-weight: 600;
+    font-size: 1.25rem;
   }
   .project-navigation a:hover {
-    text-decoration: underline !important;
+    color: var(--yellow);
   }
   .project-navigation p {
     margin-top: 10px;
     color: var(--hero-gray);
     font-size: 1.5rem;
-    font-weight: 300;
   }
   .project-prev {
     width: auto;
@@ -1525,7 +1528,7 @@ a, a:visited, a:active, a:focus, .nav-container a, .nav-container .nav-home a, .
 
 
 .project-navigation p, .project-navigation a {
-  font-family: '"klavika-web"', sans-serif;
+  font-family: "klavika-web", sans-serif;
 }
 
 .top-bar-title {
