@@ -646,7 +646,8 @@
     color: var(--msg-green);
   }
 
-  .msg a {
+  .msg a,
+  .msg a * {
     cursor: url('/imgs/cursors/maplestory/point_click.png'), pointer !important;
   }
 
