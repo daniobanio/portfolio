@@ -291,8 +291,7 @@ const Home = () => {
         <div className="intro">
           <p>
             <span className="para-h1">danielt:</span> Hi there! I'm Daniel Trinh, a
-            front-end web developer. I'm passionate about crafting immersive
-            digital experiences that connect people.
+            front-end web developer. I'm passionate about crafting digital experiences that connect and awe people.
             <AnimatedButton to="/projects" className="btn-filled">MY WORK →</AnimatedButton> <br />
             
           </p>
@@ -419,7 +418,7 @@ const Home = () => {
                 >
                   <span className="msg-h3">&lt;Project Coordinator&gt; KimHuynh: </span>
                 </a>
-                Working with Daniel was a smooth and collaborative experience. He translated my ideas into a clean, functional portfolio that truly reflects my work as an architecture student. His attention to detail, thoughtful design choices, and clear communication made the process effortless from start to finish.
+                It was an absolute pleasure to work with Daniel on my portfolio website. He brought the same level of care and attention to detail to the design and development process that one would expect in an architectural plan. Daniel listened closely to my wants, needs, and preferences, shaping my scattered ideas into a coherent and well-structured site. I trusted him to deliver my vision, and he proved to be diligent, reliable, and thorough throughout the process. His craftsmanship resulted in a thoughtful, personalized portfolio that accurately showcases my projects and is something I’m proud to use within the industry.
               </p>
             </div>
           </div>

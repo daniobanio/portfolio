@@ -17,7 +17,7 @@
      --hero-gray: #666666;
      --fame-btn: #A7AEB1;
 
-     --white: #eeeeee;
+     --white: #e0e0e0;
      --yellow: #F2E80C;
      --orange: #F0AB0F;
     /* extended palette */
@@ -45,6 +45,7 @@
   * {
     cursor: url('/imgs/cursors/maplestory/point.png'), auto;
   }
+  
 
   /* Links and clickable elements */
   a, button, .btn-filled, .btn-big, .btn-small, 
@@ -629,7 +630,6 @@
     gap: 15px;
     width: 96%;
     font-size: 1.5rem;
-    font-weight: 300;
     line-height: 1.5;
     margin-bottom: 25px;
   }
