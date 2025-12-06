@@ -126,7 +126,7 @@ const Project1Detail = () => {
           <div className="project-para">
             <h1 className="separator-header yellow">Design</h1>
             <p>
-              Every step of user research including personas, scenarios and journey mapping, was crucial in guiding my initial wireframes. My primary goal was to simplify the common user flows and clarify the UI for easy scannability. Using <a href="#" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>BCIT's public style guide</a>, I recreated their colour palette, typography, and buttons in Figma to ensure the new design was true to BCIT's brand.
+              Every step of user research including personas, scenarios and journey mapping, was crucial in guiding my initial wireframes. My primary goal was to simplify the common user flows and clarify the UI for easy scannability. Using <a href="https://www.bcit.ca/style-guide/" target="_blank" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>BCIT's public style guide</a>, I recreated their colour palette, typography, and buttons in Figma to ensure the new design was true to BCIT's brand.
             </p>
           </div>
           <div className="project-para">
