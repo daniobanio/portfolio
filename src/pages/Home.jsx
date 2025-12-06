@@ -1,42 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedNavItem from '../components/AnimatedNavItem';
 import AnimatedButton from '../components/AnimatedButton';
 import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import EmailCopyNotification from '../components/EmailCopyNotification';
-import { useNavigation } from '../hooks/useNavigation';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import { useSEO } from '../hooks/useSEO';
 import { useFameCounter } from '../hooks/useFameCounter';
 import { useSpeechBubble } from '../hooks/useSpeechBubble';
 import { useCharacterMovement } from '../hooks/useCharacterMovement';
+import useEmailCopy from '../hooks/useEmailCopy';
 import DotGrid from '../components/DotGrid';
 import soundManager from '../utils/soundManager';
-import { gsap } from 'gsap';
 
 const Home = () => {
   const heroContainerRef = useRef(null);
-  const resumeLinkRef = useRef(null);
-  const contactLinkRef = useRef(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const { registerNavElement, isActive } = useNavigation();
   const { fame, hasVoted, upvote, isLoading } = useFameCounter();
   const { message, isVisible, animationKey, handleUpvote, handleNavHover, handleNavHoverEnd, handleCharacterMoved, handleCharacterEmoted } = useSpeechBubble();
   const { containerRef, characterRef, characterImage, triggerEmote } = useCharacterMovement(heroContainerRef, handleCharacterMoved, handleCharacterEmoted);
-
-  const handleEmailCopy = async () => {
-    try {
-      await navigator.clipboard.writeText('hello@danieltrinh.ca');
-      setShowNotification(true);
-    } catch (err) {
-      const textArea = document.createElement('textarea');
-      textArea.value = 'hello@danieltrinh.ca';
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setShowNotification(true);
-    }
-  };
+  const { showNotification, setShowNotification, handleEmailCopy } = useEmailCopy();
   useSEO({
     title: 'Daniel Trinh | Front-end Web Developer in Vancouver',
     description: 'Portfolio of Daniel Trinh, a front-end web developer in Vancouver. UI/UX-focused React developer building interactive, high-performance experiences.',
@@ -49,7 +31,7 @@ const Home = () => {
       jobTitle: 'Front-end Web Developer',
       url: typeof window !== 'undefined' ? window.location.origin : undefined,
       sameAs: [
-        'https://www.instagram.com/daniobanioo/',
+        'http://instagram.com/doobiedoesdo',
         'https://www.youtube.com/@doobiedoesdo',
         'https://www.linkedin.com/in/daniel-trinh-855520323/',
         'https://github.com/daniobanio'
@@ -65,133 +47,11 @@ const Home = () => {
 
   return (
     <main className="main-container">
-      <div className="top-bar">
-        <div className="top-bar-title">
-          <img className="dt-logo" src="/imgs/dt-logo.png" alt="DT Logo" />
-          <p>DANIELT'S CHAT</p>
-        </div>
-        <p>X</p>
-      </div>
-      <div className="nav-container">
-        <ul className="nav-left">
-          <li className="nav-home">
-            <AnimatedNavItem to="/" registerNavElement={registerNavElement} path="/" isActive={isActive}>
-              Home
-            </AnimatedNavItem>
-          </li>
-        </ul>
-        <ul className="nav-right">
-          <li>
-            <AnimatedNavItem 
-              to="/about" 
-              registerNavElement={registerNavElement} 
-              path="/about" 
-              isActive={isActive}
-              onHoverStart={() => handleNavHover('about')}
-              onHoverEnd={handleNavHoverEnd}
-            >
-              About
-            </AnimatedNavItem>
-          </li>
-          <li>
-            <AnimatedNavItem 
-              to="/projects" 
-              registerNavElement={registerNavElement} 
-              path="/projects" 
-              isActive={isActive}
-              onHoverStart={() => handleNavHover('projects')}
-              onHoverEnd={handleNavHoverEnd}
-            >
-              Projects
-            </AnimatedNavItem>
-          </li>
-          <li>
-            <a 
-              ref={resumeLinkRef}
-              href="/DanielTrinhResume.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onMouseEnter={() => {
-                soundManager.playHover();
-                handleNavHover('resume');
-                if (resumeLinkRef.current) {
-                  gsap.to(resumeLinkRef.current, {
-                    opacity: 1,
-                    color: 'var(--yellow)',
-                    duration: 0.15,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onMouseLeave={() => {
-                handleNavHoverEnd();
-                if (resumeLinkRef.current) {
-                  gsap.to(resumeLinkRef.current, {
-                    opacity: 0.6,
-                    color: 'var(--white)',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onClick={() => soundManager.playClick()}
-              style={{ 
-                opacity: 0.6,
-                color: 'var(--white)',
-                textDecoration: 'none'
-              }}
-            >
-              Resume
-            </a>
-          </li>
-          <li>
-            <a 
-              ref={contactLinkRef}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                soundManager.playUpvote();
-                handleEmailCopy();
-              }}
-              onMouseEnter={() => {
-                soundManager.playHover();
-                handleNavHover('contact');
-                if (contactLinkRef.current) {
-                  gsap.to(contactLinkRef.current, {
-                    opacity: 1,
-                    color: 'var(--yellow)',
-                    duration: 0.15,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onMouseLeave={() => {
-                handleNavHoverEnd();
-                if (contactLinkRef.current) {
-                  gsap.to(contactLinkRef.current, {
-                    opacity: 0.6,
-                    color: 'var(--white)',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              style={{ 
-                opacity: 0.6,
-                color: 'var(--white)',
-                textDecoration: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
+      <Nav 
+        onNavHover={handleNavHover}
+        onNavHoverEnd={handleNavHoverEnd}
+        onContactClick={handleEmailCopy}
+      />
       <div className="main-content">
         <div className="hero-section">
           <DotGrid className="hero-img" />
@@ -270,7 +130,7 @@ const Home = () => {
                 <div className="hero-label">
                   <p className="hero-label-left">Online at</p>
                   <div className="online-label-flex">
-                    <AnimatedSocialIcon label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
+                    <AnimatedSocialIcon label="Instagram" href="http://instagram.com/doobiedoesdo" icon="mingcute:instagram-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
                     <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
                     <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
                     <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="28" height="28" style={{color: 'var(--hero-gray)'}} />
@@ -424,26 +284,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="footer">
-        <div className="footer-container">
-          <div className="footer-online">
-            <div className="online-circle"></div>
-            <p>Online at</p>
-            <div className="footer-icons">
-              <div className="footer-icons-flex">
-                <AnimatedSocialIcon label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="Email" href="mailto:hello@danieltrinh.ca" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
-              </div>
-            </div>
-          </div>
-          <div className="footer-copyright">
-            <p>2025 Daniel Trinh. All Rights Reserved.</p>
-          </div>
-        </div>
-      </div>
+      <Footer />
       <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
     </main>
   );

@@ -657,16 +657,17 @@
 
   .msg-icon {
     width: 60px;
+    border: 3px solid;
     border-radius: 50%;
   }
   .msg-icon.msg1{
-    border: 2px solid var(--msg-blue);
+    border-color: var(--msg-blue);
   }
   .msg-icon.msg2{
-    border: 2px solid var(--msg-purple);
+    border-color: var(--msg-purple);
   }
   .msg-icon.msg3{
-    border: 2px solid var(--msg-green);
+    border-color: var(--msg-green);
   }
 
 

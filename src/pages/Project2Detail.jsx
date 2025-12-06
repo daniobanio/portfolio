@@ -1,34 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AnimatedNavItem from '../components/AnimatedNavItem';
-import AnimatedSocialIcon from '../components/AnimatedSocialIcon';
 import BackToTopLink from '../components/BackToTopLink';
 import ProjectNavigation from '../components/ProjectNavigation';
-import { useNavigation } from '../hooks/useNavigation';
+import EmailCopyNotification from '../components/EmailCopyNotification';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 import { useSEO } from '../hooks/useSEO';
+import useEmailCopy from '../hooks/useEmailCopy';
 import soundManager from '../utils/soundManager';
-import { gsap } from 'gsap';
 
 const Project2Detail = () => {
-  const resumeLinkRef = useRef(null);
-  const contactLinkRef = useRef(null);
-  const [showNotification, setShowNotification] = useState(false);
-  const { registerNavElement, isActive } = useNavigation();
-
-  const handleEmailCopy = async () => {
-    try {
-      await navigator.clipboard.writeText('hello@danieltrinh.ca');
-      setShowNotification(true);
-    } catch (err) {
-      const textArea = document.createElement('textarea');
-      textArea.value = 'hello@danieltrinh.ca';
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setShowNotification(true);
-    }
-  };
+  const { showNotification, setShowNotification, handleEmailCopy } = useEmailCopy();
   useSEO({
     title: "Client Portfolio Design | Daniel Trinh",
     description: "Portfolio design for an architecture student: minimal, modern layout with a flexible hero and reusable components.",
@@ -39,103 +21,7 @@ const Project2Detail = () => {
   return (
     <>
     <main className="main-container">
-      <div className="top-bar">
-        <div className="top-bar-title">
-          <img className="dt-logo" src="/imgs/dt-logo.png" alt="DT Logo" />
-          <p>DANIELT'S CHAT</p>
-        </div>
-        <p>X</p>
-      </div>
-      <div className="nav-container">
-        <ul className="nav-left">
-          <li className="nav-home"><AnimatedNavItem to="/" registerNavElement={registerNavElement} path="/" isActive={isActive}>Home</AnimatedNavItem></li>
-        </ul>
-        <ul className="nav-right">
-          <li><AnimatedNavItem to="/about" registerNavElement={registerNavElement} path="/about" isActive={isActive}>About</AnimatedNavItem></li>
-          <li><AnimatedNavItem to="/projects" registerNavElement={registerNavElement} path="/projects" isActive={isActive}>Projects</AnimatedNavItem></li>
-          <li>
-            <a 
-              ref={resumeLinkRef}
-              href="/DanielTrinhResume.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onMouseEnter={() => {
-                soundManager.playHover();
-                if (resumeLinkRef.current) {
-                  gsap.to(resumeLinkRef.current, {
-                    opacity: 1,
-                    color: 'var(--yellow)',
-                    duration: 0.15,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onMouseLeave={() => {
-                if (resumeLinkRef.current) {
-                  gsap.to(resumeLinkRef.current, {
-                    opacity: 0.6,
-                    color: 'var(--white)',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onClick={() => soundManager.playClick()}
-              style={{ 
-                opacity: 0.6,
-                color: 'var(--white)',
-                textDecoration: 'none'
-              }}
-            >
-              Resume
-            </a>
-          </li>
-          <li>
-            <a 
-              ref={contactLinkRef}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                soundManager.playUpvote();
-                handleEmailCopy();
-              }}
-              onMouseEnter={() => {
-                soundManager.playHover();
-                if (contactLinkRef.current) {
-                  gsap.to(contactLinkRef.current, {
-                    opacity: 1,
-                    color: 'var(--yellow)',
-                    duration: 0.15,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              onMouseLeave={() => {
-                if (contactLinkRef.current) {
-                  gsap.to(contactLinkRef.current, {
-                    opacity: 0.6,
-                    color: 'var(--white)',
-                    duration: 0.2,
-                    ease: 'power2.out',
-                    overwrite: 'auto',
-                  });
-                }
-              }}
-              style={{ 
-                opacity: 0.6,
-                color: 'var(--white)',
-                textDecoration: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Contact
-            </a>
-          </li>
-        </ul>
-      </div>
+      <Nav onContactClick={handleEmailCopy} />
       <div className="main-content">
         <div className="project-info-container">
           <div className="project-detail">
@@ -243,26 +129,7 @@ const Project2Detail = () => {
         </div>
         <ProjectNavigation currentSlug="/projects/kim-huynh-portfolio" />
       </div>
-      <div className="footer">
-        <div className="footer-container">
-          <div className="footer-online">
-            <div className="online-circle"></div>
-            <p>Online at</p>
-            <div className="footer-icons">
-              <div className="footer-icons-flex">
-                <AnimatedSocialIcon label="Instagram" href="https://www.instagram.com/daniobanioo/" icon="mingcute:instagram-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="YouTube" href="https://www.youtube.com/@doobiedoesdo" icon="mingcute:youtube-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="LinkedIn" href="https://www.linkedin.com/in/daniel-trinh-855520323/" icon="mingcute:linkedin-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="GitHub" href="https://github.com/daniobanio" icon="mingcute:github-line" width="32" height="32" style={{color: 'var(--white)'}} />
-                <AnimatedSocialIcon label="Email" href="mailto:hello@danieltrinh.ca" icon="mingcute:mail-line" width="32" height="32" style={{color: 'var(--white)'}} />
-              </div>
-            </div>
-          </div>
-          <div className="footer-copyright">
-            <p>2025 Daniel Trinh. All Rights Reserved.</p>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </main>
     <BackToTopLink />
     <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
