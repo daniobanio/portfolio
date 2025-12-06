@@ -161,7 +161,7 @@ const Home = () => {
           </p>
           <p>
             Check out my <a href="https://www.youtube.com/@doobiedoesdo" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>YouTube channel</a> for some videos of my
-            hobbies and coding journey :)
+            hobbies :)
           </p>
         </div>
         <AnimatedButton to="/about" className="btn-big">MORE ABOUT ME →</AnimatedButton>

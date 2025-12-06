@@ -41,8 +41,9 @@ const Projects = () => {
             <Link to="/projects/wordly" className="project-title" onClick={() => soundManager.playClick()}>Wordly</Link>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
+              <div className="project-stack-react">react</div>
+              <div className="project-stack-tailwind">tailwind</div>
               <div className="project-stack-figma">figma</div>
-              <div className="project-stack-react">react.js</div>
             </div>
           </div>
           <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project1/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
@@ -58,6 +59,8 @@ const Projects = () => {
             <div className="project-title" style={{pointerEvents: 'none'}}>Kim Huynh Portfolio</div>
             <div className="project-category">UI/UX Design</div>
             <div className="project-stack">
+              <div className="project-stack-react">react</div>
+              <div className="project-stack-gsap">gsap</div>
               <div className="project-stack-figma">figma</div>
             </div>  
           </div>
@@ -74,8 +77,8 @@ const Projects = () => {
             <div className="project-title" style={{pointerEvents: 'none'}}>PlayPal Newsletter</div>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
-              <div className="project-stack-figma">figma</div>
               <div className="project-stack-html">html</div>
+              <div className="project-stack-figma">figma</div>
             </div>
           </div>
           <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
@@ -83,10 +86,10 @@ const Projects = () => {
             <div className="project-title" style={{pointerEvents: 'none'}}>My Portfolio</div>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
-              <div className="project-stack-figma">figma</div>
-              <div className="project-stack-react">react.js</div>
+              <div className="project-stack-react">react</div>
               <div className="project-stack-scss">scss</div>
               <div className="project-stack-gsap">gsap</div>
+              <div className="project-stack-figma">figma</div>
             </div>
           </div>
         </div>

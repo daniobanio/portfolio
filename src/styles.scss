@@ -26,10 +26,11 @@
     --msg-purple: #934BFF;
     --msg-green: #81CD39;
     --react-cyan: #00D8FF;
-    --figma-orange: #F24E1E;
+    --figma-orange: #A259FF;
     --html-orange: #E34F26;
     --scss-pink: #CF649A;
     --gsap-green: #93d400;
+    --tailwind-blue: #38BDF8;
 
     --shadow-25: #00000025;
     --shadow-35: #00000035;
@@ -1067,7 +1068,7 @@
     border-radius: 5px;
   }
   .project-stack-tailwind {
-  background-color: var(--orange);
+  background-color: var(--tailwind-blue);
   padding: 2px 10px;
   border-radius: 5px;
 }
