@@ -14,7 +14,6 @@ const LenisSmoothScroll = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Initialize Lenis
     const lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -29,7 +28,6 @@ const LenisSmoothScroll = ({ children }) => {
 
     setLenis(lenisInstance);
 
-    // Animation frame loop
     function raf(time) {
       lenisInstance.raf(time);
       requestAnimationFrame(raf);
@@ -37,14 +35,12 @@ const LenisSmoothScroll = ({ children }) => {
 
     requestAnimationFrame(raf);
 
-    // Cleanup
     return () => {
       lenisInstance.destroy();
       setLenis(null);
     };
   }, []);
 
-  // Handle route changes - scroll to top
   useEffect(() => {
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });

@@ -17,7 +17,7 @@
      --hero-gray: #666666;
      --fame-btn: #A7AEB1;
 
-     --white: #F5F5F5;
+     --white: #eeeeee;
      --yellow: #F2E80C;
      --orange: #F0AB0F;
     /* extended palette */
@@ -624,6 +624,9 @@
     /* text-align: center; */
   }
   .msg {
+    display: flex;
+    align-items: start;
+    gap: 15px;
     width: 96%;
     font-size: 1.5rem;
     font-weight: 300;
@@ -641,6 +644,24 @@
   }
   .msg-h3 {
     color: var(--msg-green);
+  }
+
+  .msg a {
+    cursor: url('/imgs/cursors/maplestory/point_click.png'), pointer !important;
+  }
+
+  .msg-icon {
+    width: 60px;
+    border-radius: 50%;
+  }
+  .msg-icon.msg1{
+    border: 2px solid var(--msg-blue);
+  }
+  .msg-icon.msg2{
+    border: 2px solid var(--msg-purple);
+  }
+  .msg-icon.msg3{
+    border: 2px solid var(--msg-green);
   }
 
 

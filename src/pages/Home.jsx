@@ -348,21 +348,78 @@ const Home = () => {
           <div className="msg-tab">KIND MESSAGES</div>
           <div className="msg-container">
             <div className="msg">
+              <a 
+                href="https://www.linkedin.com/in/journey-kim-a2a484329/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => soundManager.playClick()} 
+                onMouseEnter={() => soundManager.playHover()}
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                <img className="msg-icon msg1" src="/imgs/testimonials/journeyKim.jpg" alt="Journey Kim"></img>
+              </a>
               <p>
-                <span className="msg-h1">&lt;Product Manager&gt; VincentTang: </span>
-                Daniel has a great eye for detail and a deep understanding of how users think. His designs aren't just beautiful—they're functional, intuitive, and always thoughtfully crafted.
+                <a 
+                  href="https://www.linkedin.com/in/journey-kim-a2a484329/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => soundManager.playClick()} 
+                  onMouseEnter={() => soundManager.playHover()}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="msg-h1">&lt;UX Designer&gt; JourneyKim: </span>
+                </a>
+                I've worked with Daniel on three team projects, and he's one of the best developers to collaborate with. He understands design quickly, has a strong design sense, and communicates clearly. Daniel always develops exactly what the design requires and follows through with real responsibility. He's a reliable and detail oriented teammate.
               </p>
             </div>
             <div className="msg">
+              <a 
+                href="https://www.linkedin.com/in/dat-pham-ae26/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => soundManager.playClick()} 
+                onMouseEnter={() => soundManager.playHover()}
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                <img className="msg-icon msg2" src="/imgs/testimonials/datPham.jpg" alt="Dat Pham"></img>
+              </a>
               <p>
-                <span className="msg-h2">&lt;Startup Founder&gt; GabrielJunio: </span>
-                Daniel is always dependable, communicates clearly, and brings a calm, focused energy to every project. You can count on him to jump in wherever needed and keep things moving."
+                <a 
+                  href="https://www.linkedin.com/in/dat-pham-ae26/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => soundManager.playClick()} 
+                  onMouseEnter={() => soundManager.playHover()}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="msg-h2">&lt;Multimedia Designer&gt; DatPham: </span>
+                </a>
+                Daniel consistently delivers. No matter how challenging the project is he always finds a way to get it done, while adding his own personal touch. He takes initiative to continuously learn and expand his capabilities.
               </p>
             </div>
             <div className="msg">
+              <a 
+                href="https://www.linkedin.com/in/kim-huynhh/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => soundManager.playClick()} 
+                onMouseEnter={() => soundManager.playHover()}
+                style={{ textDecoration: 'none', display: 'inline-block' }}
+              >
+                <img className="msg-icon msg3" src="/imgs/testimonials/kimHuynh.jpg" alt="Kim Huynh"></img>
+              </a>
               <p>
-                <span className="msg-h3">&lt;Design Director&gt; ElijahCarlos: </span>
-                Daniel consistently raised the bar in group work, blending creative thinking with technical skill. He's the kind of person who makes everyone around him better."
+                <a 
+                  href="https://www.linkedin.com/in/kim-huynhh/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={() => soundManager.playClick()} 
+                  onMouseEnter={() => soundManager.playHover()}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <span className="msg-h3">&lt;Project Coordinator&gt; KimHuynh: </span>
+                </a>
+                Working with Daniel was a smooth and collaborative experience. He translated my ideas into a clean, functional portfolio that truly reflects my work as an architecture student. His attention to detail, thoughtful design choices, and clear communication made the process effortless from start to finish.
               </p>
             </div>
           </div>
