@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { gsap } from 'gsap';
 import soundManager from '../utils/soundManager';
 import { useLenis } from './LenisSmoothScroll';
 
 const BackToTopLink = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [leftPositionPx, setLeftPositionPx] = useState(0);
+  const buttonRef = useRef(null);
   const lenis = useLenis();
 
   const updateLeftPosition = useCallback(() => {
@@ -58,13 +60,41 @@ const BackToTopLink = () => {
     soundManager.playHover();
   };
 
-  if (!isVisible) return null;
+  useEffect(() => {
+    if (!buttonRef.current) return;
+
+    if (isVisible) {
+      gsap.fromTo(buttonRef.current,
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.3, 
+          ease: 'power2.out',
+          overwrite: true
+        }
+      );
+    } else {
+      gsap.to(buttonRef.current, {
+        opacity: 0,
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.in',
+        overwrite: true,
+      });
+    }
+  }, [isVisible]);
 
   return (
     <a
+      ref={buttonRef}
       href="#"
       className="back-to-top-link"
-      style={{ left: leftPositionPx }}
+      style={{ 
+        left: leftPositionPx,
+        opacity: 0, // Start hidden, animation will handle visibility
+        pointerEvents: isVisible ? 'auto' : 'none' // Prevent clicks when invisible
+      }}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
     >
