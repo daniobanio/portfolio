@@ -95,7 +95,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="hero-center-column">
-                <p className="hero-center-lvl">Front-end Web Developer</p>
+                <p className="hero-center-lvl">Front-end Developer</p>
                 <div 
                   ref={containerRef}
                   className="hero-char-container"
