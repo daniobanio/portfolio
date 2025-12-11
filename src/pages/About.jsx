@@ -52,7 +52,6 @@ const About = () => {
                 <img className="tech-stack-char" src="/imgs/character/standing.gif" alt="Pixel art character representing Daniel" />
                 <iconify-icon class="react-tech" icon="devicon:react" width="64" height="64"></iconify-icon>
                 <iconify-icon class="js-tech" icon="logos:javascript" width="64" height="64"></iconify-icon>
-                <iconify-icon class="threejs-tech" icon="devicon:threejs-wordmark" width="64" height="64"></iconify-icon>
                 <iconify-icon class="html-tech" icon="devicon:html5" width="64" height="64"></iconify-icon>
                 <iconify-icon class="css-tech" icon="vscode-icons:file-type-css2" width="64" height="64"></iconify-icon>
                 <iconify-icon class="gsap-tech" icon="simple-icons:gsap" width="64" height="64" style={{color: 'var(--gsap-brand)'}}></iconify-icon>
@@ -63,7 +62,7 @@ const About = () => {
           <div className="grid-item youtube">
             <h1>My YouTube Channel</h1>
             <p>
-              I like to post my hobbies and coding journey on my YouTube channel. If you enjoy photography and keyboards, check it out!
+              I like to post my hobbies on my YouTube channel. If you enjoy photography and keyboards, check it out!
             </p>
             <AnimatedButton href="https://www.youtube.com/@doobiedoesdo" className="btn-filled">YOUTUBE →</AnimatedButton>
             <div className="youtube-icon-container">

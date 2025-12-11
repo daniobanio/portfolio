@@ -887,7 +887,7 @@
 
 .js-tech {
   position: absolute;
-  top: 5%;
+  top: 10%;
   right: 10%;
   transform: rotate(12deg);
   filter: drop-shadow(1px 3px 5px var(--shadow-25));
@@ -920,14 +920,14 @@
 .gsap-tech {
   position: absolute;
   top: 50%;
-  right: 5%;
+  right: 10%;
   transform: rotate(7deg);
   filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
 .tech-stack-center iconify-icon[icon="devicon:figma"] {
   position: absolute;
-  bottom: 0%;
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%) rotate(5deg);
   filter: drop-shadow(1px 3px 5px var(--shadow-25));
@@ -943,13 +943,13 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 25%;
+    top: 20%;
     width: 150px;
     height: 50px;
     z-index: 3;
     color: var(--main-gray);
     font-family: 'Pixelify Sans', pixelify-sans, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   .tech-bubble {
     image-rendering: pixelated;
