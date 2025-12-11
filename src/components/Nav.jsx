@@ -113,7 +113,7 @@ const Nav = ({ onNavHover, onNavHoverEnd, onContactClick }) => {
           <li>
             <a 
               ref={resumeLinkRef}
-              href="/DanielTrinhResume.pdf" 
+              href="/DanielTrinh-Resume.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               onMouseEnter={handleResumeHover}
