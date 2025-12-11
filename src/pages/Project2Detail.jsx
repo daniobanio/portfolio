@@ -63,16 +63,6 @@ const Project2Detail = () => {
             </p>
           </div>
           <div className="project-para">
-          <h1 className="separator-header yellow">Research</h1>
-            <p>
-              I began by studying different types of architecture portfolios, both academic and professional. During this process I looked at many websites featured on Awwwards.com, which gave me lots of inspiration for how I could make the design feel professional and engaging. From this research, I created a mood board that I could refer to for visual direction.
-            </p>
-          </div>
-          <div className="project-img autowidth">
-            <h1>Mood board</h1>
-            <img src="/imgs/project2/moodboard.png" alt="Moodboard" />
-          </div>
-          <div className="project-para">
           <h1 className="separator-header yellow">Challenge</h1>
             <p>
               In our initial meeting, I worked with Kim to establish the portfolio’s purpose, target audience, and intended tone. We discussed visual preferences, site structure, and the types of content she wanted to showcase.
@@ -85,6 +75,16 @@ const Project2Detail = () => {
               <li>Should have lots of imagery</li>
               <li>Home page and project pages should be flexible for her to change</li>
             </ol>
+          </div>
+          <div className="project-para">
+          <h1 className="separator-header yellow">Research</h1>
+            <p>
+              I began by studying different types of architecture portfolios, both academic and professional. During this process I looked at many websites featured on Awwwards.com, which gave me lots of inspiration for how I could make the design feel professional and engaging. From this research, I created a mood board that I could refer to for visual direction.
+            </p>
+          </div>
+          <div className="project-img autowidth">
+            <h1>Mood board</h1>
+            <img src="/imgs/project2/moodboard.png" alt="Moodboard" />
           </div>
           <div className="project-para">
           <h1 className="separator-header yellow">Solution</h1>
