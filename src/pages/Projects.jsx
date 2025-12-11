@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import EmailCopyNotification from '../components/EmailCopyNotification';
 import Nav from '../components/Nav';
@@ -8,7 +8,6 @@ import useEmailCopy from '../hooks/useEmailCopy';
 import soundManager from '../utils/soundManager';
 
 const Projects = () => {
-  const [preview, setPreview] = useState(null); // { src, top, left }
   const { showNotification, setShowNotification, handleEmailCopy } = useEmailCopy();
   useSEO({
     title: 'Projects | Daniel Trinh - Front-end Web Developer',
@@ -25,18 +24,12 @@ const Projects = () => {
     }
   });
 
-  const handleEnter = (e, src) => {
-    const row = e.currentTarget.getBoundingClientRect();
-    setPreview({ src, top: row.top + window.scrollY - 20, left: row.right - 300 });
-  };
-  const handleLeave = () => setPreview(null);
-
   return (
     <main className="main-container">
       <Nav onContactClick={handleEmailCopy} />
       <div className="main-content">
         <div className="project-list">
-          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project5/wordly-cover.png'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
             <div className="project-year">2025</div>
             <Link to="/projects/wordly" className="project-title" onClick={() => soundManager.playClick()}>Wordly</Link>
             <div className="project-category">Design / Dev</div>
@@ -46,7 +39,7 @@ const Projects = () => {
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item" onMouseEnter={(e)=>{handleEnter(e, '/imgs/project1/home.webp'); soundManager.playHover();}} onMouseLeave={handleLeave}>
+          <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
             <div className="project-year">2025</div>
             <Link to="/projects/mybcit-redesign" className="project-title" onClick={() => soundManager.playClick()}>myBCIT Redesign</Link>
             <div className="project-category">UI/UX Design</div>
@@ -54,7 +47,7 @@ const Projects = () => {
               <div className="project-stack-figma">figma</div>
             </div>
           </div>
-          <div className="project-item">
+          <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
             <div className="project-year">2025</div>
             <Link to="/projects/architecture-portfolio" className="project-title" onClick={() => soundManager.playClick()}>Architecture Portfolio</Link>
             <div className="project-category">Design / Dev</div>
@@ -94,11 +87,6 @@ const Projects = () => {
             </div>
           </div>
         </div>
-        {preview && (
-          <div className="project-preview" style={{ top: preview.top, left: preview.left }}>
-            <img src={preview.src} alt="preview" />
-          </div>
-        )}
       </div>
       <Footer />
       <EmailCopyNotification show={showNotification} onClose={() => setShowNotification(false)} />
