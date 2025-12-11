@@ -42,7 +42,7 @@ const Project2Detail = () => {
                 <ul>
                   <li>Individual</li>
                   <li>Web Developer & Designer</li>
-                  <li>June 2025 / 2 weeks</li>
+                  <li>December 2025 / 2 weeks</li>
                   <li>Next.js, TailwindCSS, <br />Framer Motion, Figma </li>
                 </ul>
               </div>
