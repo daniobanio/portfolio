@@ -128,12 +128,24 @@ const Project5Detail = () => {
           </div>
           <div className="project-para">
             <h1 className="separator-header yellow">Development</h1>
-            <h2>Building with React</h2>
+            <h2>Tech Stack</h2>
             <p>
-            Initially, I started this React word game project to practice state management and user interaction.
-            The code uses React hooks (useState, useEffect, useCallback, useContext) to manage state and side effects, and I structured components to keep logic separate and reusable. I used React Context API to centralize state across components, avoiding prop drilling. For animations, I used setTimeout to reveal letters sequentially, and CSS keyframes for flip effects. I handled keyboard input with useCallback and useEffect to attach/remove event listeners and prevent unnecessary re-renders. For persistence, I used localStorage to save streaks and language preferences. 
+            React: Component-based architecture, allowing the reuse of UI elements like <code>Key</code> and <code>Letter</code> across different game modes.
+            </p>
+            <p>
+            Context API: Implemented to avoid prop-drilling. Source for the game state (letter, board, streak) accessible by any component in the tree.
+            </p>
+            <p>TailwindCSS: Used for utility-first styling, ensuring responsive layouts and rapid UI iteration.
             </p>
             <br />
+            <hr />
+            <h2>Architechural Approach</h2>
+            <p>Seperate game logic from UI components by utilizing a centralized state architecture. This seperation means the game logic can change, and the UI will simply reflect the current state, making it easier to scale and manage when adding multiple gamemodes.
+            </p>
+            <br />
+            <hr />
+            <h1>Implementation</h1>
+
             <div className="code-tabs-container">
               <div className="code-tabs-header">
                 <button 
@@ -157,16 +169,6 @@ const Project5Detail = () => {
                   Letter Reveal
                 </button>
                 <button 
-                  className={`code-tab ${activeTab === 'keyboard' ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab('keyboard');
-                    soundManager.playClick();
-                  }}
-                  onMouseEnter={() => soundManager.playHover()}
-                >
-                  Keyboard Handler
-                </button>
-                <button 
                   className={`code-tab ${activeTab === 'letter' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveTab('letter');
@@ -186,19 +188,29 @@ const Project5Detail = () => {
                 >
                   Languages
                 </button>
+                <button 
+                  className={`code-tab ${activeTab === 'data' ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveTab('data');
+                    soundManager.playClick();
+                  }}
+                  onMouseEnter={() => soundManager.playHover()}
+                >
+                  Data
+                </button>
               </div>
               <div className="code-tabs-content">
                 {activeTab === 'state' && (
                   <pre><code className="language-javascript">
-{`export const AppContext = createContext();
+{`// Centralized state management using Context API to avoid prop-drilling
+
+export const AppContext = createContext();
 
 export default function App() {
   const [board, setBoard] = useState(boardDefault);
   const [currAttempt, setCurrAttempt] = useState({letterPos: 0, attemptVal: 0});
   const [wordSet, setWordSet] = useState(new Set());
-  const [disabledLetters, setDisabledLetters] = useState([]);
-  const [almostLetters, setAlmostLetters] = useState([]);
-  const [correctLetters, setCorrectLetters] = useState([]);
+  const [gameOver, setGameOver] = useState({gameOver: false, guessedWord: false});
   // ... more state
 
   return (
@@ -210,7 +222,11 @@ export default function App() {
       correctLetters, setCorrectLetters,
       gameOver, setGameOver, resetGame, language
     }}>
-      {/* Components */}
+      <div className="game">
+        <Nav />
+        <Board />
+        <Keyboard />
+      </div>
     </AppContext.Provider>
   )
 }`}
@@ -218,193 +234,148 @@ export default function App() {
                 )}
                 {activeTab === 'reveal' && (
                   <pre><code className="language-javascript">
-{`const onEnter = () => {
+{`// Letter reveal animation logic
+// State updates only after animations complete
 
+const onEnter = () => {
   if (animatingRow !== null) return;
-  
-  if (currAttempt.letterPos !== 5) {
-    showError(language.translations.notEnoughLetters, currAttempt.attemptVal);
-    return;
-  }
-  let currWord = "";
-  for (let i = 0; i < 5; i++) {
-    currWord += board[currAttempt.attemptVal][i];
-  }
-  if (!wordSet.has(currWord.toLowerCase())) {
-    showError(language.translations.wordNotValid, currAttempt.attemptVal);
-    return;
-  }
+  // ... validation checks ...
+
+  // Trigger animation state
   setAnimatingRow(currAttempt.attemptVal);
   setRevealedLetters(new Set());
   
   const ANIMATION_DURATION = 1500;
   const LETTER_DELAY = 0.25;
-  // Reveal each letter at the halfway point of its animation
+
+  // Reveal each letter at the halfway point of its CSS flip animation
   for (let i = 0; i < 5; i++) {
     const revealTime = (i * LETTER_DELAY) + 0.25;
     setTimeout(() => {
       setRevealedLetters(prev => new Set([...prev, \`\${currAttempt.attemptVal}-\${i}\`]));
     }, revealTime * 1000);
   }
-  if (currWord === correctWord) {
-    setTimeout(() => {
-      const newStreak = streak + 1;
-      setStreak(newStreak);
-      updateStreak(newStreak);
-      setGameOver({gameOver: true, guessedWord: true});
-    }, ANIMATION_DURATION + 500);
-    return;
-  }
+
+  // Defer game logic updates until animations finish
   setTimeout(() => {
-    setCurrAttempt({attemptVal: currAttempt.attemptVal + 1, letterPos: 0});
+    if (currWord === correctWord) {
+      setGameOver({gameOver: true, guessedWord: true});
+    } else {
+      setCurrAttempt({attemptVal: currAttempt.attemptVal + 1, letterPos: 0});
+    }
     setAnimatingRow(null);
   }, ANIMATION_DURATION);
 }`}
-                  </code></pre>
-                )}
-                {activeTab === 'keyboard' && (
-                  <pre><code className="language-javascript">
-{`const Keyboard = () => {
-
-  const { onDelete, onSelectLetter, onEnter, disabledLetters,
-          almostLetters, correctLetters, gameOver, language } = useContext(AppContext);
-  
-  const { keys } = language;
-  const { line1, line2, line3 } = keys;
-  const handleKeyboard = useCallback((e) => {
-    if (gameOver.gameOver) return;
-    if (e.key === "Enter") {
-      playSound('keyPress');
-      onEnter();
-    } else if (e.key === "Backspace") {
-      playSound('keyPress');
-      onDelete();
-    } else {
-      [...line1, ...line2, ...line3].forEach((key) => {
-        if (e.key.toLowerCase() === key.toLowerCase()) {
-          playSound('keyPress');
-          onSelectLetter(key);
-        }
-      });
-    }
-  }, [onEnter, onDelete, onSelectLetter, gameOver, line1, line2, line3]);
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyboard);
-    return () => {
-      document.removeEventListener("keydown", handleKeyboard);
-    };
-  }, [handleKeyboard]);
-  return (
-    <div className="keyboard">
-      {/* Keyboard UI */}
-    </div>
-  );
-};`}
                   </code></pre>
                 )}
                 {activeTab === 'letter' && (
                   <pre><code className="language-javascript">
 {`const Letter = ({ letterPos, attemptVal }) => {
 
-  const { board, correctWord, currAttempt, animatingRow, 
-          revealedLetters, setDisabledLetters, setAlmostLetters, 
-          setCorrectLetters } = useContext(AppContext);
+  const { board, correctWord, currAttempt, revealedLetters } = useContext(AppContext);
   
   const letter = board[attemptVal][letterPos];
   const correct = correctWord.toUpperCase()[letterPos] === letter;
   const almost = !correct && letter !== '' && correctWord.includes(letter);
-
-  // Check if this letter should show its state
+  // Determine state only if the row is submitted or currently revealing
   const isRevealed = currAttempt.attemptVal > attemptVal || 
                      revealedLetters.has(\`\${attemptVal}-\${letterPos}\`);
+                     
   const letterState = isRevealed ? 
     (correct ? "correct" : almost ? "almost" : "error") : undefined;
-  const isAnimating = animatingRow === attemptVal;
-  const animationDelay = isAnimating ? letterPos * 0.25 : 0;
-  useEffect(() => {
-    
-    // Update keyboard letter states after row is complete
-    if (letter !== "" && !correct && !almost) {
-      setDisabledLetters((prev) => [...prev, letter]);
-    } else if (letter !== "" && !correct) {
-      setAlmostLetters((prev) => [...prev, letter]);
-    } else {
-      setCorrectLetters((prev) => [...prev, letter]);
-    }
-  }, [currAttempt.attemptVal]);
-
   return (
-    <div 
-      className={\`letter \${isAnimating ? 'guess-animating' : ''}\`}
-      id={letterState}
-      style={isAnimating ? { animationDelay: \`\${animationDelay}s\` } : {}}
-    >
+    <div className="letter" id={letterState}>
       {letter}
     </div>
-  );
-};`}
+  )
+}`}
                   </code></pre>
                 )}
                 {activeTab === 'languages' && (
                   <pre><code className="language-javascript">
-{`export const languages = {
+{`// Scalable multi-language support
+
+export const languages = {
+
   EN: {
     label: 'English',
     code: 'EN',
     wordList: enWords,
     keys: {
       line1: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-      line2: ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-      line3: ["Z", "X", "C", "V", "B", "N", "M"]
+      // ...
     },
     translations: {
-      enter: 'ENTER',
-      hint: 'Hint',
       wordNotValid: 'Word not valid!',
-      guessedIn: (word, attempts) => 
-        \`You guessed \${word} in \${attempts} attempt\${attempts > 1 ? "s" : ""}!\`,
-      streak: 'Win Streak:',
-      // ... more translations
+      guessedIn: (word, attempts) => \`You guessed \${word} in \${attempts} attempts!\`,
     }
   },
   ES: {
     label: 'Español',
     code: 'ES',
     wordList: esWords,
-    encoding: 'iso-8859-1', // Handles special characters
+    encoding: 'iso-8859-1', // Handles special character sets
     keys: {
       line1: ["Ó", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Í"],
-      line2: ["Ñ", "A", "S", "D", "F", "G", "H", "J", "K", "L", "É"],
-      line3: ["Á", "Ú", "Ü", "Z", "X", "C", "V", "B", "N", "M"]
+      // ...
     },
     translations: {
-      enter: 'Ir',
-      hint: 'Pista',
       wordNotValid: 'Palabra no válida!',
-      guessedIn: (word, attempts) => 
-        \`¡Adivinaste \${word} en \${attempts} intento\${attempts > 1 ? "s" : ""}!\`,
-      // ... more translations
+      guessedIn: (word, attempts) => \`¡Adivinaste \${word} en \${attempts} intentos!\`,
     }
   }
 };`}
                   </code></pre>
                 )}
+                {activeTab === 'data' && (
+                  <pre><code className="language-javascript">
+{`// Performance optimization using TextDecoder for data parsing and O(1) Sets
+
+export const generateWordSet = async (wordListUrl, encoding = 'utf-8') => {
+  let wordSet;
+  let correctWord;
+  
+  await fetch(wordListUrl)
+    .then((res) => res.arrayBuffer())
+    .then((buffer) => {
+      // Use TextDecoder to correctly handle different language encodings
+      const decoder = new TextDecoder(encoding);
+      const result = decoder.decode(buffer);
+      // Process raw text into an optimized Set for O(1) lookups
+      const wordArr = result.split(/\\r?\\n/)
+           .map(word => word.trim())
+           .filter(word => word.length > 0);
+      
+      wordSet = new Set(wordArr);
+      correctWord = wordArr[Math.floor(Math.random() * wordArr.length)].toUpperCase();
+    })
+  return { wordSet, correctWord };
+}`}
+                  </code></pre>
+                )}
               </div>
             </div>
+            <h2>Optimizations</h2>
+            <p>
+            To prevent re-rendering the 30-key keyboard on every keystroke, I used <code>useCallback</code>. This helped keep the game at a smooth 60fps.
+            </p><br />
+            <p>
+            Validating guesses against the 13,000+ words needed to be instant. I asynchronously fetched the word list (text file), used <code>TextDecoder</code> to parse it, and processed it into JavaScript <code>Sets</code>. Checking if a word is valid now takes O(1) constant time lookup.
+            </p>
           </div>
           <div className="project-para">
             <h1 className="separator-header yellow">Reflection</h1>
             <p>
-              Building Wordly helped me bridge the gap between "knowing React syntax" and thinking in React. I learned how to make components scalable, and how to structure a growing codebase.
+            Building Wordly helped me think in systems. It taught me the importance of component lifecycle management and how to architect data flows that remain performant at scale.
             </p>
             <br />
             <p>
-              As the project grows, future improvements include:
+            Future Roadmap:
             </p>
             <ul>
-              <li>A lightweight backend for user stats, streaks, and versus matchmaking</li>
-              <li>Custom difficulty sliders or themed challenges</li>
-              <li>Real-time multiplayer infrastructure using WebSockets</li>
+              <li>Further adjustability for difficulty with settings</li>
+              <li>Implement a backend to support user accounts, enabling features like global leaderboards, player statistics, and cross-device progression</li>
+              <li>Explore WebSocket integration for a multiplayer "Versus" gamemode</li>
             </ul>
           </div>
         </div>
