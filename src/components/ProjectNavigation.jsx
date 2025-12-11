@@ -4,7 +4,8 @@ import soundManager from '../utils/soundManager';
 
 const projects = [
   { slug: '/projects/wordly', title: 'Wordly' },
-  { slug: '/projects/mybcit-redesign', title: 'myBCIT Redesign' }
+  { slug: '/projects/mybcit-redesign', title: 'myBCIT Redesign' },
+  { slug: '/projects/architecture-portfolio', title: 'Architecture Portfolio' }
 ];
 
 const ProjectNavigation = ({ currentSlug }) => {

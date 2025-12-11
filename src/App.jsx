@@ -25,7 +25,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/projects/mybcit-redesign" element={<Project1Detail />} />
-          <Route path="/projects/kim-huynh-portfolio" element={<Project2Detail />} />
+          <Route path="/projects/architecture-portfolio" element={<Project2Detail />} />
           <Route path="/projects/jam-music-app" element={<Project3Detail />} />
           <Route path="/projects/playpal-newsletter" element={<Project4Detail />} />
           <Route path="/projects/wordly" element={<Project5Detail />} />

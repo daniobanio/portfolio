@@ -31,6 +31,7 @@
     --scss-pink: #CF649A;
     --gsap-green: #93d400;
     --tailwind-blue: #38BDF8;
+    --framer-yellow: #FEF62A;
 
     --shadow-25: #00000025;
     --shadow-35: #00000035;
@@ -1064,6 +1065,17 @@
   }
   .project-stack-gsap {
     background-color: var(--gsap-green);
+    padding: 2px 10px;
+    border-radius: 5px;
+  }
+  .project-stack-next {
+    background-color: black;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+  }
+  .project-stack-framer {
+    background-color: var(--framer-yellow);
     padding: 2px 10px;
     border-radius: 5px;
   }
