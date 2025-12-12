@@ -1072,6 +1072,45 @@
     }
   }
 
+  @media (max-width: 600px) {
+    .about-section {
+      padding: 20px;
+    }
+    .photo-card:nth-child(1),
+    .photo-card:nth-child(3) {
+      display: none;
+    }
+    .photo-card:nth-child(2) {
+      width: 80vw;
+    }
+    .about-intro {
+      font-size: 1.25rem;
+      width: 80vw;
+      margin: 0 auto;
+    }
+
+    .photo-display img {
+      width: auto;
+      height: 30vw;
+    }
+    .photo-display img:nth-child(4),
+    .photo-display img:nth-child(3) {
+      display: none;
+    }
+    .photo-display img:nth-child(1) {
+      transform: rotate(-5deg) translateX(0px) translateY(-5px);
+      z-index: 1;
+    }
+    .photo-display img:nth-child(2) {
+      transform: rotate(2deg) translateX(-10px) translateY(5px);
+      z-index: 3;
+    }
+    .photo-display img:nth-child(5) {
+      transform: rotate(-3deg) translateX(-20px) translateY(-5px);
+      z-index: 1;
+    }
+  }
+
   .project-list {
     height: 100vh;
   }
