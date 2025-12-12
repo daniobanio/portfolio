@@ -119,12 +119,9 @@ const Project5Detail = () => {
             <h1 className="separator-header yellow">Design</h1>
             <h2>Wireframes</h2>
             <p>
-              I started with mid-fidelity Figma wireframes to map out board layouts, the flow of a round, and how controls such as hints and language switching should behave. I iterated on spacing, tile sizes, keyboard layout, and how the UI should adapt on small mobile screens.
+            I created mid-fidelity Figma wireframes to map out the game and design UI components such as buttons and modals. Desktop and mobile layouts were made to ensure the design was adaptable across screen sizes. 
             </p>
             <br />
-            <p>
-              <em>(Figma embed to be added)</em>
-            </p>
           </div>
           <div className="project-para">
             <h1 className="separator-header yellow">Development</h1>

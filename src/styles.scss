@@ -978,6 +978,13 @@
   filter: drop-shadow(1px 3px 5px var(--shadow-25));
 }
 
+iconify-icon[icon="devicon:motion"] {
+  transform: translateY(-4px);
+  background-color: var(--framer-yellow);
+  padding: 3px;
+  border-radius: 5px;
+}
+
 .tech-stack-center iconify-icon[icon="devicon:figma"] {
   position: absolute;
   bottom: 5%;
@@ -1448,6 +1455,8 @@
     /* View prototype link placed bottom-left within title area */
     .project-links { grid-row: 4; grid-column: 1; gap: 16px; margin-top: 15px; }
 
+  }
+    @media (max-width: 1000px) {
     /* Projects List Responsive */
     .project-item {
       grid-template-columns: auto 1fr;
