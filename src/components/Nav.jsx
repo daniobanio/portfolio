@@ -122,10 +122,13 @@ const Nav = ({ onNavHover, onNavHoverEnd, onContactClick }) => {
               style={{ 
                 opacity: 0.6,
                 color: 'var(--white)',
-                textDecoration: 'none'
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
-              Resume
+              <span className="nav-text">Resume</span>
+              <span className="nav-icon"><iconify-icon icon="quill:paper" width="5vw" height="5vw"></iconify-icon></span>
             </a>
           </li>
           <li>
@@ -143,10 +146,13 @@ const Nav = ({ onNavHover, onNavHoverEnd, onContactClick }) => {
                 opacity: 0.6,
                 color: 'var(--white)',
                 textDecoration: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
-              Contact
+              <span className="nav-text">Contact</span>
+              <span className="nav-icon"><iconify-icon icon="ic:outline-email" width="5vw" height="5vw"></iconify-icon></span>
             </a>
           </li>
         </ul>
