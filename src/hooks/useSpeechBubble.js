@@ -4,7 +4,6 @@ import soundManager from '../utils/soundManager';
 const MESSAGES = {
   WELCOME: 'Welcome to my site!',
   MOVE_INSTRUCTION: 'Move me with\nW A S D!',
-  MOVE_INSTRUCTION_MOBILE: 'Tap and hold to move me!',
   EMOTE_INSTRUCTION: 'Emote with numbers 1-6!',
   FINAL: 'I am looking for internships!',
   UPVOTE: 'Thank you for enjoying!',
@@ -25,16 +24,6 @@ export const useSpeechBubble = () => {
   const hasUserMovedRef = useRef(false);
   const hasUserEmotedRef = useRef(false);
   const currentStateRef = useRef('welcome'); // 'welcome', 'move', 'emote', 'final', 'hidden'
-  const isMobileRef = useRef(typeof window !== 'undefined' && window.innerWidth <= 600);
-
-  // Update mobile status on resize
-  useEffect(() => {
-    const handleResize = () => {
-      isMobileRef.current = window.innerWidth <= 600;
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // Clear any pending timeout
   const clearPendingTimeout = useCallback(() => {
@@ -60,24 +49,12 @@ export const useSpeechBubble = () => {
       currentStateRef.current = 'emote';
       clearPendingTimeout();
       
-      // No emote instruction on mobile
-      if (isMobileRef.current) {
-        currentStateRef.current = 'final';
-        updateMessage(MESSAGES.FINAL);
-        timeoutRef.current = setTimeout(() => {
-          setIsVisible(false);
-          currentStateRef.current = 'hidden';
-        }, 5000);
-      } else {
-        updateMessage(MESSAGES.EMOTE_INSTRUCTION);
-      }
+      updateMessage(MESSAGES.EMOTE_INSTRUCTION);
     }
   }, [updateMessage, clearPendingTimeout]);
 
   // Handle when user first emotes
   const handleCharacterEmoted = useCallback(() => {
-    if (isMobileRef.current) return; // No emotes on mobile
-
     if (!hasUserEmotedRef.current) {
       hasUserEmotedRef.current = true;
       currentStateRef.current = 'final';
@@ -102,8 +79,7 @@ export const useSpeechBubble = () => {
     timeoutRef.current = setTimeout(() => {
       if (!hasUserMovedRef.current) {
         currentStateRef.current = 'move';
-        const msg = isMobileRef.current ? MESSAGES.MOVE_INSTRUCTION_MOBILE : MESSAGES.MOVE_INSTRUCTION;
-        updateMessage(msg, true);
+        updateMessage(MESSAGES.MOVE_INSTRUCTION, true);
       }
     }, 2000);
 
@@ -121,13 +97,10 @@ export const useSpeechBubble = () => {
       
       if (state === 'move') {
         // Revert to move instruction with sound
-        const msg = isMobileRef.current ? MESSAGES.MOVE_INSTRUCTION_MOBILE : MESSAGES.MOVE_INSTRUCTION;
-        updateMessage(msg, true);
+        updateMessage(MESSAGES.MOVE_INSTRUCTION, true);
       } else if (state === 'emote') {
         // Revert to emote instruction with sound
-        if (!isMobileRef.current) {
-          updateMessage(MESSAGES.EMOTE_INSTRUCTION, true);
-        }
+        updateMessage(MESSAGES.EMOTE_INSTRUCTION, true);
       } else if (state === 'final' || state === 'hidden') {
         // Hide the bubble
         setIsVisible(false);
