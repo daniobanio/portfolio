@@ -137,7 +137,7 @@
 
      list-style: none;
    }
-  .nav-container li {
+   .nav-container li {
      border: 2px solid var(--mid-gray);
      border-width: 0 2px 0 2px;
      border-top: 2px solid var(--top-border-gray);
@@ -145,6 +145,9 @@
      background: linear-gradient(180deg,rgba(255, 255, 255, 0.10) 0%, var(--main-gray) 20%);
 
    }
+   .nav-icon { display: none; }
+   .nav-text { display: block; }
+
   .nav-left li {
     border-width: 2px 2px 0 0;
    }
@@ -165,6 +168,15 @@
     .nav-container li {
       font-size: 3.65vw;
       padding: 1.5vw 2vw 1vw;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .nav-icon { display: block; padding: 0; transform: translateY(2px) }
+    .nav-text { display: none; }
+    .nav-container li {
+      font-size: 5vw;
+      padding: 5px 10px;
     }
   }
 
