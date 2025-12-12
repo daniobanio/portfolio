@@ -197,9 +197,6 @@ const Home = () => {
               </div>
               <div className="featured-btns">
                 <AnimatedButton to="/projects/architecture-portfolio" className="btn-small">READ MORE →</AnimatedButton>
-                <div className="featured-links">
-                <a href="https://www.figma.com/design/OMOLdpFkBNDgdH1tpDbb5o/Kim-Hyunh-Portfolio?node-id=0-1" target="_blank" rel="noopener noreferrer" onClick={() => soundManager.playClick()} onMouseEnter={() => soundManager.playHover()}>VIEW FIGMA <iconify-icon icon="majesticons:open" width="32" height="32" style={{color: 'var(--yellow)'}}></iconify-icon></a>
-                </div>
               </div>
             </div>
           </div>
