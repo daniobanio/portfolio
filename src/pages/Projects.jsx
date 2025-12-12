@@ -41,14 +41,6 @@ const Projects = () => {
           </div>
           <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
             <div className="project-year">2025</div>
-            <Link to="/projects/mybcit-redesign" className="project-title" onClick={() => soundManager.playClick()}>myBCIT Redesign</Link>
-            <div className="project-category">UI/UX Design</div>
-            <div className="project-stack">
-              <div className="project-stack-figma">figma</div>
-            </div>
-          </div>
-          <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
-            <div className="project-year">2025</div>
             <Link to="/projects/architecture-portfolio" className="project-title" onClick={() => soundManager.playClick()}>Architecture Portfolio</Link>
             <div className="project-category">Design / Dev</div>
             <div className="project-stack">
@@ -57,6 +49,14 @@ const Projects = () => {
               <div className="project-stack-framer">motion</div>
               <div className="project-stack-figma">figma</div>
             </div>  
+          </div>
+          <div className="project-item" onMouseEnter={() => soundManager.playHover()}>
+            <div className="project-year">2025</div>
+            <Link to="/projects/mybcit-redesign" className="project-title" onClick={() => soundManager.playClick()}>myBCIT Redesign</Link>
+            <div className="project-category">UI/UX Design</div>
+            <div className="project-stack">
+              <div className="project-stack-figma">figma</div>
+            </div>
           </div>
           {/* <div className="project-item disabled" aria-disabled="true" style={{opacity: 0.5}}>
             <div className="project-year">2025</div>
