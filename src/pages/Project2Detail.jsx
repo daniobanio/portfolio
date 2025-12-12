@@ -51,7 +51,7 @@ const Project2Detail = () => {
             </div>
           </div>
           <div className="project-displayImg">
-            <img src="/imgs/project2/home-v2.webp" alt="Project Home" />
+            <video src="/imgs/project2/website.webm" autoPlay loop muted playsInline />
           </div>
         </div>
         <hr />
@@ -59,7 +59,7 @@ const Project2Detail = () => {
           <div className="project-para">
           <h1 className="separator-header yellow">Overview</h1>
             <p>
-              This project involved designing a portfolio website for my client and friend, Kim, an architecture student seeking to grow her digital presence. Her portfolio needs to showcase her academic projects, reflect her design personality, and be flexible enough to use for school applications, job opportunities, and professional networking (such as LinkedIn).
+              This project involved designing and building a portfolio website for my client and friend, Kim, an architecture student seeking to grow her digital presence. Her portfolio needs to showcase her academic projects, reflect her design personality, and be flexible enough to use for school applications, job opportunities, and professional networking (such as LinkedIn).
             </p>
           </div>
           <div className="project-para">
