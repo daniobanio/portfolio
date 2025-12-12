@@ -4,7 +4,7 @@ import soundManager from '../utils/soundManager';
 const MESSAGES = {
   WELCOME: 'Welcome to my site!',
   MOVE_INSTRUCTION: 'Move me with\nW A S D!',
-  MOVE_INSTRUCTION_MOBILE: 'Tap and hold to move me!',
+  MOVE_INSTRUCTION_MOBILE: 'Tap me to jump!',
   EMOTE_INSTRUCTION: 'Emote with numbers 1-6!',
   FINAL: 'I am looking for internships!',
   UPVOTE: 'Thank you for enjoying!',

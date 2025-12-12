@@ -135,34 +135,22 @@ export const useCharacterMovement = (containerRef, onFirstMove, onFirstEmote) =>
     if (!container) return;
 
     let isTouching = false;
-    let startTouchY = 0;
 
     const handleTouchStart = (e) => {
-      // Prevent scrolling when touching the container
-      if (e.target.closest('.hero-container')) {
+      const target = e.target;
+      const isCharacter = target.closest('.hero-center-char');
+      
+      // Tap on character to jump
+      if (isCharacter && !isJumpingRef.current) {
+        // Prevent default only if tapping character to avoid scrolling/zooming
         e.preventDefault();
-        isTouching = true;
-      }
-
-      const touch = e.touches[0];
-      startTouchY = touch.clientY;
-      
-      const containerRect = container.getBoundingClientRect();
-      const characterRect = characterImageRef.current?.getBoundingClientRect();
-      
-      if (!characterRect) return;
-
-      const characterCenter = characterRect.left + characterRect.width / 2;
-      const touchX = touch.clientX;
-
-      // Determine direction
-      const direction = touchX < characterCenter ? 'left' : 'right';
-      
-      // Initial move
-      if (['w', 'a', 's', 'd'].includes(direction === 'left' ? 'a' : 'd')) {
-        keysPressed.current.add(direction === 'left' ? 'a' : 'd');
         
-        // Call onFirstMove callback
+        isJumpingRef.current = true;
+        velocityY.current = -JUMP_STRENGTH;
+        updateAnimationState('jumping', currentEmoteRef.current);
+        soundManager.playJump();
+        
+        // Trigger moved callback if this is the first interaction
         if (!hasMovedRef.current && onFirstMove) {
           hasMovedRef.current = true;
           onFirstMove();
@@ -170,55 +158,10 @@ export const useCharacterMovement = (containerRef, onFirstMove, onFirstEmote) =>
       }
     };
 
-    const handleTouchEnd = (e) => {
-      e.preventDefault(); // Continue preventing default
-      isTouching = false;
-      // Clear movement keys
-      keysPressed.current.delete('a');
-      keysPressed.current.delete('d');
-    };
-
-    const handleTouchMove = (e) => {
-      // Prevent scrolling
-      if (isTouching) {
-        e.preventDefault();
-      }
-
-      const touch = e.touches[0];
-      const characterRect = characterImageRef.current?.getBoundingClientRect();
-      
-      if (!characterRect) return;
-
-      // Check for upward motion (jump)
-      // If current touch Y is significantly less than start touch Y (moving up)
-      if (startTouchY - touch.clientY > 50 && !isJumpingRef.current) {
-        isJumpingRef.current = true;
-        velocityY.current = -JUMP_STRENGTH;
-        updateAnimationState('jumping', currentEmoteRef.current);
-        soundManager.playJump();
-        // Reset start Y to prevent multiple jumps from one swipe
-        startTouchY = touch.clientY; 
-      }
-
-      const characterCenter = characterRect.left + characterRect.width / 2;
-      const touchX = touch.clientX;
-      const direction = touchX < characterCenter ? 'left' : 'right';
-
-      // Update keys based on new position relative to character
-      keysPressed.current.delete('a');
-      keysPressed.current.delete('d');
-      keysPressed.current.add(direction === 'left' ? 'a' : 'd');
-    };
-
-    // Use { passive: false } to allow preventDefault for scrolling
     container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
       container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchend', handleTouchEnd);
-      container.removeEventListener('touchmove', handleTouchMove);
     };
   }, [onFirstMove, updateAnimationState]);
   useEffect(() => {
