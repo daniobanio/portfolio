@@ -6,8 +6,10 @@ const Footer = () => {
     <div className="footer">
       <div className="footer-container">
         <div className="footer-online">
-          <div className="online-circle"></div>
-          <p>Online at</p>
+          <div className="online-label-wrapper">
+            <div className="online-circle"></div>
+            <p>Online at</p>
+          </div>
           <div className="footer-icons">
             <div className="footer-icons-flex">
               <AnimatedSocialIcon 
