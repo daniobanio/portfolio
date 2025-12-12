@@ -15,7 +15,7 @@ const Project2Detail = () => {
     title: "Architecture Portfolio Design | Daniel Trinh",
     description: "Portfolio design for an architecture student: minimal, modern layout with a flexible hero and reusable components.",
     keywords: ['portfolio design','architecture portfolio','UI/UX','Figma','Daniel Trinh'],
-    image: '/imgs/project2/home.webp'
+    image: '/imgs/project2/home-v2.webp'
   });
 
   return (
@@ -51,7 +51,7 @@ const Project2Detail = () => {
             </div>
           </div>
           <div className="project-displayImg">
-            <img src="/imgs/project2/home.webp" alt="Project Home" />
+            <img src="/imgs/project2/home-v2.webp" alt="Project Home" />
           </div>
         </div>
         <hr />
